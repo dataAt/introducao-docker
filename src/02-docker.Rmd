@@ -13,11 +13,11 @@
 ## Containers
 <!-- Como já apresentado anteriormente [...], os containers são [...], com isto alguns outros conceitos sobre eles serão apresentados nas subseções abaixo -->
 
-### Imagens de containers
+## Imagens de containers
 <!-- Como citado, o docker trabalha com containers, porém para entender melhor o conceito de containers dentro do docker, vamos começar falando um pouco sobre imagens docker, estes que são a base para a criação de containers no Docker -->
 <!-- Uma imagem docker representa uma receita de criação de um container -->
 
-#### Criando imagens
+### Criando imagens
 <!-- Aqui são utilizados os Dockerfiles -->
 <!-- ENTRYPOINT, CMD, RUN, EXPOSE -->
 
