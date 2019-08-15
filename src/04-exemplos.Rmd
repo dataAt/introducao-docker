@@ -1,0 +1,16 @@
+# Exemplos de uso
+
+<!-- Usar este espaço para deixar claro o pq da utilização do docker, a facilidade para a configuração de um ambiente completo -->
+
+<!-- Figuras de cada serviço ficam interessantes  -->
+## Postgres
+
+## Postgres + PostGIS
+
+## pgAdmin
+
+## Portainer
+
+<!-- Criar um vinculo entre esta parte o gerenciamento de containers -->
+
+<!-- QGIS -->

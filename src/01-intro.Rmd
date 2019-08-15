@@ -1,0 +1,6 @@
+# Introdução
+
+<!-- Introdução ao contexto docker e sua utilização no INPE -->
+<!-- Mostrar aqui como o ambiente pode ser facilmente reproduzido através do docker -->
+<!-- Falar da famosa história de devs mundo a fora "Na minha máquina funciona" -->
+<!-- Talvez, puxar algo relacionado a ciência reproduzível  -->

@@ -1,0 +1,17 @@
+<!-- A ordem dos conteúdos listados abaixo podem mudar -->
+
+# Docker
+
+<!-- Explicar aqui o que é o docker -->
+<!-- Falar das versões que estão disponíveis (Linux, MacOS e Windows). Deixar claro que a recomendação de uso é no Linux -->
+<!-- Ao falar sobre a causa da recomendação da utilização no Linux, falar que isto tem haver com a forma como o docker é integrado com o sistema -->
+
+## Vantagens de utilização
+
+## Camadas
+
+## Administrando containers
+
+<!-- Falar que, há ferramentas que podem ajudar no gerenciamento, uma delas é o portainer  -->
+
+## Docker para o ambiente de desenvolvimento
