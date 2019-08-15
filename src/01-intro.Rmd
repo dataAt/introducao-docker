@@ -4,3 +4,24 @@
 <!-- Mostrar aqui como o ambiente pode ser facilmente reproduzido através do docker -->
 <!-- Falar da famosa história de devs mundo a fora "Na minha máquina funciona" -->
 <!-- Talvez, puxar algo relacionado a ciência reproduzível  -->
+<!-- Docker para a garantia da reprodutibilidade -->
+<!-- Artigo que lista uma série de problemas para a reprodução de pesquisas -->
+<!-- A separação de ambientes é feita o tempo todo, Python (envs), R (Projetos), Node (package.json e node_modules) -->
+
+## Virtualização
+
+<!-- https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html -->
+<!-- Para ficar mais simples entender todo este processo de virtualização, serão utilizados as definições feitas por Donald Firesmith  -->
+<!-- Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers). Note that virtualization via containers is also known as containerization. -->
+
+### Máquinas virtuais
+
+<!-- virtual hardware (virtualization via virtual machines and hypervisor)  -->
+
+### Containers
+
+<!-- virtual operating systems (virtualization via containers) -->
+
+### Comparativo
+
+![](res/container_and_vm-jenny_fong.png)
