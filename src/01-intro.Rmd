@@ -15,17 +15,17 @@
 <!-- Para ficar mais simples entender todo este processo de virtualização, serão utilizados as definições feitas por Donald Firesmith  -->
 <!-- Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers). Note that virtualization via containers is also known as containerization. -->
 
-Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers).
+<!-- Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers). -->
 
 ### Máquinas virtuais
 
 <!-- virtual hardware (virtualization via virtual machines and hypervisor)  -->
-A virtual machine (VM), also called a guest machine, is a software simulation of a hardware platform that provides a virtual operating environment for guest operating systems. A hypervisor, also called a virtual machine monitor (VMM), is a software program that runs on an actual host hardware platform and supervises the execution of the guest operating systems on the virtual machines.
+<!-- A virtual machine (VM), also called a guest machine, is a software simulation of a hardware platform that provides a virtual operating environment for guest operating systems. A hypervisor, also called a virtual machine monitor (VMM), is a software program that runs on an actual host hardware platform and supervises the execution of the guest operating systems on the virtual machines. -->
 
 ### Containers
 
 <!-- virtual operating systems (virtualization via containers) -->
-A container is a virtual runtime environment that runs on top of a single operating system (OS) kernel and emulates an operating system rather than the underlying hardware.
+<!-- A container is a virtual runtime environment that runs on top of a single operating system (OS) kernel and emulates an operating system rather than the underlying hardware. -->
 
 ### Comparativo
 

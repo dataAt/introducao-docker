@@ -13,14 +13,21 @@
 ## Containers
 <!-- Como já apresentado anteriormente [...], os containers são [...], com isto alguns outros conceitos sobre eles serão apresentados nas subseções abaixo -->
 
-### Camadas
-
 ### Imagens de containers
+<!-- Como citado, o docker trabalha com containers, porém para entender melhor o conceito de containers dentro do docker, vamos começar falando um pouco sobre imagens docker, estes que são a base para a criação de containers no Docker -->
+<!-- Uma imagem docker representa uma receita de criação de um container -->
 
 #### Criando imagens
 <!-- Aqui são utilizados os Dockerfiles -->
+<!-- ENTRYPOINT, CMD, RUN, EXPOSE -->
+
+<!-- Camadas - Ao falar da criação da imagem, já explicar a saída, dizendo o que são as camadas --> 
+<!-- Após apresentar o Dockerfile e de gerar uma imagem, fale do output gerado durante a criação da imagem, diga que estas são as camadas e aqui vem a explicação do que são essas camadas. É bom recomendar que o arquivo não tenha muitas camadas, para que ele não fique grande, além do mais, as camadas read-only não podem ser alteradas! -->
+<!-- https://medium.com/@jessgreb01/digging-into-docker-layers-c22f948ed612 -->
+<!-- https://dzone.com/articles/docker-layers-explained -->
 
 ## Administrando containers
+<!-- Agora que já sabemos o que são containers e sua relação com as imagens, vamos começar a entender como trabalhar com o gerenciamento de containers no Docker -->
 <!-- Falar que, há ferramentas que podem ajudar no gerenciamento, uma delas é o portainer  -->
 
 ### Criando containers
@@ -29,6 +36,7 @@
 
 ### Gerenciamento de memória e CPU
 
-### Volumes e container data-only
+### Armazenamento
+<!-- data folder, volumes e container data-only -->
 
 ## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")`

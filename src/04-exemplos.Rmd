@@ -1,6 +1,7 @@
 # Exemplos de uso
 
 <!-- Usar este espaço para deixar claro o pq da utilização do docker, a facilidade para a configuração de um ambiente completo -->
+<!-- Reforçando o que foi passado na introdução [...] -->
 
 <!-- Figuras de cada serviço ficam interessantes  -->
 ## Postgres
@@ -15,7 +16,9 @@
 ## RStudio (Geoespacial)
 <!-- rocker/geospatial -->
 
-## Aplicação flask
+## Aplicação
+<!-- Escolher entre flask/dash/shiny (Se o lipe criar uma, posso colocar aqui no exemplo também) -->
+
 <!-- Montar um pequeno exemplo de aplicação flask, para que este possa ser inserido dentro de um container, através de uma imagem criada com um
 Dockerfile -->
 
