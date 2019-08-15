@@ -1,6 +1,6 @@
 <!-- A ordem dos conteúdos listados abaixo podem mudar -->
 
-# Docker
+# Docker `r emo::ji("whale")`
 
 <!-- Explicar aqui o que é o docker -->
 <!-- Falar das versões que estão disponíveis (Linux, MacOS e Windows). Deixar claro que a recomendação de uso é no Linux -->
@@ -11,7 +11,7 @@
 <!-- Existing Tools for Reproducible Research in Science Docker ajuda a explicar o que é e como funciona -->
 
 ## Containers
-<!-- Como já apresentado anteriormente [...], 
+<!-- Como já apresentado anteriormente [...], os containers são [...], com isto alguns outros conceitos sobre eles serão apresentados nas subseções abaixo -->
 
 ### Camadas
 
@@ -23,6 +23,12 @@
 ## Administrando containers
 <!-- Falar que, há ferramentas que podem ajudar no gerenciamento, uma delas é o portainer  -->
 
-### Gerenciamento memória e CPU
+### Criando containers
+
+### Gerenciando as execuções de um container
+
+### Gerenciamento de memória e CPU
 
 ### Volumes e container data-only
+
+## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")`
