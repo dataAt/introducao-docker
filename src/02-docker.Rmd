@@ -94,6 +94,14 @@ docker build -t "minha_primeira_imagem" .
 
 Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando `docker images`, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que haverá uma imagem com `minha_primeira_imagem`.
 
+> Caso queira apagar a imagem que criamos, utilize o comando docker rmi (docker rmi minha_primeira_imagem)
+
+Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem
+
+```
+docker run minha_primeira_imagem
+```
+
 <!-- Aqui são utilizados os Dockerfiles -->
 <!-- ENTRYPOINT, CMD, RUN, EXPOSE -->
 
@@ -128,8 +136,13 @@ Perceba que, o principio básico que já haviamos visto ainda está presente, on
 ### Criando containers
 
 ### Gerenciando as execuções de um container
+<!-- docker create|run|stop|restart|start|unpause|rm -->
+
+### Visualizando o status do container
+<!-- docker stats|top|logs -->
 
 ### Gerenciamento de memória e CPU
+
 
 ### Armazenamento
 <!-- data folder, volumes e container data-only -->

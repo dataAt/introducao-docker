@@ -13,14 +13,48 @@
 ## pgAdmin
 <!-- https://hub.docker.com/r/dpage/pgadmin4/ -->
 
-## RStudio (Geoespacial)
+## RStudio server (Geoespacial)
 <!-- rocker/geospatial -->
 
 ## Aplicação
-<!-- Escolher entre flask/dash/shiny (Se o lipe criar uma, posso colocar aqui no exemplo também) -->
 
-<!-- Montar um pequeno exemplo de aplicação flask, para que este possa ser inserido dentro de um container, através de uma imagem criada com um
-Dockerfile -->
+```python
+from flask import Flask, escape, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def ola_no_container():
+    nome = request.args.get("nome")
+    return f"Olá, {escape(nome)}! Estou dentro de um container!"
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
+```
+
+```shell
+FROM python:3
+
+# O container, no momento da execução, 'escuta' a porta 5000
+EXPOSE 5000
+
+COPY app.py ./
+
+RUN "python -m pip install flask"
+
+# Argumentos para o entrypoint
+CMD [ "./app.py" ]
+
+ENTRYPOINT [ "python" ]
+```
+
+```shell
+# Build
+docker build -t "inpe/flaskapp:0.1" .
+
+# Execução
+docker run -d -p 5000:5000 inpe/flaskapp:0.1
+```
 
 ## Portainer
 <!-- A dependender de vários fatores, pode ser que seu ecossistema cresca, fazendo com que seja necessário uma ferramenta para a rápida visualização e gerenciamento dos dados. Dentre as várias ferramentas que podem ser utilizadas para este gerenciamento facilitado, está o Portainer -->
