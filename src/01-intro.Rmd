@@ -16,10 +16,6 @@ O primeiro projeto que você está trabalhando, está relacionado ao desenvolvim
 
 Bem, como você desenvolve na mesma máquina e é um desenvolvedor Python com bastante experiência em projetos, entende que, as dependências do projeto *web* não podem interferir no projeto de processamento de geodados. Para resolver este problema você cria ambientes virtuais dentro do Python, com isso, você consegue separar os projetos e garantir que, as bibliotecas e dependências de um projeto em momento algum irão interferir em outro projeto, além de permitir que você controle melhor as dependências de cada projeto.
 
-Legal até aqui nada de diferente, e nem de Docker! 
-
-> Calma, não vou te enrolar, quero apenas que você entenda uma situação problema
-
 Então, você finaliza os dois projetos e eles devem ser distribuidos para todos e é aqui que os problemas começam, durante a instalação das dependências, você percebeu que, dependendo da versão do S.O, a biblioteca que você utilizou para se conectar ao PostgreSQL, SQLAlchemy, apresenta problemas quando tenta ser instalado com o `pip`, o que faz a instalação dos `requirements.txt` dar problemas. E ainda, no projeto de processamento, uma das dependências, o GDAL, que facilita a leitura de dados espaciais também tem o mesmo problema, dependendo da plataforma, ele tem problemas para instalar.
 
 Ops! Os projetos estão prontos, porém as dependências podem dificultar a utilização e implantação deles. É aqui que entra o Docker, você vai criar duas *imagens* (Serão apresentadas mais para frente no material) com todo o seu projeto e o Docker vai garantir que, independende da plataforma ou do OS utilizado, eles vão funcionar.
