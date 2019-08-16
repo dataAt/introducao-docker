@@ -1,6 +1,6 @@
 # Introdução
 
-Desde seu surgimento, o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.
+Desde seu surgimento o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.
 
 No âmbito científico, o Docker vem sendo utilizado cada vez mais para a garantia da reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como @Boettiger2014 e @Schommer2014 apresentam.
 
@@ -38,12 +38,12 @@ A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.
 
 Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados todo o sistema operacional e então, as aplicações podem começar a ser executadas.
 
-Por outro lado existem as técnicas de virtualização baseadas em containers, que são executadas a nível de sistema operacional (@Firesmith), que realiza a emulação de sistemas operacionais, ou partes de um, para a execução de processos e aplicações, o grande diferencial desta forma de virtualização é que, um novo sistema operacional não precisa ser instalado, uma vez que, as máquinas emuladas terão como base o kernel e as bibliotecas do sistema operacional base, onde está sendo feito a virtualização.
+Por outro lado existem as técnicas de virtualização baseadas em containers, que são executadas a nível de sistema operacional (@Firesmith), que criam ambientes isolados com o compartilhamento de arquivos, bibliotecas e o kernel do sistema base onde está sendo executado. Estes ambientes isolados são utilizados para a execução de processos e aplicações.
 
 > É neste tipo de virtualização que o Docker se encaixa.
 
-Mesmo com a caracterisca de compartilhamento de kernel e bibliotecas, os ambientes emulados continuam sendo isolados uns dos outros. Na Figura abaixo é possível visualizar como este método de virtualização funciona.
+Na Figura abaixo é possível visualizar como este método de virtualização funciona.
 
 ![](res/1_intro/container_overview.svg)
 
-Veja que, não há representação de várias máquinas sendo criadas, e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados, também chamados de *containers*, normalmente executam um único processo, que pode por exemplo, ser a execução de uma aplicação *web*, ou mesmo um terminal *bash*.
+Veja que, não há representação de várias máquinas sendo criadas e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados, também chamados de *containers*, normalmente executam um único processo que pode, por exemplo, ser uma aplicação *web* ou mesmo um processo *bash*, que disponibiliza um terminal ao utilizador.
