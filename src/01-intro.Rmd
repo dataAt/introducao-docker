@@ -1,4 +1,20 @@
 # Introdução
+<!-- Esta introdução será reescrita ao final da criação do documento, está inserida aqui somente para que se tenha ideia de como o fluxo do texto ira ficar -->
+<!-- Cite aqui o artigo de reprodutibilidade e coloque os problemas levantados por ele: Four technical challenges -->
+<!-- Durante a reescrita, considere os tópicos já listados anteriormente -->
+<!-- Na reescrita utilize também a parte de isolamento de ambiente como um problema e crie uma figura para isto (Criar esboço de ambiente Python) -->
+<!-- Falar menos do Docker e mais da problematica onde ele está inserido -->
+<!-- O ponto de falar menos de Docker é para permitir que a introdução do cap Docker faça sentido -->
+
+Dentre as etapas do ciclo de vida de um *software* está sua implantação, esta que por muito tempo representou um grande problema, uma vez que, o ambiente de desenvolvimento é diferente de onde o sistema está sendo implantado, causando *bugs* inesperados e por muitas vezes, horas para a configuração até o sistema funcionar.
+
+Para a solução deste tipo de problema, máquinas virtuais (VM) passaram a ser utilizadas @Boettiger2014 para que o ambiente fosse padronizado evitando os problemas citados anteriormente, porém, para muitos casos as VMs oferecem muito mais recursos do que a aplicação precisa (REFERENCIA), sem contar que, o custo computacional das VMs é muito elevado, causado por sua forma de funcionamento.
+
+Neste contexto surge o Docker, uma plataforma computacional que permite o fácil desenvolvimento, distribuição e implantação de sistemas através de *containers*. Por utilizar *containers* o Docker permitiu um baixo uso computacional, entregando para as aplicação somente os recursos necessários para seu funcionamento.
+
+Estas caracteristicas fizeram o Docker rapidamente ser aplicado em diferentes contextos. No Instituto Nacional de Pesquisas Espaciais (INPE) o Docker passou a ser utilizado para tornar as pesquisas que se apoiam em algoritmos computacionais, mais fácil e rápido.
+
+Com isto, este material apresenta os principais contextos e formas de uso do Docker.
 
 <!-- Introdução ao contexto docker e sua utilização no INPE -->
 <!-- Mostrar aqui como o ambiente pode ser facilmente reproduzido através do docker -->
@@ -9,6 +25,27 @@
 <!-- A separação de ambientes é feita o tempo todo, Python (envs), R (Projetos), Node (package.json e node_modules) -->
 
 ## Virtualização
+<!-- Aqui faltou dizer sobre o isolamento de ambientes -->
+<!-- Talvez colocar uma figura ajude que está lendo a entender melhor -->
+
+Para entendermos o funcionamento do Docker, vamos iniciar com a apresentação dos conceitos de virtualização, utilizados pela plataforma para seu funcionamento.
+
+<!-- Mudar ? -->
+O conceito de virtualização pode ser apresentado de diversas formas, neste documento, por uma questão de clareza e simplicidade, será feita a utilização da definição criada pela VMWare, empresa especializada na técnica de virtualização. Segundo eles a virtualização pode ser definida como um processo de criação de uma representação com base em *software*, podendo esta representação ser a de um servidor, aplicativo entre outros.
+
+Este processo de criar uma representação segundo @Firesmith pode ser feito de duas formas diferentes, através da virtualização de *hardware* ou de sistemas operacionais. 
+
+<!-- Melhorar a explicação destes dois métodos -->
+Na virtualização de *hardware*, de acordo com @Firesmith, é criado a representação virtual de um *hardware*, também chamada de máquina virtual, que pode ser utilizado como ambiente para a execução de um sistema operacional comum.
+Neste tipo de virtualização existe a necessidade de um sistema para o monitoramento das MV, normalmente chamado de Hypervisor (@Firesmith), que fará o intermédio entre o *hardware* físico e o virtual.
+
+Por outro lado tem-se a virtualização de sistemas operacionais, também chamada de conteinerização, que é realizada através da emulação de sistemas operacionais, ou partes de um para a execução de processos e aplicações, sendo mais leve que uma VM.
+
+Uma figura comparativa entre cada um dos processos pode ser vista na Figura abaixo
+
+<!-- Traduzir a figura -->
+<!-- Acho que dividir esta figura e inserir as partes dela durante as explicações de cada técnica acima deixa o texto mais simples de entender e visualizar -->
+![](res/container_and_vm-jenny_fong.png)
 
 <!-- https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html -->
 <!-- https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-virtual-machines.html -->
@@ -17,16 +54,13 @@
 
 <!-- Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers). -->
 
-### Máquinas virtuais
-
+<!-- ### Máquinas virtuais -->
 <!-- virtual hardware (virtualization via virtual machines and hypervisor)  -->
 <!-- A virtual machine (VM), also called a guest machine, is a software simulation of a hardware platform that provides a virtual operating environment for guest operating systems. A hypervisor, also called a virtual machine monitor (VMM), is a software program that runs on an actual host hardware platform and supervises the execution of the guest operating systems on the virtual machines. -->
 
-### Containers
-
+<!-- ### Containers -->
 <!-- virtual operating systems (virtualization via containers) -->
 <!-- A container is a virtual runtime environment that runs on top of a single operating system (OS) kernel and emulates an operating system rather than the underlying hardware. -->
 
-### Comparativo
-
-![](res/container_and_vm-jenny_fong.png)
+<!-- ### Comparativo -->
+<!-- ![](res/container_and_vm-jenny_fong.png) -->
