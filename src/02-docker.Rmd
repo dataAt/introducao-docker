@@ -13,7 +13,9 @@ Um contêiner Docker é executado em um ambiente totalmente virtualizado, portan
 
 Docker é uma aplicação cliente-servidor, ou seja, toda sua comunicação é baseada em troca de dados através de algum protocolo entre um cliente e o serviço docker que está alocado no servidor. <!-- Acho que a explicação do docker daemon deve vir aqui! -->
 
-![](res/docker_api_infra.jpg)
+<center>
+![](res/2_docker/docker_api_infra.jpg){width=400px, height=400px}
+</center>
 
 <!-- Fazer uma versão mais simples dessa imagem -->
 <!-- ![](res/docker_arch.png) -->
