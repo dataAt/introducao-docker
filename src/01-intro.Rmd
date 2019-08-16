@@ -1,66 +1,53 @@
 # Introdução
-<!-- Esta introdução será reescrita ao final da criação do documento, está inserida aqui somente para que se tenha ideia de como o fluxo do texto ira ficar -->
-<!-- Cite aqui o artigo de reprodutibilidade e coloque os problemas levantados por ele: Four technical challenges -->
-<!-- Durante a reescrita, considere os tópicos já listados anteriormente -->
-<!-- Na reescrita utilize também a parte de isolamento de ambiente como um problema e crie uma figura para isto (Criar esboço de ambiente Python) -->
-<!-- Falar menos do Docker e mais da problematica onde ele está inserido -->
-<!-- O ponto de falar menos de Docker é para permitir que a introdução do cap Docker faça sentido -->
 
-Dentre as etapas do ciclo de vida de um *software* está sua implantação, esta que por muito tempo representou um grande problema, uma vez que, o ambiente de desenvolvimento é diferente de onde o sistema está sendo implantado, causando *bugs* inesperados e por muitas vezes, horas para a configuração até o sistema funcionar.
+Desde seu surgimento, o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.
 
-Para a solução deste tipo de problema, máquinas virtuais (VM) passaram a ser utilizadas @Boettiger2014 para que o ambiente fosse padronizado evitando os problemas citados anteriormente, porém, para muitos casos as VMs oferecem muito mais recursos do que a aplicação precisa (REFERENCIA), sem contar que, o custo computacional das VMs é muito elevado, causado por sua forma de funcionamento.
+No âmbito científico, o Docker vem sendo utilizado cada vez mais para a garantia da reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como @Boettiger2014 e @Schommer2014 apresentam.
 
-Neste contexto surge o Docker, uma plataforma computacional que permite o fácil desenvolvimento, distribuição e implantação de sistemas através de *containers*. Por utilizar *containers* o Docker permitiu um baixo uso computacional, entregando para as aplicação somente os recursos necessários para seu funcionamento.
+O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.
 
-Estas caracteristicas fizeram o Docker rapidamente ser aplicado em diferentes contextos. No Instituto Nacional de Pesquisas Espaciais (INPE) o Docker passou a ser utilizado para tornar as pesquisas que se apoiam em algoritmos computacionais, mais fácil e rápido.
+Neste contexto, este material busca realizar uma introdução do Docker e os principais conceitos envolvidos na utilização desta ferramenta. A criação deste material foi feita para ajudar a todos que queiram começar a utilizar o Docker em seu dia-a-dia `r emo::ji("smile")`.
 
-Com isto, este material apresenta os principais contextos e formas de uso do Docker.
+## Por que Docker ?
 
-<!-- Introdução ao contexto docker e sua utilização no INPE -->
-<!-- Mostrar aqui como o ambiente pode ser facilmente reproduzido através do docker -->
-<!-- Falar da famosa história de devs mundo a fora "Na minha máquina funciona" -->
-<!-- Talvez, puxar algo relacionado a ciência reproduzível  -->
-<!-- Docker para a garantia da reprodutibilidade -->
-<!-- Artigo que lista uma série de problemas (4 problemas) para a reprodução de pesquisas -->
-<!-- A separação de ambientes é feita o tempo todo, Python (envs), R (Projetos), Node (package.json e node_modules) -->
+A resposta para esta pergunta pode ter várias respostas, uma vez que, a depender do contexto onde você está inserido, o Docker pode trazer muitos benefícios, vou colocar aqui em um contexto mais relacionado ao desenvolvimento de aplicações. Então, vamos começar imaginando que você é um desenvolvedor Python, que está trabalhando em vários projetos.
+
+O primeiro projeto que você está trabalhando, está relacionado ao desenvolvimento de uma aplicação *web* e para isso, tem utilizado o PostgreSQL e Django, para realizar o desenvolvimento, já o segundo projeto, está ligado ao processamento de dados geoespaciais e você utilizou o GDAL e o numpy. Tudo bem até aqui ? É um cenário simples de imaginar.
+
+Bem, como você desenvolve na mesma máquina e é um desenvolvedor Python com bastante experiência em projetos, entende que, as dependências do projeto *web* não podem interferir no projeto de processamento de geodados. Para resolver este problema você cria ambientes virtuais dentro do Python, com isso, você consegue separar os projetos e garantir que, as bibliotecas e dependências de um projeto em momento algum irão interferir em outro projeto, além de permitir que você controle melhor as dependências de cada projeto.
+
+Legal até aqui nada de diferente, e nem de Docker! 
+
+> Calma, não vou te enrolar, quero apenas que você entenda uma situação problema
+
+Então, você finaliza os dois projetos e eles devem ser distribuidos para todos e é aqui que os problemas começam, durante a instalação das dependências, você percebeu que, dependendo da versão do S.O, a biblioteca que você utilizou para se conectar ao PostgreSQL, SQLAlchemy, apresenta problemas quando tenta ser instalado com o `pip`, o que faz a instalação dos `requirements.txt` dar problemas. E ainda, no projeto de processamento, uma das dependências, o GDAL, que facilita a leitura de dados espaciais também tem o mesmo problema, dependendo da plataforma, ele tem problemas para instalar.
+
+Ops! Os projetos estão prontos, porém as dependências podem dificultar a utilização e implantação deles. É aqui que entra o Docker, você vai criar duas *imagens* (Serão apresentadas mais para frente no material) com todo o seu projeto e o Docker vai garantir que, independende da plataforma ou do OS utilizado, eles vão funcionar.
+
+Veja que interessante! Com o Docker, o famoso "Na minha máquina funciona" deixa de existir, e o projeto vai funcionar em todas as plataformas. Este é um pequeno exemplo de o porque utilizar Docker, outros poderiam ser colocados aqui.
+
+> Esta mini história foi inserida apenas para você entender que o Docker pode te ajudar em problemas do dia-a-dia.
 
 ## Virtualização
-<!-- Aqui faltou dizer sobre o isolamento de ambientes -->
-<!-- Talvez colocar uma figura ajude que está lendo a entender melhor -->
 
-Para entendermos o funcionamento do Docker, vamos iniciar com a apresentação dos conceitos de virtualização, utilizados pela plataforma para seu funcionamento.
+Bem, para começarmos a falar de Docker, vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.
 
-<!-- Mudar ? -->
-O conceito de virtualização pode ser apresentado de diversas formas, neste documento, por uma questão de clareza e simplicidade, será feita a utilização da definição criada pela VMWare, empresa especializada na técnica de virtualização. Segundo eles a virtualização pode ser definida como um processo de criação de uma representação com base em *software*, podendo esta representação ser a de um servidor, aplicativo entre outros.
+Virtualização é o processo de criar ambientes virtuais isolados, providos por alguma ferramenta de geração deste ambiente (@Soltesz2007), sendo que existem duas formas de prover estes ambientes virtuais (@Chung2016), sendo elas as baseadas em container e as baseadas em hypervisor (@Morabito2015). 
 
-Este processo de criar uma representação segundo @Firesmith pode ser feito de duas formas diferentes, através da virtualização de *hardware* ou de sistemas operacionais. 
+Na virtualização baseada em hypervisor é criado a representação virtual de um *hardware* (@Firesmith), também chamada de MV, que é controlada por um hypervisor, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o *hardware*, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de *hardware* é completamente isolada da máquina onde está sendo alocada (@Morabito2015), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (@Morabito2015). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (@Morabito2015).
 
-<!-- Melhorar a explicação destes dois métodos -->
-Na virtualização de *hardware*, de acordo com @Firesmith, é criado a representação virtual de um *hardware*, também chamada de máquina virtual, que pode ser utilizado como ambiente para a execução de um sistema operacional comum.
-Neste tipo de virtualização existe a necessidade de um sistema para o monitoramento das MV, normalmente chamado de Hypervisor (@Firesmith), que fará o intermédio entre o *hardware* físico e o virtual.
+A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.
 
-Por outro lado tem-se a virtualização de sistemas operacionais, também chamada de conteinerização, que é realizada através da emulação de sistemas operacionais, ou partes de um para a execução de processos e aplicações, sendo mais leve que uma VM.
+![](res/1_intro/hypervisor_overview.svg)
 
-Uma figura comparativa entre cada um dos processos pode ser vista na Figura abaixo
+Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados todo o sistema operacional e então, as aplicações podem começar a ser executadas.
 
-<!-- Traduzir a figura -->
-<!-- Acho que dividir esta figura e inserir as partes dela durante as explicações de cada técnica acima deixa o texto mais simples de entender e visualizar -->
-![](res/container_and_vm-jenny_fong.png)
+Por outro lado existem as técnicas de virtualização baseadas em containers, que são executadas a nível de sistema operacional (@Firesmith), que realiza a emulação de sistemas operacionais, ou partes de um, para a execução de processos e aplicações, o grande diferencial desta forma de virtualização é que, um novo sistema operacional não precisa ser instalado, uma vez que, as máquinas emuladas terão como base o kernel e as bibliotecas do sistema operacional base, onde está sendo feito a virtualização.
 
-<!-- https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-containers.html -->
-<!-- https://insights.sei.cmu.edu/sei_blog/2017/09/virtualization-via-virtual-machines.html -->
-<!-- Para ficar mais simples entender todo este processo de virtualização, serão utilizados as definições feitas por Donald Firesmith  -->
-<!-- Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers). Note that virtualization via containers is also known as containerization. -->
+> É neste tipo de virtualização que o Docker se encaixa.
 
-<!-- Virtualization is a collection of software technologies that enable software applications to run on virtual hardware (virtualization via virtual machines and hypervisor) or virtual operating systems (virtualization via containers). -->
+Mesmo com a caracterisca de compartilhamento de kernel e bibliotecas, os ambientes emulados continuam sendo isolados uns dos outros. Na Figura abaixo é possível visualizar como este método de virtualização funciona.
 
-<!-- ### Máquinas virtuais -->
-<!-- virtual hardware (virtualization via virtual machines and hypervisor)  -->
-<!-- A virtual machine (VM), also called a guest machine, is a software simulation of a hardware platform that provides a virtual operating environment for guest operating systems. A hypervisor, also called a virtual machine monitor (VMM), is a software program that runs on an actual host hardware platform and supervises the execution of the guest operating systems on the virtual machines. -->
+![](res/1_intro/container_overview.svg)
 
-<!-- ### Containers -->
-<!-- virtual operating systems (virtualization via containers) -->
-<!-- A container is a virtual runtime environment that runs on top of a single operating system (OS) kernel and emulates an operating system rather than the underlying hardware. -->
-
-<!-- ### Comparativo -->
-<!-- ![](res/container_and_vm-jenny_fong.png) -->
+Veja que, não há representação de várias máquinas sendo criadas, e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados, também chamados de *containers*, normalmente executam um único processo, que pode por exemplo, ser a execução de uma aplicação *web*, ou mesmo um terminal *bash*.

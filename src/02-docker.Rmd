@@ -134,6 +134,7 @@ Perceba que, o principio básico que já haviamos visto ainda está presente, on
 <!-- Falar que, há ferramentas que podem ajudar no gerenciamento, uma delas é o portainer  -->
 
 ### Criando containers
+Os comandos aqui listados já foram apresentados anteriormente, porém, foram colocados aqui apenas para reforçar o significado de cada um dos parâmetros inseridos
 
 ### Gerenciando as execuções de um container
 <!-- docker create|run|stop|restart|start|unpause|rm -->
