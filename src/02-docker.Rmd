@@ -70,6 +70,14 @@ Para ilustrar melhor, vejamos a figura abaixo, que apresenta a relação entre o
 ### Criando imagens
 
 Para realizar a criação de imagens, como citado, utilizados os `Dockerfiles`, esses que são arquivos que descrevem tudo o que um container deve ter quando for executado. Dentro do `Dockerfile` existem instruções para ditar cada caracteristica que deve ser empregada no container. Para que você entenda melhor, vou mostrar um pequeno arquivo Dockerfile que cria um container que exibe uma mensagem e então é finalizado. Não se preocupe caso você não entenda de primeira, sem problemas! Vou explicar cada parte para ficar bem claro para você.
+- Lista os containers ativos: `docker ps`
+
+- Lista todos os containers - (Independente do status): `docker ps -a`
+
+- Lista todas as imagens: `docker images`
+
+- Execução de um container: `docker run`
+
 
 Nossa primeira imagem ira executar um script Python. Para começarmos a fazer isso, vamos criar o *script* python.
 

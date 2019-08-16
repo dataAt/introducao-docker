@@ -1,0 +1,479 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{introducao}{%
+\section{Introdução}\label{introducao}}
+
+Desde seu surgimento, o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.
+
+No âmbito científico, o Docker vem sendo utilizado cada vez mais para a garantia da reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como @Boettiger2014 e @Schommer2014 apresentam.
+
+O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.
+
+Neste contexto, este material busca realizar uma introdução do Docker e os principais conceitos envolvidos na utilização desta ferramenta. A criação deste material foi feita para ajudar a todos que queiram começar a utilizar o Docker em seu dia-a-dia 😄.
+
+\hypertarget{por-que-docker}{%
+\subsection{Por que Docker ?}\label{por-que-docker}}
+
+A resposta para esta pergunta pode ter várias respostas, uma vez que, a depender do contexto onde você está inserido, o Docker pode trazer muitos benefícios, vou colocar aqui em um contexto mais relacionado ao desenvolvimento de aplicações. Então, vamos começar imaginando que você é um desenvolvedor Python, que está trabalhando em vários projetos.
+
+O primeiro projeto que você está trabalhando, está relacionado ao desenvolvimento de uma aplicação \emph{web} e para isso, tem utilizado o PostgreSQL e Django, para realizar o desenvolvimento, já o segundo projeto, está ligado ao processamento de dados geoespaciais e você utilizou o GDAL e o numpy. Tudo bem até aqui ? É um cenário simples de imaginar.
+
+Bem, como você desenvolve na mesma máquina e é um desenvolvedor Python com bastante experiência em projetos, entende que, as dependências do projeto \emph{web} não podem interferir no projeto de processamento de geodados. Para resolver este problema você cria ambientes virtuais dentro do Python, com isso, você consegue separar os projetos e garantir que, as bibliotecas e dependências de um projeto em momento algum irão interferir em outro projeto, além de permitir que você controle melhor as dependências de cada projeto.
+
+Legal até aqui nada de diferente, e nem de Docker!
+
+\begin{quote}
+Calma, não vou te enrolar, quero apenas que você entenda uma situação problema
+\end{quote}
+
+Então, você finaliza os dois projetos e eles devem ser distribuidos para todos e é aqui que os problemas começam, durante a instalação das dependências, você percebeu que, dependendo da versão do S.O, a biblioteca que você utilizou para se conectar ao PostgreSQL, SQLAlchemy, apresenta problemas quando tenta ser instalado com o \texttt{pip}, o que faz a instalação dos \texttt{requirements.txt} dar problemas. E ainda, no projeto de processamento, uma das dependências, o GDAL, que facilita a leitura de dados espaciais também tem o mesmo problema, dependendo da plataforma, ele tem problemas para instalar.
+
+Ops! Os projetos estão prontos, porém as dependências podem dificultar a utilização e implantação deles. É aqui que entra o Docker, você vai criar duas \emph{imagens} (Serão apresentadas mais para frente no material) com todo o seu projeto e o Docker vai garantir que, independende da plataforma ou do OS utilizado, eles vão funcionar.
+
+Veja que interessante! Com o Docker, o famoso ``Na minha máquina funciona'' deixa de existir, e o projeto vai funcionar em todas as plataformas. Este é um pequeno exemplo de o porque utilizar Docker, outros poderiam ser colocados aqui.
+
+\begin{quote}
+Esta mini história foi inserida apenas para você entender que o Docker pode te ajudar em problemas do dia-a-dia.
+\end{quote}
+
+\hypertarget{virtualizacao}{%
+\subsection{Virtualização}\label{virtualizacao}}
+
+Bem, para começarmos a falar de Docker, vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.
+
+Virtualização é o processo de criar ambientes virtuais isolados, providos por alguma ferramenta de geração deste ambiente (@Soltesz2007), sendo que existem duas formas de prover estes ambientes virtuais (@Chung2016), sendo elas as baseadas em container e as baseadas em hypervisor (@Morabito2015).
+
+Na virtualização baseada em hypervisor é criado a representação virtual de um \emph{hardware} (@Firesmith), também chamada de MV, que é controlada por um hypervisor, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o \emph{hardware}, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de \emph{hardware} é completamente isolada da máquina onde está sendo alocada (@Morabito2015), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (@Morabito2015). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (@Morabito2015).
+
+A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.
+
+\includegraphics{res/1_intro/hypervisor_overview.svg}
+
+Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados todo o sistema operacional e então, as aplicações podem começar a ser executadas.
+
+Por outro lado existem as técnicas de virtualização baseadas em containers, que são executadas a nível de sistema operacional (@Firesmith), que realiza a emulação de sistemas operacionais, ou partes de um, para a execução de processos e aplicações, o grande diferencial desta forma de virtualização é que, um novo sistema operacional não precisa ser instalado, uma vez que, as máquinas emuladas terão como base o kernel e as bibliotecas do sistema operacional base, onde está sendo feito a virtualização.
+
+\begin{quote}
+É neste tipo de virtualização que o Docker se encaixa.
+\end{quote}
+
+Mesmo com a caracterisca de compartilhamento de kernel e bibliotecas, os ambientes emulados continuam sendo isolados uns dos outros. Na Figura abaixo é possível visualizar como este método de virtualização funciona.
+
+\includegraphics{res/1_intro/container_overview.svg}
+
+Veja que, não há representação de várias máquinas sendo criadas, e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados, também chamados de \emph{containers}, normalmente executam um único processo, que pode por exemplo, ser a execução de uma aplicação \emph{web}, ou mesmo um terminal \emph{bash}.
+
+\hypertarget{docker}{%
+\section{Docker 🐳}\label{docker}}
+
+O Docker é uma plataforma que usa o Linux Containers (LXC) para encapsular completamente aplicativos de software. É um projeto de código aberto apoiado por uma empresa privada que tem se concentrado no desenvolvimento do Docker como uma plataforma para hospedagem de aplicativos web fácil e escalável.
+
+O LXC é uma tecnologia de virtualização em nível de sistema operacional que cria um ambiente virtual totalmente em área restrita no Linux sem a sobrecarga de uma máquina virtual completa. O Docker estende a tecnologia LXC, facilita o uso e fornece versões, distribuição e implantação fáceis. A sobrecarga de um contêiner do Docker é muito menor que uma máquina virtual tradicional porque não replica o sistema operacional completo, apenas as bibliotecas e binários do aplicativo sendo virtualizados.
+
+Um contêiner Docker é executado em um ambiente totalmente virtualizado, portanto, um algoritmo pode ser executado usando qualquer linguagem compatível com Linux (R, Python, C, Matlab, etc.) e ser compilado usando qualquer biblioteca compatível com Linux sem causar conflitos de versão ou biblioteca com outros algoritmos. Além disso, um contêiner Docker pode ser exportado e arquivado e executado a qualquer momento no futuro, com a confiança de que o ambiente computacional será idêntico, supondo que o projeto Docker permaneça compatível com versões anteriores.
+
+Docker é uma aplicação cliente-servidor, ou seja, toda sua comunicação é baseada em troca de dados através de algum protocolo entre um cliente e o serviço docker que está alocado no servidor.
+
+\includegraphics{res/docker_api_infra.jpg}
+
+\hypertarget{instalacao}{%
+\subsection{Instalação}\label{instalacao}}
+
+Agora que temos uma visão geral de funcionamento do docker, vamos fazer sua instalação para podemos começar a testar esta ferramenta e entender seus conceitos na prática. Aqui, por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux. Os passos abaixo descrevem como a instalação do Docker pode ser feita no Ubuntu \textbar{}16.04\textbar{} ou superior.
+
+\begin{verbatim}
+# Comandos para a instalação do Docker no Ubuntu
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# sudo usermod -aG docker your-user
+\end{verbatim}
+
+Ao fazer esta instalação você já tem tudo o que é necessário para o funcionamento do Docker em sua máquina.
+
+Caso você esteja em outra plataforma, você pode consultar o site do Docker para verificar como instala-lo para a plataforma que você está, para isto clique \protect\hyperlink{}{aqui}
+
+\hypertarget{containers}{%
+\subsection{Containers}\label{containers}}
+
+Os contêineres armazenam todo o kit necessário para um aplicativo, portanto, o aplicativo pode ser executado de forma isolada. Por exemplo, suponha que haja uma imagem do sistema operacional Ubuntu com o SQL SERVER, quando essa imagem for executada com o comando docker run, será criado um contêiner e o SQL SERVER será executado no sistema operacional Ubuntu.
+
+São nos \emph{containers} que as aplicações, algoritmos e ambientes serão executados e trabalhados {[}\ldots{}{]}. Mas você pode estar se perguntando: ``Como são gerados os containers ?'', bem os containers são criados através da utilização de imagens, e básicamente um container representa uma imagem em tempo de execução.
+
+Bom, agora precisamos entender o que são as imagens de containers.
+
+\hypertarget{imagens-de-containers}{%
+\subsection{Imagens de containers}\label{imagens-de-containers}}
+
+Agora que entendemos o que é um \emph{container}, vejamos como eles são criados. Como já apresentado anteriormente, os containers são criados a partir de imagens, mas o que são essas imagens ? Imagens básicamente representam uma receita para a criação de \emph{container}.
+
+Com esta receita os \emph{containers} podem ser criados de forma padronizada, seguindo sempre a mesma estrutura para a geração de ambientes e execução de sistemas. Mas agora você pode estar se perguntando, de onde vieram as imagens, bem, elas também possuem uma receita durante sua geração, esta receita é conhecida como \textbf{Dockerfile}. Vamos explicar como ela funciona.
+
+Para ilustrar melhor, vejamos a figura abaixo, que apresenta a relação entre o dockerfile, a imagem e um container.
+\includegraphics{res/docker_file_image_container.png}
+
+\hypertarget{criando-imagens}{%
+\subsubsection{Criando imagens}\label{criando-imagens}}
+
+Para realizar a criação de imagens, como citado, utilizados os \texttt{Dockerfiles}, esses que são arquivos que descrevem tudo o que um container deve ter quando for executado. Dentro do \texttt{Dockerfile} existem instruções para ditar cada caracteristica que deve ser empregada no container. Para que você entenda melhor, vou mostrar um pequeno arquivo Dockerfile que cria um container que exibe uma mensagem e então é finalizado. Não se preocupe caso você não entenda de primeira, sem problemas! Vou explicar cada parte para ficar bem claro para você.
+- Lista os containers ativos: \texttt{docker\ ps}
+
+\begin{itemize}
+\item
+  Lista todos os containers - (Independente do status): \texttt{docker\ ps\ -a}
+\item
+  Lista todas as imagens: \texttt{docker\ images}
+\item
+  Execução de um container: \texttt{docker\ run}
+\end{itemize}
+
+Nossa primeira imagem ira executar um script Python. Para começarmos a fazer isso, vamos criar o \emph{script} python.
+
+\begin{verbatim}
+echo "print('Oi! Esta é minha primeira imagem Docker! E ela funciona!')" > ola.py
+\end{verbatim}
+
+Com o \emph{script} python criado, vamos criar um arquivo com o nome \texttt{Dockerfile}, dentro deste arquivo, vamos inserir o seguinte conteúdo.
+
+\begin{verbatim}
+FROM python:3
+COPY ola.py ./
+
+CMD [ "python", "./ola.py" ]
+\end{verbatim}
+
+Pronto! Ao fazer isto, basta ir novamente ao terminal e gerar a imagem, para fazer isso, utilize o comando que segue
+
+\begin{verbatim}
+docker build -t "minha_primeira_imagem" .
+\end{verbatim}
+
+Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando \texttt{docker\ images}, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que haverá uma imagem com \texttt{minha\_primeira\_imagem}.
+
+\begin{quote}
+Caso queira apagar a imagem que criamos, utilize o comando docker rmi (docker rmi minha\_primeira\_imagem)
+\end{quote}
+
+Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem
+
+\begin{verbatim}
+docker run minha_primeira_imagem
+\end{verbatim}
+
+\hypertarget{aquisicao-de-imagens}{%
+\subsubsection{Aquisição de imagens}\label{aquisicao-de-imagens}}
+
+Bem, mas existe alguma forma de eu compartilhar minhas imagens, ou mesmo utilizar alguma já feita pela comunidade, ou ao menos compartilhar meu Dockerfile? Sim! Você pode fazer isto através da utilização do registry! E você já fez a utilização deste serviço! Lembra na seção anterior durante a criação do \texttt{Dockerfile}? Então, ali existia uma instrução \texttt{FROM}, como explicado anteriormente, isso faz com que a sua imagem seja criada com base na imagem com o nome que você colocou, porém, se você lembrar foi inserido a seguinte instrução \texttt{FROM\ python:3}, bem, mas você não tem uma imagem na sua máquina com o nome \texttt{python:3}, ou pelo menos não tinha até a execução do comando ? E como o docker faz isso, ele utiliza o registry!
+
+Quando pedimos a execução de uma imagem, ou mesmo a utilização dela para a criação de outra imagem, o docker-daemon busca esta imagem na sua máquina, caso não encontra, vai para o registry público, este nomeado de docker hub, lá, caso ele encontre a imagem com o nome e a tag que você definiu, ele baixa ela e utiliza na operação que você definiu.
+
+\hypertarget{arquitetura}{%
+\subsection{Arquitetura}\label{arquitetura}}
+
+Bem, agora que já conhecemos os principais componentes do ecossistema docker, vamos ampliar a imagem que apresenta a estrutura de funcionamento do docker cliente-servidor, naquele momento estavamos preocupados apenas em saber como nós, clientes docker, nos poderiamos nos comunicar com o docker deamon, porém agora sabemos bastante sobre o ambiente docker.
+
+Vejamos a figura abaixo:
+
+\includegraphics{res/docker_arch.png}
+
+Perceba que, o principio básico que já haviamos visto ainda está presente, onde através de uma API ou ferramenta de linha de comando (Que também utiliza a API) nos comunicamos com o \emph{docker daemon}, porém agora podemos entender melhor que esta comunicação representa. Veja que, ao nos comunicarmos com o docker daemon, podemos criar e gerenciar imagens, ou mesmo baixa-las do registry e então criar \emph{containers} a partir delas. Com isso temos um entendimento geral de como o docker trabalha, e agora podemos começar a fazer sua gerencia =D.
+
+\hypertarget{administrando-containers}{%
+\subsection{Administrando containers}\label{administrando-containers}}
+
+\hypertarget{criando-containers}{%
+\subsubsection{Criando containers}\label{criando-containers}}
+
+Os comandos aqui listados já foram apresentados anteriormente, porém, foram colocados aqui apenas para reforçar o significado de cada um dos parâmetros inseridos
+
+\hypertarget{gerenciando-as-execucoes-de-um-container}{%
+\subsubsection{Gerenciando as execuções de um container}\label{gerenciando-as-execucoes-de-um-container}}
+
+\hypertarget{visualizando-o-status-do-container}{%
+\subsubsection{Visualizando o status do container}\label{visualizando-o-status-do-container}}
+
+\hypertarget{gerenciamento-de-memoria-e-cpu}{%
+\subsubsection{Gerenciamento de memória e CPU}\label{gerenciamento-de-memoria-e-cpu}}
+
+\hypertarget{armazenamento}{%
+\subsubsection{Armazenamento}\label{armazenamento}}
+
+\hypertarget{rede}{%
+\subsubsection{Rede}\label{rede}}
+
+\hypertarget{um-pouco-mais-sobre-o-ecossistema-docker}{%
+\subsection{Um pouco mais sobre o ecossistema Docker 🐙}\label{um-pouco-mais-sobre-o-ecossistema-docker}}
+
+\hypertarget{docker-cheat-sheet}{%
+\section{Docker Cheat Sheet 📚}\label{docker-cheat-sheet}}
+
+Recomenda-se que esta página seja utilizada para consulta, trazendo ao leitor uma forma simples e direta de consultar comandos do \texttt{Docker\ CLI} que lhe podem ser úteis.
+
+\begin{itemize}
+\item
+  Listando os containers ativos: \texttt{docker\ ps}
+\item
+  Listando todos os containers - (Independente do status): \texttt{docker\ ps\ -a}
+\item
+  Listando todas as imagens: \texttt{docker\ images}
+\item
+  Executando um container: \texttt{docker\ run}
+\item
+  Executando um container - (Com terminal interativo): \texttt{docker\ run\ -ti\ debian\ /bin/bash}
+\item
+  Executando um container como daemon: \texttt{docker\ run\ -d}
+\item
+  Saindo do \emph{shell} de container sem finaliza-lo: CTRL + p + q
+\item
+  Finalizando um container (Quando conectado em seu \emph{shell}): CTRL + d
+\item
+  Acessar o entrypoint de um container em execução: \texttt{docker\ attach\ CONTAINER\_ID}
+\item
+  Criando o container: \texttt{docker\ create\ centos}
+\item
+  Parando um container: \texttt{docker\ stop\ CONTAINER\_ID}
+\item
+  Iniciando um container: \texttt{docker\ start\ CONTAINER\_ID}
+\item
+  Pausando um container: \texttt{docker\ pause\ CONTAINER\_ID}
+\item
+  Despausando um container: \texttt{docker\ unpause\ CONTAINER\_ID}
+\item
+  Verificando a quantidade de recursos utilizados pelo container: \texttt{docker\ stats\ CONTAINER\_ID}
+\item
+  Verificando os processos de um container: \texttt{docker\ top\ CONTAINER\_ID}
+\item
+  Visualizando os logs: \texttt{docker\ logs\ CONTAINER\_ID}
+\item
+  Removendo container desligado: \texttt{docker\ rm\ CONTAINER\_ID}
+\item
+  Removendo container em execução: \texttt{docker\ rm\ -f\ CONTAINER\_ID}
+\item
+  Verificando todas as informações de um container: \texttt{docker\ inspect\ CONTAINER\_ID}
+\item
+  Nomeando container no momento da execução: \texttt{docker\ run\ -ti\ -\/-name\ teste\ debian}
+\item
+  Verificando informações de memória de um container: \texttt{docker\ inspect\ CONTAINER\_ID\ \textbar{}\ grep\ -i\ mem}
+\item
+  Limitando memória RAM na execução do container (512 MB neste caso): \texttt{docker\ run\ -ti\ -\/-memory\ 512m\ -\/-name\ limited\_mem\ debian}
+\item
+  Alterando quantidade de memória de um container já existente (256 MB neste caso): \texttt{docker\ update\ CONTAINER\_ID\ -\/-memory\ 256m}
+\item
+  Limitando CPU de um container no momento da execução (Neste caso proporção de 1024): \texttt{docker\ run\ -ti\ -\/-cpu-shares\ 1024\ -\/-name\ container1\ debian}
+\item
+  Alterando limite de CPU em container em execução (Neste caso proporção de 512): \texttt{docker\ update\ CONTAINER\_ID\ -\/-cpu-shares\ 512}
+\item
+  Criando volume: \texttt{docker\ run\ -ti\ -v\ /volume\ /bin/bash}
+\item
+  Mapeando volume: \texttt{docker\ run\ -ti\ -v\ /path/to/volume\_dir:/volume\ debian}
+\item
+  Verificando informações de volume: \texttt{docker\ inspect\ -f\ \{\{.Mounts\}\}\ CONTAINER\_ID}
+\item
+  Criando container data-only: \texttt{docker\ create\ -v\ /data\ -\/-name\ dbDados\ centos}
+\item
+  Criando container de banco de dados (Postgres) que utiliza o data-only: \texttt{docker\ run\ -d\ -p\ 5432:5432\ -\/-name\ pgsql1\ -\/-volumes-from\ dbdados\ -e\ POSTGRESQL\_USER=docker\ -e\ POSTGRESQL\_PASS=docker\ -e\ POSTGRESQL\_DB=docker\ kamui/postgresql}
+\item
+  Fazendo build de um Dockerfile que está no diretório atual: \texttt{docker\ build\ -t\ INSTITUICAO/NOME\_DA\_IMAGEM:VERSAO\ .}
+\item
+  Definindo DNS do container na execução: \texttt{docker\ run\ -ti\ -\/-dns\ ENDERECO\_DNS\ debian}
+\item
+  Criando link entre containers (Conexão entre \emph{containers}): \texttt{docker\ run\ -ti\ -\/-link\ container1\ -\/-name\ container2\ debian}
+\item
+  Abrindo porta do container na execução: \texttt{docker\ run\ -ti\ -\/-expose\ PORTA\ debian}
+\item
+  Definindo um MAC Address específico para um container na execução: \texttt{docker\ run\ -ti\ -\/-mac-address\ 12:34:56:b0:6b:61\ debian}
+\item
+  Definindo a porta do container que será publicada: \texttt{docker\ run\ -d\ -p\ PORTA\_HOST:PORTA\_CONTAINER\ debian}
+\end{itemize}
+
+\hypertarget{exemplos-de-uso}{%
+\section{Exemplos de uso}\label{exemplos-de-uso}}
+
+\hypertarget{postgres}{%
+\subsection{Postgres}\label{postgres}}
+
+\hypertarget{postgres-postgis}{%
+\subsection{Postgres + PostGIS}\label{postgres-postgis}}
+
+\hypertarget{pgadmin}{%
+\subsection{pgAdmin}\label{pgadmin}}
+
+\hypertarget{rstudio-server-geoespacial}{%
+\subsection{RStudio server (Geoespacial)}\label{rstudio-server-geoespacial}}
+
+\hypertarget{aplicacao}{%
+\subsection{Aplicação}\label{aplicacao}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ flask }\ImportTok{import}\NormalTok{ Flask, escape, request}
+
+\NormalTok{app }\OperatorTok{=}\NormalTok{ Flask(}\VariableTok{__name__}\NormalTok{)}
+
+\AttributeTok{@app.route}\NormalTok{(}\StringTok{'/'}\NormalTok{)}
+\KeywordTok{def}\NormalTok{ ola_no_container():}
+\NormalTok{    nome }\OperatorTok{=}\NormalTok{ request.args.get(}\StringTok{"nome"}\NormalTok{)}
+    \ControlFlowTok{return} \SpecialStringTok{f"Olá, }\SpecialCharTok{\{}\NormalTok{escape(nome)}\SpecialCharTok{\}}\SpecialStringTok{! Estou dentro de um container!"}
+
+\ControlFlowTok{if} \VariableTok{__name__} \OperatorTok{==} \StringTok{'__main__'}\NormalTok{:}
+\NormalTok{    app.run(debug}\OperatorTok{=}\VariableTok{True}\NormalTok{, host}\OperatorTok{=}\StringTok{'0.0.0.0'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+FROM python:3
+
+# O container, no momento da execução, 'escuta' a porta 5000
+EXPOSE 5000
+
+COPY app.py ./
+
+RUN "python -m pip install flask"
+
+# Argumentos para o entrypoint
+CMD [ "./app.py" ]
+
+ENTRYPOINT [ "python" ]
+\end{verbatim}
+
+\begin{verbatim}
+# Build
+docker build -t "inpe/flaskapp:0.1" .
+
+# Execução
+docker run -d -p 5000:5000 inpe/flaskapp:0.1
+\end{verbatim}
+
+\hypertarget{portainer}{%
+\subsection{Portainer}\label{portainer}}
+
+
+\end{document}
