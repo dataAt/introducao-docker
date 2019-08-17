@@ -1,2 +1,4 @@
 book_filename: intro-docker
 output_dir: "../docs"
+bibliography: ["references.bib"]
+link-citations: yes
