@@ -16,7 +16,7 @@ A forma como fazemos a utilização da estrutura acima pode variar, já que se t
 
 Na Figura acima é possível entender como o processo de comunicação e interação com o docker-daemon funciona. O Cliente envia comandos através da API Rest, sendo que para esta já existem diversas ferramentas que consomem e facilitam o processo, como é o caso do próprio Docker CLI, que é uma ferramenta de linha de comando distribuida nas instalações padrão do Docker. O Servidor recebe as requisições e faz os tratamentos e operações equivalentes aos pedidos.
 
-Este tipo de estrutura é muito bom por permitir que, através de uma máquina o gerenciamento de vários servidores Docker sejam realizados, sem contar que, por ser uma API Rest, aplicações podem fazer interações com o servidor, o que facilita ainda mais a criação e disponibilização de ferramentas para o gerenciamento de *containers* através do Docker.
+Este tipo de estrutura permite que, através de uma máquina seja feito o gerenciamento de vários servidores Docker, sem contar que, por ser uma API Rest, aplicações podem fazer interações com o servidor, o que facilita ainda mais a criação e disponibilização de ferramentas para o gerenciamento de *containers* através do Docker.
 
 O ambiente do Docker, que como citado, é gerenciado pelo docker-daemon é constituido por três componentes principais (@Chung2016), sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.
 
@@ -57,13 +57,7 @@ Se você estiver utilizado uma outra plataforma que não a apresentada acima, vo
 
 Como citado anteriormente, um *container* representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e execuções que devem ser feitos no momento em que a imagem é executada e passa a ser um *container*.
 
-Com isto as imagens Docker é garantido que, todos os *containers* gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura. 
-
-<!-- Com esta receita os *containers* podem ser criados de forma padronizada, seguindo sempre a mesma estrutura para a geração de ambientes e execução de sistemas. Mas agora você pode estar se perguntando, de onde vieram as imagens, bem, elas também possuem uma receita durante sua geração, esta receita é conhecida como `Dockerfile`. Vamos ver como ele funciona.
-
-<!-- 
-Para ilustrar melhor, vejamos a figura abaixo, que apresenta a relação entre o dockerfile, a imagem e um container.
-![](res/docker_file_image_container.png) -->
+Com isto as imagens Docker é garantido que, todos os *containers* gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.
 
 ### Criando imagens
 
@@ -100,10 +94,10 @@ Com este comando a sua imagem Docker será criada. Para verificar se ela realmen
 Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem
 
 ```
-docker run minha_primeira_imagem
+docker run minha_primeira_imagem:1.0
 ```
 
-> Caso queira apagar a imagem que criamos, utilize o comando `docker rmi` (docker rmi minha_primeira_imagem)
+> Caso queira apagar a imagem que criamos, utilize o comando `docker rmi` (docker rmi minha_primeira_imagem:1.0)
 
 #### Entendendo o Dockerfile
 
@@ -121,19 +115,61 @@ Existem muitas outras instruções que poderiam ser aplicadas neste `Dockerfile`
 
 #### Camadas de uma imagem
 
-<!-- Aqui são utilizados os Dockerfiles -->
-<!-- ENTRYPOINT, CMD, RUN, EXPOSE -->
+O Docker trabalha utilizando um conceito de camadas, onde cada modificação realizada por comandos do Dockerfile cria uma camada que não pode ser alterada, sendo possível alterar somente a última camada gerada.
 
-<!-- Camadas - Ao falar da criação da imagem, já explicar a saída, dizendo o que são as camadas --> 
-<!-- Após apresentar o Dockerfile e de gerar uma imagem, fale do output gerado durante a criação da imagem, diga que estas são as camadas e aqui vem a explicação do que são essas camadas. É bom recomendar que o arquivo não tenha muitas camadas, para que ele não fique grande, além do mais, as camadas read-only não podem ser alteradas! -->
-<!-- https://medium.com/@jessgreb01/digging-into-docker-layers-c22f948ed612 -->
-<!-- https://dzone.com/articles/docker-layers-explained -->
+> É importante entender o conceitos de camadas para que, suas imagens não fiquem grandes e com arquivos desnecessários.
+
+Durante os testes de geração de imagens, ao executar o comando `docker buid`, várias informações foram exibidas, cada uma daquelas informações representam as camadas que estavam sendo criadas na imagem gerada.
+
+Para entendermos melhor como as camadas funcionam, vamos criar um pequeno exemplo. Veja o seguinte `Dockerfile`.
+
+```shell
+FROM ubuntu
+
+RUN apt update -y
+RUN apt install vim -y
+
+ENTRYPOINT [ "bash" ]
+```
+
+Ao executar o comando `docker build` com o `Dockerfile` acima, a seguinte estrutura de camadas será criada.
+
+![](res/2_docker/camadas_1.svg)
+
+Veja que, para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado. Porém há um pequeno problema, quando o comando `apt update -y` foi executado *cache* foi criado e certamente não vai mais ser utilizado. O problema é que este *cache* ficou em uma camada *read-only* e não poderá mais ser modificado. Se o comando para limpar o *cache* for utilizado, a camada onde o *cache* está será copiada para o topo e então editada.
+
+![](res/2_docker/camadas_2.svg)
+
+Ou seja, mais uma camada foi criada, porém o *cache* ainda continua lá. Para resolve reste problema é preciso melhorar a forma como o `Dockerfile` foi criado, tentando executar tudo o que for possível em uma única camada, por exemplo.
+
+```shell
+FROM ubuntu
+
+RUN apt update -y && apt install vim -y && apt clean
+
+ENTRYPOINT [ "bash" ]
+```
+
+Com o `Dockerfile` acima, somente três camadas serão criadas, já que, toda a modificação para a instalação do `vim` é feita em uma única camada, que tem o *cache* removido.
+
+<center>
+![](res/2_docker/camadas_3.svg)
+</center>
+
+> Com isto é possível perceber a necessidade de otimizar os `Dockerfiles` e evitar camadas desnecessárias que só aumentam ocupam espaço
+
+Para saber mais formas de otimização de `Dockerfiles`, consulte a documentação do Docker ([https://docs.docker.com/develop/develop-images/dockerfile_best-practices/](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)).
 
 ### Aquisição de imagens
 
 Bem, mas existe alguma forma de eu compartilhar minhas imagens, ou mesmo utilizar alguma já feita pela comunidade, ou ao menos compartilhar meu Dockerfile? Sim! Você pode fazer isto através da utilização do registry! E você já fez a utilização deste serviço! Lembra na seção anterior durante a criação do `Dockerfile`? Então, ali existia uma instrução `FROM`, como explicado anteriormente, isso faz com que a sua imagem seja criada com base na imagem com o nome que você colocou, porém, se você lembrar foi inserido a seguinte instrução `FROM python:3`, bem, mas você não tem uma imagem na sua máquina com o nome `python:3`, ou pelo menos não tinha até a execução do comando ? E como o docker faz isso, ele utiliza o registry!
 
 Quando pedimos a execução de uma imagem, ou mesmo a utilização dela para a criação de outra imagem, o docker-daemon busca esta imagem na sua máquina, caso não encontra, vai para o registry público, este nomeado de docker hub, lá, caso ele encontre a imagem com o nome e a tag que você definiu, ele baixa ela e utiliza na operação que você definiu.
+
+<!-- 
+Para ilustrar melhor, vejamos a figura abaixo, que apresenta a relação entre o dockerfile, a imagem e um container.
+Inserir registry
+![](res/docker_file_image_container.png) -->
 
 <!-- Podemos buscar imagens do registry, este que é um repositório que aloca uma serie de images Docker [...] -->
 
