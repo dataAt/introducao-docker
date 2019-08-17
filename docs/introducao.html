@@ -30,7 +30,7 @@
   
   
 
-<link rel="next" href="virtualizacao.html">
+<link rel="next" href="docker.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -47,6 +47,68 @@
 
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 </head>
 
@@ -60,24 +122,36 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="introducao.html"><a href="introducao.html"><i class="fa fa-check"></i><b>1</b> Introdução</a></li>
-<li class="chapter" data-level="2" data-path="virtualizacao.html"><a href="virtualizacao.html"><i class="fa fa-check"></i><b>2</b> Virtualização</a><ul>
-<li class="chapter" data-level="2.1" data-path="virtualizacao.html"><a href="virtualizacao.html#maquina-virtual"><i class="fa fa-check"></i><b>2.1</b> Máquina virtual</a></li>
-<li class="chapter" data-level="2.2" data-path="virtualizacao.html"><a href="virtualizacao.html#container"><i class="fa fa-check"></i><b>2.2</b> Container</a></li>
-<li class="chapter" data-level="2.3" data-path="virtualizacao.html"><a href="virtualizacao.html#diferencas"><i class="fa fa-check"></i><b>2.3</b> Diferenças</a></li>
+<li class="chapter" data-level="1" data-path="introducao.html"><a href="introducao.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="introducao.html"><a href="introducao.html#por-que-docker"><i class="fa fa-check"></i><b>1.1</b> Por que Docker ?</a></li>
+<li class="chapter" data-level="1.2" data-path="introducao.html"><a href="introducao.html#virtualizacao"><i class="fa fa-check"></i><b>1.2</b> Virtualização</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>3</b> Docker</a><ul>
-<li class="chapter" data-level="3.1" data-path="docker.html"><a href="docker.html#vantagens-de-utilizacao"><i class="fa fa-check"></i><b>3.1</b> Vantagens de utilização</a></li>
-<li class="chapter" data-level="3.2" data-path="docker.html"><a href="docker.html#camadas"><i class="fa fa-check"></i><b>3.2</b> Camadas</a></li>
-<li class="chapter" data-level="3.3" data-path="docker.html"><a href="docker.html#administrando-containers"><i class="fa fa-check"></i><b>3.3</b> Administrando containers</a></li>
-<li class="chapter" data-level="3.4" data-path="docker.html"><a href="docker.html#docker-para-o-ambiente-de-desenvolvimento"><i class="fa fa-check"></i><b>3.4</b> Docker para o ambiente de desenvolvimento</a></li>
+<li class="chapter" data-level="2" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>2</b> Docker 🐳</a><ul>
+<li class="chapter" data-level="2.1" data-path="docker.html"><a href="docker.html#instalacao"><i class="fa fa-check"></i><b>2.1</b> Instalação</a></li>
+<li class="chapter" data-level="2.2" data-path="docker.html"><a href="docker.html#containers"><i class="fa fa-check"></i><b>2.2</b> Containers</a></li>
+<li class="chapter" data-level="2.3" data-path="docker.html"><a href="docker.html#imagens-de-containers"><i class="fa fa-check"></i><b>2.3</b> Imagens de containers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="docker.html"><a href="docker.html#criando-imagens"><i class="fa fa-check"></i><b>2.3.1</b> Criando imagens</a></li>
+<li class="chapter" data-level="2.3.2" data-path="docker.html"><a href="docker.html#aquisicao-de-imagens"><i class="fa fa-check"></i><b>2.3.2</b> Aquisição de imagens</a></li>
 </ul></li>
+<li class="chapter" data-level="2.4" data-path="docker.html"><a href="docker.html#arquitetura"><i class="fa fa-check"></i><b>2.4</b> Arquitetura</a></li>
+<li class="chapter" data-level="2.5" data-path="docker.html"><a href="docker.html#administrando-containers"><i class="fa fa-check"></i><b>2.5</b> Administrando containers</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="docker.html"><a href="docker.html#criando-containers"><i class="fa fa-check"></i><b>2.5.1</b> Criando containers</a></li>
+<li class="chapter" data-level="2.5.2" data-path="docker.html"><a href="docker.html#gerenciando-as-execucoes-de-um-container"><i class="fa fa-check"></i><b>2.5.2</b> Gerenciando as execuções de um container</a></li>
+<li class="chapter" data-level="2.5.3" data-path="docker.html"><a href="docker.html#visualizando-status-do-container"><i class="fa fa-check"></i><b>2.5.3</b> Visualizando status do container</a></li>
+<li class="chapter" data-level="2.5.4" data-path="docker.html"><a href="docker.html#gerenciamento-de-memoria-e-cpu"><i class="fa fa-check"></i><b>2.5.4</b> Gerenciamento de memória e CPU</a></li>
+<li class="chapter" data-level="2.5.5" data-path="docker.html"><a href="docker.html#armazenamento"><i class="fa fa-check"></i><b>2.5.5</b> Armazenamento</a></li>
+<li class="chapter" data-level="2.5.6" data-path="docker.html"><a href="docker.html#rede"><i class="fa fa-check"></i><b>2.5.6</b> Rede</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="docker.html"><a href="docker.html#um-pouco-mais-sobre-o-ecossistema-docker"><i class="fa fa-check"></i><b>2.6</b> Um pouco mais sobre o ecossistema Docker 🐙</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="docker-cheat-sheet.html"><a href="docker-cheat-sheet.html"><i class="fa fa-check"></i><b>3</b> Docker Cheat Sheet 📚</a></li>
 <li class="chapter" data-level="4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html"><i class="fa fa-check"></i><b>4</b> Exemplos de uso</a><ul>
 <li class="chapter" data-level="4.1" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#postgres"><i class="fa fa-check"></i><b>4.1</b> Postgres</a></li>
 <li class="chapter" data-level="4.2" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#postgres-postgis"><i class="fa fa-check"></i><b>4.2</b> Postgres + PostGIS</a></li>
 <li class="chapter" data-level="4.3" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#pgadmin"><i class="fa fa-check"></i><b>4.3</b> pgAdmin</a></li>
-<li class="chapter" data-level="4.4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#portainer"><i class="fa fa-check"></i><b>4.4</b> Portainer</a></li>
+<li class="chapter" data-level="4.4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#aplicacao"><i class="fa fa-check"></i><b>4.4</b> Aplicação</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
 </ul>
 
       </nav>
@@ -99,12 +173,51 @@
 <!--bookdown:title:start-->
 <div id="introducao" class="section level1">
 <h1><span class="header-section-number">1</span> Introdução</h1>
-<!-- Introdução ao contexto docker e sua utilização no INPE -->
-<!-- Mostrar aqui como o ambiente pode ser facilmente reproduzido através do docker -->
-<!-- Falar da famosa história de devs mundo a fora "Na minha máquina funciona" -->
-<!-- Talvez, puxar algo relacionado a ciência reproduzível  -->
+<p>Desde seu surgimento o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.</p>
+<p>No âmbito científico, o Docker vem sendo utilizado cada vez mais para a garantia da reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como <span class="citation">@Boettiger2014</span> e <span class="citation">@Schommer2014</span> apresentam.</p>
+<p>O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.</p>
+<p>Neste contexto, este material busca realizar uma introdução do Docker e os principais conceitos envolvidos na utilização desta ferramenta. A criação deste material foi feita para ajudar a todos que queiram começar a utilizar o Docker em seu dia-a-dia 😄.</p>
+<div id="por-que-docker" class="section level2">
+<h2><span class="header-section-number">1.1</span> Por que Docker ?</h2>
+<!--
+Talvez inserir
 
-<!-- Este conteúdo é apenas uma ideia e pode mudar de acordo com o andamento da criação do material  -->
+Containerization is increasingly popular because containers are:
+
+    Flexible: Even the most complex applications can be containerized.
+    Lightweight: Containers leverage and share the host kernel.
+    Interchangeable: You can deploy updates and upgrades on-the-fly.
+    Portable: You can build locally, deploy to the cloud, and run anywhere.
+    Scalable: You can increase and automatically distribute container replicas.
+    Stackable: You can stack services vertically and on-the-fly.
+-->
+<p>A resposta para esta pergunta pode ter várias respostas, uma vez que, a depender do contexto onde você está inserido, o Docker pode trazer muitos benefícios, vou colocar aqui em um contexto mais relacionado ao desenvolvimento de aplicações. Então, vamos começar imaginando que você é um desenvolvedor Python, que está trabalhando em vários projetos.</p>
+<p>O primeiro projeto que você está trabalhando, está relacionado ao desenvolvimento de uma aplicação <em>web</em> e para isso, tem utilizado o PostgreSQL e Django, para realizar o desenvolvimento, já o segundo projeto, está ligado ao processamento de dados geoespaciais e você utilizou o GDAL e o numpy. Tudo bem até aqui ? É um cenário simples de imaginar.</p>
+<p>Bem, como você desenvolve na mesma máquina e é um desenvolvedor Python com bastante experiência em projetos, entende que, as dependências do projeto <em>web</em> não podem interferir no projeto de processamento de geodados. Para resolver este problema você cria ambientes virtuais dentro do Python, com isso, você consegue separar os projetos e garantir que, as bibliotecas e dependências de um projeto em momento algum irão interferir em outro projeto, além de permitir que você controle melhor as dependências de cada projeto.</p>
+<p>Então, você finaliza os dois projetos e eles devem ser distribuidos para todos e é aqui que os problemas começam, durante a instalação das dependências, você percebeu que, dependendo da versão do S.O, a biblioteca que você utilizou para se conectar ao PostgreSQL, SQLAlchemy, apresenta problemas quando tenta ser instalado com o <code>pip</code>, o que faz a instalação dos <code>requirements.txt</code> dar problemas. E ainda, no projeto de processamento, uma das dependências, o GDAL, que facilita a leitura de dados espaciais também tem o mesmo problema, dependendo da plataforma, ele tem problemas para instalar.</p>
+<p>Ops! Os projetos estão prontos, porém as dependências podem dificultar a utilização e implantação deles. É aqui que entra o Docker, você vai criar duas <em>imagens</em> (Serão apresentadas mais para frente no material) com todo o seu projeto e o Docker vai garantir que, independende da plataforma ou do OS utilizado, eles vão funcionar.</p>
+<p>Veja que interessante! Com o Docker, o famoso “Na minha máquina funciona” deixa de existir, e o projeto vai funcionar em todas as plataformas. Este é um pequeno exemplo de o porque utilizar Docker, outros poderiam ser colocados aqui.</p>
+<blockquote>
+<p>Esta mini história foi inserida apenas para você entender que o Docker pode te ajudar em problemas do dia-a-dia.</p>
+</blockquote>
+</div>
+<div id="virtualizacao" class="section level2">
+<h2><span class="header-section-number">1.2</span> Virtualização</h2>
+<p>Bem, para começarmos a falar de Docker, vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.</p>
+<p>Virtualização é o processo de criar ambientes virtuais isolados, providos por alguma ferramenta de geração deste ambiente (<span class="citation">@Soltesz2007</span>), sendo que existem duas formas de prover estes ambientes virtuais (<span class="citation">@Chung2016</span>), sendo elas as baseadas em container e as baseadas em hypervisor (<span class="citation">@Morabito2015</span>).</p>
+<p>Na virtualização baseada em hypervisor é criado a representação virtual de um <em>hardware</em> (<span class="citation">@Firesmith</span>), também chamada de MV, que é controlada por um hypervisor, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o <em>hardware</em>, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de <em>hardware</em> é completamente isolada da máquina onde está sendo alocada (<span class="citation">@Morabito2015</span>), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (<span class="citation">@Morabito2015</span>). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (<span class="citation">@Morabito2015</span>).</p>
+<p>A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.</p>
+<p><img src="res/1_intro/hypervisor_overview.svg" /></p>
+<p>Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados todo o sistema operacional e então, as aplicações podem começar a ser executadas.</p>
+<p>Por outro lado existem as técnicas de virtualização baseadas em containers, que são executadas a nível de sistema operacional (<span class="citation">@Firesmith</span>), que criam ambientes isolados com o compartilhamento de arquivos, bibliotecas e o kernel do sistema base onde está sendo executado. Estes ambientes isolados são utilizados para a execução de processos e aplicações.</p>
+<blockquote>
+<p>É neste tipo de virtualização que o Docker se encaixa.</p>
+</blockquote>
+<p>Na Figura abaixo é possível visualizar como este método de virtualização funciona.</p>
+<p><img src="res/1_intro/container_overview.svg" /></p>
+<p>Veja que, não há representação de várias máquinas sendo criadas e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados, também chamados de <em>containers</em>, normalmente executam um único processo que pode, por exemplo, ser uma aplicação <em>web</em> ou mesmo um processo <em>bash</em>, que disponibiliza um terminal ao utilizador.</p>
+
+</div>
 </div>
             </section>
 
@@ -112,7 +225,7 @@
         </div>
       </div>
 
-<a href="virtualizacao.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="docker.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -149,7 +262,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["intro-docker.pdf"],
 "toc": {
 "collapse": "subsection"
 }

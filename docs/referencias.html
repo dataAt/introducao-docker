@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Exemplos de uso | intro-docker.utf8.md</title>
+  <title>Referências | intro-docker.utf8.md</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Exemplos de uso | intro-docker.utf8.md" />
+  <meta property="og:title" content="Referências | intro-docker.utf8.md" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Exemplos de uso | intro-docker.utf8.md" />
+  <meta name="twitter:title" content="Referências | intro-docker.utf8.md" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="docker-cheat-sheet.html">
-<link rel="next" href="referencias.html">
+<link rel="prev" href="exemplos-de-uso.html">
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -169,110 +169,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exemplos-de-uso" class="section level1">
-<h1><span class="header-section-number">4</span> Exemplos de uso</h1>
-<p>Este capítulo apresenta exemplos de utilização do Docker para a configuração e utilização de diferentes ferramentas.</p>
-<p>Os exemplos apresentados neste capítulo utilizam imagens recuperadas do registry Dockerhub. Boa parte dessas imagens oficiais, ou seja, distribuídas pelo grupo, organização ou instituição que cria a ferramenta.</p>
-<blockquote>
-<p>Aproveite os exemplos para ver o quão simples é o compartilhamento de imagens via registry e também, o quão simples é implantar diferentes serviços com o Docker. Não é necessário diversos arquivos de configuração!</p>
-</blockquote>
-<p>Não deixe de conferir a página de cada imagem no Dockerhub para verificar todas as opções disponíveis.</p>
-<div id="postgres" class="section level2">
-<h2><span class="header-section-number">4.1</span> Postgres</h2>
-<p><a href="https://hub.docker.com/_/postgres"><img src="res/say-thanks-ff69b4.svg" alt="saythanks" /></a></p>
-<p>Vamos criar um <em>container</em> que possui um banco de dados Postgres e faça a disponibilização desse para uso.</p>
-<p>Para começar vamos utilizar o comando <code>docker pull</code>, que baixa a imagem do registry, neste caso, do Dockerhub e salva em sua lista de imagens.</p>
-<pre><code>docker pull postgres # Imagem oficial</code></pre>
-<p>A imagem já está em sua máquina, agora vamos iniciar o serviço</p>
-<pre><code>docker run --name postgresbd -e POSTGRES_PASSWORD=123@abc -p 5432:5432 -d postgres</code></pre>
-<blockquote>
-<p>O parâmetro <code>-e</code> é utilizado para definir variáveis de ambiente e o <code>-p</code> para definir o direcionamento de porta a ser feito, neste caso, o <em>container</em> recebe na porta 5432 e encaminha para a porta 5432 do serviço que está sendo executado.</p>
-</blockquote>
-<p>Pronto! O serviço do banco de dados já está sendo executado, você pode consultar o <em>container</em> executando através do comando <code>docker ps</code>.</p>
-<blockquote>
-<p>Para se conectar ao banco você pode utilizar as seguintes informações</p>
-</blockquote>
-<pre><code>Endereço: 127.0.0.1
-Porta: 5432
-Usuário: postgres
-Senha: 123@abc</code></pre>
-<p>A imagem utilizada neste exemplo é oficial.</p>
-</div>
-<div id="postgres-postgis" class="section level2">
-<h2><span class="header-section-number">4.2</span> Postgres + PostGIS</h2>
-<p><a href="https://hub.docker.com/r/kartoza/postgis/"><img src="res/say-thanks-ff69b4.svg" alt="saythanks" /></a></p>
-<p>O Postgres possui uma extensão para trabalhar dados geoespaciais, com o Docker a utilização deste é muito simples. Através de uma imagem disponibilizada por um usuário do Dockerhub, todas as configurações deste serviço já são feitas. Vejamos como utiliza-lo.</p>
-<p>Vamos baixar a imagem</p>
-<pre><code>docker pull kartoza/postgis</code></pre>
-<p>Após baixar a imagem, basta inicializar o <em>container</em> da imagem baixada.</p>
-<pre><code>docker run --name postgis -p 25432:5432 -d -t kartoza/postgis</code></pre>
-</div>
-<div id="pgadmin" class="section level2">
-<h2><span class="header-section-number">4.3</span> pgAdmin</h2>
-<p><a href="https://hub.docker.com/r/dpage/pgadmin4/"><img src="res/say-thanks-ff69b4.svg" alt="saythanks" /></a></p>
-<p>Para acessar os serviços de bancos de dados criados anteriormente, pode-se utilizar um <em>container</em> com um pgAdmin.</p>
-<p>Vamos começar baixado a versão mais recente desta imagem, para isto, no momento do <em>download</em> a <code>TAG</code> que normalmente indica a versão será passada.</p>
-<pre class="shell"><code>docker pull dpage/pgadmin4:latest</code></pre>
-<p>Agora, vamos executar</p>
-<pre><code>docker run -p 8080:80 \
-        -e &quot;PGADMIN_DEFAULT_EMAIL=email@email.com&quot; \
-        -e &quot;PGADMIN_DEFAULT_PASSWORD=1234.&quot; \
-        -d dpage/pgadmin4:latest</code></pre>
-<p>Pronto! Agora se você acessar <a href="http://127.0.0.1:8080">127.0.0.1:8080</a></p>
-<blockquote>
-<p>Para entrar, utilize as credenciais definidas nas variáveis de ambiente no momento que o <em>container</em> foi criada.</p>
-</blockquote>
-</div>
-<div id="aplicacao" class="section level2">
-<h2><span class="header-section-number">4.4</span> Aplicação</h2>
-<p>Nesta subseção, vamos inserir uma aplicação Python e Flask dentro de um <em>container</em>. Para isto, inicialmente façamos a criação do arquivo <code>app.py</code>, neste o conteúdo abaixo é inserido.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="im">from</span> flask <span class="im">import</span> Flask, escape, request</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">app <span class="op">=</span> Flask(<span class="va">__name__</span>)</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="kw">def</span> ola_no_container():</a>
-<a class="sourceLine" id="cb24-7" data-line-number="7">    nome <span class="op">=</span> request.args.get(<span class="st">&quot;nome&quot;</span>)</a>
-<a class="sourceLine" id="cb24-8" data-line-number="8">    <span class="cf">return</span> <span class="ss">f&quot;Olá, </span><span class="sc">{</span>escape(nome)<span class="sc">}</span><span class="ss">! Estou dentro de um container!&quot;</span></a>
-<a class="sourceLine" id="cb24-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb24-10" data-line-number="10"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
-<a class="sourceLine" id="cb24-11" data-line-number="11">    app.run(debug<span class="op">=</span><span class="va">True</span>, host<span class="op">=</span><span class="st">&#39;0.0.0.0&#39;</span>)</a></code></pre></div>
-<p>É possível perceber na listagem de código acima que esta aplicação básicamente inicia um servidor através do Flask e este recebe requisições HTTP que podem conter um parâmetro <code>nome</code> na requisição, e o conteúdo dessa parâmetro passado pelo usuário é exibido no retorno do servidor.</p>
-<p>Bem, agora façamos a criação de um <code>Dockerfile</code>. Vamos utilizar o <em>container</em> oficial de Python em sua versão 3. Neste <code>Dockerfile</code> especificamos também que um comando <code>RUN</code> deve ser executado, para executar o pip para instalar o Flask, além de copiar o arquivo <code>app.py</code> para dentro do <em>container</em>.</p>
-<p>Por fim é especificado que o <code>ENTRYPOINT</code>, ou seja, o comando principal do <em>container</em> será o <code>python</code> e ele recebe como parâmetro o nome do arquivo que ele executa (<code>app.py</code>).</p>
-<pre class="shell"><code>FROM python:3
+<div id="referencias" class="section level1 unnumbered">
+<h1>Referências</h1>
+<!-- Felter, W., Ferreira, A., Rajamony, R., & Rubio, J. (2015). An updated performance comparison of virtual machines and Linux containers. ISPASS 2015 - IEEE International Symposium on Performance Analysis of Systems and Software, 25482, 171–172. https://doi.org/10.1109/ISPASS.2015.7095802 -->
 
-# O container, no momento da execução, &#39;escuta&#39; a porta 5000
-EXPOSE 5000
-
-COPY app.py ./
-
-RUN pip install Flask
-
-# Argumentos para o entrypoint
-CMD [ &quot;./app.py&quot; ]
-
-ENTRYPOINT [ &quot;python&quot; ]</code></pre>
-<p>Agora execute o <code>docker build</code> para criar a imagem.</p>
-<pre class="shell"><code># Build
-docker build -t &quot;flaskapp:0.1&quot; .</code></pre>
-<p>Com a imagem criada, vamos iniciar o <em>container</em>.</p>
-<pre><code># Execução
-docker run -d -p 5000:5000 flaskapp:0.1</code></pre>
-<p>Agora sim! Vá até seu navegador e acesse o endereço <a href="http://127.0.0.1:5000?nome=seunome">127.0.0.1:5000</a></p>
-<blockquote>
-<p>Você pode editar a URL de requisição e inserir seu nome, por exemplo: <a href="http://127.0.0.1:5000?nome=Julia" class="uri">http://127.0.0.1:5000?nome=Julia</a></p>
-</blockquote>
-
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="docker-cheat-sheet.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="exemplos-de-uso.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

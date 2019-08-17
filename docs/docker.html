@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Docker | intro-docker.utf8.md</title>
+  <title>2 Docker 🐳 | intro-docker.utf8.md</title>
   <meta name="description" content="" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Docker | intro-docker.utf8.md" />
+  <meta property="og:title" content="2 Docker 🐳 | intro-docker.utf8.md" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Docker | intro-docker.utf8.md" />
+  <meta name="twitter:title" content="2 Docker 🐳 | intro-docker.utf8.md" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="virtualizacao.html">
-<link rel="next" href="exemplos-de-uso.html">
+<link rel="prev" href="introducao.html">
+<link rel="next" href="docker-cheat-sheet.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -47,6 +47,68 @@
 
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 </head>
 
@@ -60,24 +122,36 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="introducao.html"><a href="introducao.html"><i class="fa fa-check"></i><b>1</b> Introdução</a></li>
-<li class="chapter" data-level="2" data-path="virtualizacao.html"><a href="virtualizacao.html"><i class="fa fa-check"></i><b>2</b> Virtualização</a><ul>
-<li class="chapter" data-level="2.1" data-path="virtualizacao.html"><a href="virtualizacao.html#maquina-virtual"><i class="fa fa-check"></i><b>2.1</b> Máquina virtual</a></li>
-<li class="chapter" data-level="2.2" data-path="virtualizacao.html"><a href="virtualizacao.html#container"><i class="fa fa-check"></i><b>2.2</b> Container</a></li>
-<li class="chapter" data-level="2.3" data-path="virtualizacao.html"><a href="virtualizacao.html#diferencas"><i class="fa fa-check"></i><b>2.3</b> Diferenças</a></li>
+<li class="chapter" data-level="1" data-path="introducao.html"><a href="introducao.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="introducao.html"><a href="introducao.html#por-que-docker"><i class="fa fa-check"></i><b>1.1</b> Por que Docker ?</a></li>
+<li class="chapter" data-level="1.2" data-path="introducao.html"><a href="introducao.html#virtualizacao"><i class="fa fa-check"></i><b>1.2</b> Virtualização</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>3</b> Docker</a><ul>
-<li class="chapter" data-level="3.1" data-path="docker.html"><a href="docker.html#vantagens-de-utilizacao"><i class="fa fa-check"></i><b>3.1</b> Vantagens de utilização</a></li>
-<li class="chapter" data-level="3.2" data-path="docker.html"><a href="docker.html#camadas"><i class="fa fa-check"></i><b>3.2</b> Camadas</a></li>
-<li class="chapter" data-level="3.3" data-path="docker.html"><a href="docker.html#administrando-containers"><i class="fa fa-check"></i><b>3.3</b> Administrando containers</a></li>
-<li class="chapter" data-level="3.4" data-path="docker.html"><a href="docker.html#docker-para-o-ambiente-de-desenvolvimento"><i class="fa fa-check"></i><b>3.4</b> Docker para o ambiente de desenvolvimento</a></li>
+<li class="chapter" data-level="2" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>2</b> Docker 🐳</a><ul>
+<li class="chapter" data-level="2.1" data-path="docker.html"><a href="docker.html#instalacao"><i class="fa fa-check"></i><b>2.1</b> Instalação</a></li>
+<li class="chapter" data-level="2.2" data-path="docker.html"><a href="docker.html#containers"><i class="fa fa-check"></i><b>2.2</b> Containers</a></li>
+<li class="chapter" data-level="2.3" data-path="docker.html"><a href="docker.html#imagens-de-containers"><i class="fa fa-check"></i><b>2.3</b> Imagens de containers</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="docker.html"><a href="docker.html#criando-imagens"><i class="fa fa-check"></i><b>2.3.1</b> Criando imagens</a></li>
+<li class="chapter" data-level="2.3.2" data-path="docker.html"><a href="docker.html#aquisicao-de-imagens"><i class="fa fa-check"></i><b>2.3.2</b> Aquisição de imagens</a></li>
 </ul></li>
+<li class="chapter" data-level="2.4" data-path="docker.html"><a href="docker.html#arquitetura"><i class="fa fa-check"></i><b>2.4</b> Arquitetura</a></li>
+<li class="chapter" data-level="2.5" data-path="docker.html"><a href="docker.html#administrando-containers"><i class="fa fa-check"></i><b>2.5</b> Administrando containers</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="docker.html"><a href="docker.html#criando-containers"><i class="fa fa-check"></i><b>2.5.1</b> Criando containers</a></li>
+<li class="chapter" data-level="2.5.2" data-path="docker.html"><a href="docker.html#gerenciando-as-execucoes-de-um-container"><i class="fa fa-check"></i><b>2.5.2</b> Gerenciando as execuções de um container</a></li>
+<li class="chapter" data-level="2.5.3" data-path="docker.html"><a href="docker.html#visualizando-status-do-container"><i class="fa fa-check"></i><b>2.5.3</b> Visualizando status do container</a></li>
+<li class="chapter" data-level="2.5.4" data-path="docker.html"><a href="docker.html#gerenciamento-de-memoria-e-cpu"><i class="fa fa-check"></i><b>2.5.4</b> Gerenciamento de memória e CPU</a></li>
+<li class="chapter" data-level="2.5.5" data-path="docker.html"><a href="docker.html#armazenamento"><i class="fa fa-check"></i><b>2.5.5</b> Armazenamento</a></li>
+<li class="chapter" data-level="2.5.6" data-path="docker.html"><a href="docker.html#rede"><i class="fa fa-check"></i><b>2.5.6</b> Rede</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="docker.html"><a href="docker.html#um-pouco-mais-sobre-o-ecossistema-docker"><i class="fa fa-check"></i><b>2.6</b> Um pouco mais sobre o ecossistema Docker 🐙</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="docker-cheat-sheet.html"><a href="docker-cheat-sheet.html"><i class="fa fa-check"></i><b>3</b> Docker Cheat Sheet 📚</a></li>
 <li class="chapter" data-level="4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html"><i class="fa fa-check"></i><b>4</b> Exemplos de uso</a><ul>
 <li class="chapter" data-level="4.1" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#postgres"><i class="fa fa-check"></i><b>4.1</b> Postgres</a></li>
 <li class="chapter" data-level="4.2" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#postgres-postgis"><i class="fa fa-check"></i><b>4.2</b> Postgres + PostGIS</a></li>
 <li class="chapter" data-level="4.3" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#pgadmin"><i class="fa fa-check"></i><b>4.3</b> pgAdmin</a></li>
-<li class="chapter" data-level="4.4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#portainer"><i class="fa fa-check"></i><b>4.4</b> Portainer</a></li>
+<li class="chapter" data-level="4.4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html#aplicacao"><i class="fa fa-check"></i><b>4.4</b> Aplicação</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referências</a></li>
 </ul>
 
       </nav>
@@ -96,22 +170,288 @@
 
             <section class="normal" id="section-">
 <div id="docker" class="section level1">
-<h1><span class="header-section-number">3</span> Docker</h1>
-<!-- Explicar aqui o que é o docker -->
-<!-- Falar das versões que estão disponíveis (Linux, MacOS e Windows). Deixar claro que a recomendação de uso é no Linux -->
-<!-- Ao falar sobre a causa da recomendação da utilização no Linux, falar que isto tem haver com a forma como o docker é integrado com o sistema -->
-<div id="vantagens-de-utilizacao" class="section level2">
-<h2><span class="header-section-number">3.1</span> Vantagens de utilização</h2>
+<h1><span class="header-section-number">2</span> Docker 🐳</h1>
+<p>Docker é uma plataforma para o gerenciamento de <em>containers</em> (<span class="citation">@Schommer2014</span>), que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações através de Linux Containers (LXC) (<span class="citation">@Schommer2014</span>).</p>
+<p>Ao utilizar o Docker, todos os problemas relacionados a instalação, configuração e solução de problemas relacionados a conflitos de dependências de um sistema são facilmente resolvidos. Atualmente o Docker vem sendo aplamente utilizado por sua facilidade de uso e baixa utilização de recursos computacionais para a implantação de sistemas e execução de algoritmos.</p>
+<p>Todo o funcionamento do Docker é baseado em uma comunicação cliente-servidor, onde o cliente, através de uma API Rest envia comandos para o docker-daemon, que por sua vez representa o gerenciador de <em>containers</em> que realiza todas as operações e verificações necessárias para o funcionamento correto e simples do Docker. Esta estrutura é resumida na Figura abaixo.</p>
+<center>
+<img src="res/2_docker/docker_api_infra.jpg" height="400" />
+</center>
+<p>A forma como fazemos a utilização da estrutura acima pode variar, já que se trata de uma API Rest, básicamente, qualquer linguagem de programação que suporte a comunicação através de protocolos de rede como HTTP conseguem se comunicar e interagir com o docker-daemon. Veja a Figura abaixo.</p>
+<p><img src="res/2_docker/docker_connect_api.svg" /></p>
+<p>Na Figura acima é possível entender como o processo de comunicação e interação com o docker-daemon funciona. O Cliente envia comandos através da API Rest, sendo que para esta já existem diversas ferramentas que consomem e facilitam o processo, como é o caso do próprio Docker CLI, que é uma ferramenta de linha de comando distribuida nas instalações padrão do Docker. O Servidor recebe as requisições e faz os tratamentos e operações equivalentes aos pedidos.</p>
+<p>Este tipo de estrutura permite que, através de uma máquina seja feito o gerenciamento de vários servidores Docker, sem contar que, por ser uma API Rest, aplicações podem fazer interações com o servidor, o que facilita ainda mais a criação e disponibilização de ferramentas para o gerenciamento de <em>containers</em> através do Docker.</p>
+<p>O ambiente do Docker, que como citado, é gerenciado pelo docker-daemon é constituido por três componentes principais (<span class="citation">@Chung2016</span>), sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.</p>
+<div id="instalacao" class="section level2">
+<h2><span class="header-section-number">2.1</span> Instalação</h2>
+<p>Agora com a visão geral de funcionamento do Docker, vamos fazer a instalação dele para começarmos a fazer sua utilização e entender os conceitos na prática! Por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux.</p>
+<p>Os passos abaixo, apresentam a instalação do Docker no Linux Ubuntu (16.04 ou superior).</p>
+<pre><code>$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh</code></pre>
+<p>Caso você queira permitir a execução do Docker para usuários que não sejam <em>root</em> você pode executar o comando abaixo</p>
+<pre class="shell"><code>$ sudo usermod -aG docker seu-usuario</code></pre>
+<blockquote>
+<p>Caso você não execute o comando de permissão acima, todos os seus comandos do Docker deverão ser executados pelo root ou junto ao comando <code>sudo</code>.</p>
+</blockquote>
+<p>Feito! A instalação do Docker já está pronta e funcionando na sua máquina, para testar execute o comando <code>docker -v</code>, o retorno deve ser algo parecido com isto</p>
+<pre class="shell"><code>Docker version 18.09.7, build 2d0083d</code></pre>
+<p>O comando <code>docker</code> e todos os seus parâmetros representam a ferramenta Docker CLI, que foi citada anteriormente e já vem instalada na distribuição padrão do Docker.</p>
+<p>Se você estiver utilizado uma outra plataforma que não a apresentada acima, você pode consultar o site do Docker (<a href="https://docs.docker.com/install/">https://docs.docker.com/install/</a>) para verificar como prosseguir com a instalação.</p>
 </div>
-<div id="camadas" class="section level2">
-<h2><span class="header-section-number">3.2</span> Camadas</h2>
+<div id="containers" class="section level2">
+<h2><span class="header-section-number">2.2</span> Containers</h2>
+<p><em>Containers</em> são instâncias de Imagens Docker que estão sendo executadas em ambientes isolados, sendo que, nestes ambientes há todos os recursos necessários para a execução dos processos os quais foram definidos para os <em>containers</em>. Por exemplo, quando você quiser executar um <em>container</em> com o Postgres, ao realizar a execução, dentro do <em>container</em> já estará todas as bibliotecas necessárias para a execução do Postgres, inclusive os binários do banco propriamente dito.</p>
+</div>
+<div id="imagens-de-containers" class="section level2">
+<h2><span class="header-section-number">2.3</span> Imagens de containers</h2>
+<p>Como citado anteriormente, um <em>container</em> representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e execuções que devem ser feitos no momento em que a imagem é executada e passa a ser um <em>container</em>.</p>
+<p>Com isto as imagens Docker é garantido que, todos os <em>containers</em> gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.</p>
+<div id="criando-imagens" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Criando imagens</h3>
+<p>A criação de imagens Docker é feita através da utilização de arquivos <code>Dockerfiles</code>, estes que descrevem qual será a estrutura das imagens e suas operações.</p>
+<p>Dentro do <code>Dockerfile</code> existem diversas instruções para ditar cada caracteristica que deve ser empregada na imagem que está sendo gerada.</p>
+<p>Para você entender melhor, vamos criar um exemplo de uma imagem Docker que gera um <em>container</em> que executa um <em>script</em> Python.</p>
+<p>Vamos começar criando o <em>script</em> Python, fazemos isto utilizando o comando abaixo</p>
+<pre class="shell"><code>echo &quot;print(&#39;Oi! Esta é minha primeira imagem Docker! E ela funciona!&#39;)&quot; &gt; ola.py</code></pre>
+<p>Com o <em>script</em> criado, vamos criar um arquivo com o nome <code>Dockerfile</code>, dentro deste arquivo, vamos inserir o seguinte conteúdo. Não se preocupe se você não entender agora, cada uma das partes deste arquivo será explicada.</p>
+<pre class="shell"><code>FROM python:3
+COPY ola.py ./
+
+CMD [ &quot;./ola.py&quot; ]
+ENTRYPOINT [ &quot;python&quot; ]</code></pre>
+<p>Ao finalizar a edição do arquivo, vá até o diretório onde o arquivo está criado, e execute o comando <code>docker build</code>.</p>
+<pre class="shell"><code>docker build -t &quot;minha_primeira_imagem:1.0&quot; .</code></pre>
+<p>Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando <code>docker images</code>, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que há uma imagem com <code>REPOSITORY</code> de nome <code>minha_primeira_imagem</code>.</p>
+<p>Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem</p>
+<pre><code>docker run minha_primeira_imagem:1.0</code></pre>
+<blockquote>
+<p>Caso queira apagar a imagem que criamos, utilize o comando <code>docker rmi</code> (docker rmi minha_primeira_imagem:1.0)</p>
+</blockquote>
+<div id="entendendo-o-dockerfile" class="section level4">
+<h4><span class="header-section-number">2.3.1.1</span> Entendendo o Dockerfile</h4>
+<p>Anteriormente foi visto um simples <code>Dockerfile</code>, que criou uma imagem para a execução de um <em>script</em> Python, vamos analisa-lo para entender o que foi feito.</p>
+<p>Inicialmente no arquivo foi importado uma imagem com nome <code>python:3</code>, isto é feito com o comando <code>FROM</code>. Ou seja, sua imagem foi criada com base em uma outra imagem, esta que já possuia o Python 3 instalado.</p>
+<p>Após a definição da imagem base, foi feito uma cópia do <em>script</em> para dentro do <em>container</em>, através do comando <code>COPY</code>.</p>
+<p>Por fim, os comandos <code>CMD</code> e <code>ENTRYPOINT</code> foram executados, e estes representam partes muito importantes de um <code>Dockerfile</code>, isto porque, normalmente um <em>container</em> é criado para executar um único processo, podendo este ser por exemplo, a inicialização de uma aplicação, ou a execução de um <em>script</em> , como fizemos.</p>
+<p>A definição do processo que o <em>container</em> irá executar é feita através do comando <code>ENTRYPOINT</code>, ou seja, no nosso caso o processo principal será uma execução python, e o comando <code>CMD</code> faz o auxílio ao <code>ENTRYPOINT</code> já que, o <code>CMD</code> representam os parâmetros que serão passados para o <code>ENTRYPOINY</code>.</p>
+<p>Existem muitas outras instruções que poderiam ser aplicadas neste <code>Dockerfile</code>, para saber mais sobre eles utilize a documentação do Docker (<a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a>).</p>
+</div>
+<div id="camadas-de-uma-imagem" class="section level4">
+<h4><span class="header-section-number">2.3.1.2</span> Camadas de uma imagem</h4>
+<p>O Docker trabalha utilizando um conceito de camadas, onde cada modificação realizada por comandos do Dockerfile cria uma camada que não pode ser alterada, sendo possível alterar somente a última camada gerada.</p>
+<blockquote>
+<p>É importante entender o conceitos de camadas para que, suas imagens não fiquem grandes e com arquivos desnecessários.</p>
+</blockquote>
+<p>Durante os testes de geração de imagens, ao executar o comando <code>docker buid</code>, várias informações foram exibidas, cada uma daquelas informações representam as camadas que estavam sendo criadas na imagem gerada.</p>
+<p>Para entendermos melhor como as camadas funcionam, vamos criar um pequeno exemplo. Veja o seguinte <code>Dockerfile</code>.</p>
+<pre class="shell"><code>FROM ubuntu
+
+RUN apt update -y
+RUN apt install vim -y
+
+ENTRYPOINT [ &quot;bash&quot; ]</code></pre>
+<p>Ao executar o comando <code>docker build</code> com o <code>Dockerfile</code> acima, a seguinte estrutura de camadas será criada.</p>
+<p><img src="res/2_docker/camadas_1.svg" /></p>
+<p>Veja que, para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado. Porém há um pequeno problema, quando o comando <code>apt update -y</code> foi executado <em>cache</em> foi criado e certamente não vai mais ser utilizado. O problema é que este <em>cache</em> ficou em uma camada <em>read-only</em> e não poderá mais ser modificado. Se o comando para limpar o <em>cache</em> for utilizado, a camada onde o <em>cache</em> está será copiada para o topo e então editada.</p>
+<p><img src="res/2_docker/camadas_2.svg" /></p>
+<p>Ou seja, mais uma camada foi criada, porém o <em>cache</em> ainda continua lá. Para resolve reste problema é preciso melhorar a forma como o <code>Dockerfile</code> foi criado, tentando executar tudo o que for possível em uma única camada, por exemplo.</p>
+<pre class="shell"><code>FROM ubuntu
+
+RUN apt update -y &amp;&amp; apt install vim -y &amp;&amp; apt clean
+
+ENTRYPOINT [ &quot;bash&quot; ]</code></pre>
+<p>Com o <code>Dockerfile</code> acima, somente três camadas serão criadas, já que, toda a modificação para a instalação do <code>vim</code> é feita em uma única camada, que tem o <em>cache</em> removido.</p>
+<center>
+<img src="res/2_docker/camadas_3.svg" />
+</center>
+<blockquote>
+<p>Com isto é possível perceber a necessidade de otimizar os <code>Dockerfiles</code> e evitar camadas desnecessárias que só ocupam espaço</p>
+</blockquote>
+<p>Para saber mais formas de otimização de <code>Dockerfiles</code>, consulte a documentação do Docker (<a href="https://docs.docker.com/develop/develop-images/dockerfile_best-practices/">https://docs.docker.com/develop/develop-images/dockerfile_best-practices/</a>).</p>
+</div>
+</div>
+<div id="aquisicao-de-imagens" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Aquisição de imagens</h3>
+<p>Além da criação de imagens é possível fazer a aquisição de imagens já criadas pela comunidade, ou mesmo distribuída por algum instituto ou empresa com seus sistemas já configurados e prontos para a execução.</p>
+<p>Para isso o Docker Registry pode ser utilizado, este que é um componente que está dentro da plataforma Docker e que facilita muito a sua utilização. Estes componentes podem ser públicos e disponível para todos, como o caso do <a href="https://hub.docker.com/">Dockerhub</a> ou privado, específico para empresas e institutos, por exemplo.</p>
+<p>Por fazer parte da plataforma, o registry já está integrado ao funcionamento do docker-daemon. Vamos fazer alguns testes para entender. Utilize o comando <code>docker images</code> para listar as imagens que estão em sua máquina.</p>
+<p>Você provavelmente só terá a imagem criada anteriormente (Isso se você não excluíu ela). Vamos então tentar executar uma imagem que não está na sua máquina.</p>
+<pre class="shell"><code>docker run centos:7</code></pre>
+<p>Mesmo você não tendo a imagem nomeada <code>centos:7</code> em sua máquina o comando está sendo executado, isso porque o docker-daemon, por padrão, ao não encontrar em sua máquina verifica no registry público Docker hub e verifica se tem uma imagem com o nome que você inseriu, caso tenha ele baixa para dai executar o comando inserido. Veja a Figura.</p>
+<p><img src="res/2_docker/docker_registry.svg" /></p>
+<p>Durante os passos da criação do <a href="docker.html#criando-imagens">Dockerfile</a> essa <em>feature</em> foi utilizada, ao inserir a imagem de nome <code>python:3</code> na instrução <code>FROM</code> do <code>Dockerfile</code>, o <code>docker-daemon</code> verifica se há a imagem na máquina, como não tinha ele baixou para então continuar a criação da imagem.</p>
+</div>
+</div>
+<div id="arquitetura" class="section level2">
+<h2><span class="header-section-number">2.4</span> Arquitetura</h2>
+<p>Com todos os componentes já conhecidos, há a possibilidade da expansão da visão geral de toda a estrutura e funcionamento do Docker. Inicialmente haviamos definido somente a forma de comunicação entre o cliente-servidor, porém agora com todos os conceitos que já vimos, vamos olhar como todo o ambiente Docker está integrado, para isto veja a Figura abaixo.</p>
+<!-- Será adaptado de: https://www.aquasec.com/wiki/display/containers/Docker+Architecture?preview=/2854889/2854891/Docker_Architecture.png -->
+<p><img src="res/2_docker/docker_arch.png" /></p>
+<blockquote>
+<p>É possível perceber toda a ligação entre cada um dos componentes apresentados até aqui.</p>
+</blockquote>
+<p>Com isso estamos prontos para iniciar as atividades práticas com o Docker e o gerenciamento de <em>containers</em>.</p>
 </div>
 <div id="administrando-containers" class="section level2">
-<h2><span class="header-section-number">3.3</span> Administrando containers</h2>
-<!-- Falar que, há ferramentas que podem ajudar no gerenciamento, uma delas é o portainer  -->
+<h2><span class="header-section-number">2.5</span> Administrando containers</h2>
+<p>Esta seção apresenta exemplos para a administração de <em>containers</em> através da utilização do Docker CLI.</p>
+<div id="criando-containers" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Criando containers</h3>
+<p>Vamos começar com exemplos das diferentes formas de criação de <em>container</em>. Começando com a criação básica de um <em>container</em> do Debian.</p>
+<pre><code>docker create debian</code></pre>
+<p>Depois de criar, utilize o comando <code>docker ps -a</code> para listar todos os <em>containers</em> criados. Quando você listar, vai ver várias informações sobre o <em>container</em> criado, como por exemplo a imagem que ele utilizou, o ID, se há portas de rede abertas e o nome. Por padrão, não é necessário definir o nome do <em>container</em>, mas é recomendado que o faça, então vamos excluir o <em>container</em> criado e gerar um novo com um nome definido.</p>
+<pre class="shell"><code># Excluíndo container
+docker rm ID_DO_CONTAINER_CRIADO
+
+# Criando um novo container de nome exemplo_debian
+docker create --name exemplo_debian debian</code></pre>
+<p>Ao listar novamente todos os <em>containers</em> você vai ver que lá está o novo <em>container</em>, com o nome que foi definido no comando anterior. O <em>container</em> ainda não está sendo executado, uma vez que definimos que ele deveria apenas ser criado, vamos então executar ele com o comando <code>docker start</code>.</p>
+<pre class="shell"><code>docker start exemplo_debian</code></pre>
+<p>Ele foi executado, para listar somente os <em>containers</em> que estão sendo executados, utilize o comando <code>docker ps</code>, sem qualquer outro parâmetro.</p>
+<p>Sua listagem estará vazia já que o <em>container</em> do Debian está configurado para executar o comando <code>bash</code>, então, ao iniciarmos o <em>container</em> ele executou o comando e em seguida finalizou, se quisermos manter o <em>container</em> ligado, devemos definir que ele terá um terminal interativo, para isto no momento da criação, os parâmetros <code>-ti</code> devem ser passados. Vamos lá então, excluir o que haviamos criado e gerar ele novamente com os novos parâmetros</p>
+<pre class="shell"><code># Excluíndo container exemplo_debian
+docker rm exemplo_debian
+
+# Gerando um novo container que trabalha em segundo plano
+docker create -ti --name exemplo_debian debian
+
+# Executando o novo container criado
+docker start exemplo_debian</code></pre>
+<p>Ao executar os comandos o novo <em>container</em> já estará sendo executado, para verificar, liste novamente os <em>containers</em> em execução. Vamos agora acessar o container criado, para isto usamos o comando <code>docker attach</code>, que recupera o <code>bash</code> do <em>container</em> caso ele não esteja executando outro processo.</p>
+<pre><code>docker attach exemplo_debian</code></pre>
+<blockquote>
+<p>Em outros cenários o <code>bash</code> pode não estar disponível, então ao invês do <code>docker attach</code> pode ser utilizado o <code>docker exec</code> (<a href="https://docs.docker.com/engine/reference/commandline/exec/">https://docs.docker.com/engine/reference/commandline/exec/</a>)</p>
+</blockquote>
+<p>Ao executar o comando, você já estará dentro do terminal do <em>container</em> criado. Como dito anteriormente, este ambiente é isolado de sua máquina, então faça testes, navegue entre os diretórios, para você ver que é uma instância completamente isolada. Para sair do terminal e não finalizar o <em>container</em> utilize os seguintes botões de seu teclado: <code>CTRL + p + q</code>. Ao listar novamente os <em>containers</em> em execução, lá estará ele sendo executado.</p>
+<p>Nos exemplos anteriores criavamos o <em>container</em> depois faziamos sua execução, porém podemos já criar um <em>container</em> e imediatamente realizar sua inicialização, para isto utilizamos o comando <code>docker run</code>, que recebe os mesmos parâmetros que o <code>docker create</code>, com a diferença de que ele executa o <em>container</em> após sua criação.</p>
+<pre><code>docker run -ti --name exemplo_debian debian</code></pre>
+<blockquote>
+<p>Executando o comando acima, o <em>container</em> irá iniciar e você já estará em seu <code>bash</code>.</p>
+</blockquote>
 </div>
-<div id="docker-para-o-ambiente-de-desenvolvimento" class="section level2">
-<h2><span class="header-section-number">3.4</span> Docker para o ambiente de desenvolvimento</h2>
+<div id="gerenciando-as-execucoes-de-um-container" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Gerenciando as execuções de um container</h3>
+<p>Com os <em>containers</em> em execução, vamos entender quais são os estados de um <em>container</em> e como podemos fazer a manipulação desses.</p>
+<p>Ao criar um <em>container</em> com <code>docker create</code> o <em>status</em> dele é <code>CREATED</code> e as modificações dessa estado são feitos com os comandos na Tabela abaixo, junto aos comandos, há os estados que eles geram no <em>container</em>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Comando</th>
+<th>Estado gerado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>docker create</td>
+<td>CREATED</td>
+</tr>
+<tr class="even">
+<td>docker run</td>
+<td>UP</td>
+</tr>
+<tr class="odd">
+<td>docker start</td>
+<td>UP</td>
+</tr>
+<tr class="even">
+<td>docker stop</td>
+<td>EXITED</td>
+</tr>
+<tr class="odd">
+<td>docker restart</td>
+<td>UP</td>
+</tr>
+<tr class="even">
+<td>docker pause</td>
+<td>UP (PAUSED)</td>
+</tr>
+<tr class="odd">
+<td>docker unpause</td>
+<td>UP</td>
+</tr>
+</tbody>
+</table>
+<p>Para entender cada um dos estados que estes comandos geram em um <em>container</em> vejamos a Tabela abaixo.</p>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="89%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estado</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CREATED</td>
+<td>Representa que o container foi criado, possui uma camada que pode ser escrita e está pronto para ser iniciado</td>
+</tr>
+<tr class="even">
+<td>UP</td>
+<td>Indica que o container está em execução</td>
+</tr>
+<tr class="odd">
+<td>UP (PAUSED)</td>
+<td>Indica que o container está “ligado” porém sua execução está parada</td>
+</tr>
+<tr class="even">
+<td>EXITED</td>
+<td>Indica que a execução do container foi finalizada</td>
+</tr>
+</tbody>
+</table>
+<p>Estes estados nos ajudam a entender o que está ocorrendo com os <em>containers</em> se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.</p>
+</div>
+<div id="visualizando-status-do-container" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> Visualizando status do container</h3>
+<p>Além do estado do <em>container</em>, em certos casos é necessário avaliar outras informações do container, a Tabela abaixo descreve comandos que podem ser úteis para a avaliação e verificação dos <em>containers</em>.</p>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="88%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Comando</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>docker stats</td>
+<td>Exibe estatísticas de utilização de recursos feitas pelo container em tempo real</td>
+</tr>
+<tr class="even">
+<td>docker top</td>
+<td>Exibe os processos que estão sendo executados no container</td>
+</tr>
+<tr class="odd">
+<td>docker logs</td>
+<td>Exibe os logs do container. A forma que os logs são exibidas depende da forma como o serviço que está sendo executado registrou os logs</td>
+</tr>
+<tr class="even">
+<td>docker inspect</td>
+<td>Exibe informações gerais do container, no formato JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="gerenciamento-de-memoria-e-cpu" class="section level3">
+<h3><span class="header-section-number">2.5.4</span> Gerenciamento de memória e CPU</h3>
+</div>
+<div id="armazenamento" class="section level3">
+<h3><span class="header-section-number">2.5.5</span> Armazenamento</h3>
+<!-- data folder, volumes e container data-only -->
+</div>
+<div id="rede" class="section level3">
+<h3><span class="header-section-number">2.5.6</span> Rede</h3>
+</div>
+</div>
+<div id="um-pouco-mais-sobre-o-ecossistema-docker" class="section level2">
+<h2><span class="header-section-number">2.6</span> Um pouco mais sobre o ecossistema Docker 🐙</h2>
+<!-- Portainer -->
 
 </div>
 </div>
@@ -120,8 +460,8 @@
           </div>
         </div>
       </div>
-<a href="virtualizacao.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exemplos-de-uso.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introducao.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="docker-cheat-sheet.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -158,7 +498,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["intro-docker.pdf"],
 "toc": {
 "collapse": "subsection"
 }
