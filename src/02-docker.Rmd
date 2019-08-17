@@ -156,33 +156,40 @@ Com o `Dockerfile` acima, somente três camadas serão criadas, já que, toda a 
 ![](res/2_docker/camadas_3.svg)
 </center>
 
-> Com isto é possível perceber a necessidade de otimizar os `Dockerfiles` e evitar camadas desnecessárias que só aumentam ocupam espaço
+> Com isto é possível perceber a necessidade de otimizar os `Dockerfiles` e evitar camadas desnecessárias que só ocupam espaço
 
 Para saber mais formas de otimização de `Dockerfiles`, consulte a documentação do Docker ([https://docs.docker.com/develop/develop-images/dockerfile_best-practices/](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)).
 
 ### Aquisição de imagens
 
-Bem, mas existe alguma forma de eu compartilhar minhas imagens, ou mesmo utilizar alguma já feita pela comunidade, ou ao menos compartilhar meu Dockerfile? Sim! Você pode fazer isto através da utilização do registry! E você já fez a utilização deste serviço! Lembra na seção anterior durante a criação do `Dockerfile`? Então, ali existia uma instrução `FROM`, como explicado anteriormente, isso faz com que a sua imagem seja criada com base na imagem com o nome que você colocou, porém, se você lembrar foi inserido a seguinte instrução `FROM python:3`, bem, mas você não tem uma imagem na sua máquina com o nome `python:3`, ou pelo menos não tinha até a execução do comando ? E como o docker faz isso, ele utiliza o registry!
+Além da criação de imagens é possível fazer a aquisição de imagens já criadas pela comunidade, ou mesmo distribuída por algum instituto ou empresa com seus sistemas já configurados e prontos para a execução.
 
-Quando pedimos a execução de uma imagem, ou mesmo a utilização dela para a criação de outra imagem, o docker-daemon busca esta imagem na sua máquina, caso não encontra, vai para o registry público, este nomeado de docker hub, lá, caso ele encontre a imagem com o nome e a tag que você definiu, ele baixa ela e utiliza na operação que você definiu.
+Para isso o Docker Registry pode ser utilizado, este que é um componente que está dentro da plataforma Docker e que facilita muito a sua utilização. Estes componentes podem ser públicos e disponível para todos, como o caso do [Dockerhub](https://hub.docker.com/) ou privado, específico para empresas e institutos, por exemplo.
 
-<!-- 
-Para ilustrar melhor, vejamos a figura abaixo, que apresenta a relação entre o dockerfile, a imagem e um container.
-Inserir registry
-![](res/docker_file_image_container.png) -->
+Por fazer parte da plataforma, o registry já está integrado ao funcionamento do docker-daemon. Vamos fazer alguns testes para entender. Utilize o comando `docker images` para listar as imagens que estão em sua máquina.
 
-<!-- Podemos buscar imagens do registry, este que é um repositório que aloca uma serie de images Docker [...] -->
+Você provavelmente só terá a imagem criada anteriormente (Isso se você não excluíu ela). Vamos então tentar executar uma imagem que não está na sua máquina.
+
+```shell
+docker run centos:7
+```
+
+Mesmo você não tendo a imagem nomeada `centos:7` em sua máquina o comando está sendo executado, isso porque o docker-daemon, por padrão, ao não encontrar em sua máquina verifica no registry público Docker hub e verifica se tem uma imagem com o nome que você inseriu, caso tenha ele baixa para dai executar o comando inserido. Veja a Figura.
+
+![](res/2_docker/docker_registry.svg)
+
+Durante os passos da criação do [Dockerfile](#criando-imagens) essa *feature* foi utilizada, ao inserir a imagem de nome `python:3` na instrução `FROM` do `Dockerfile`, o `docker-daemon` verifica se há a imagem na máquina, como não tinha ele baixou para então continuar a criação da imagem.
 
 ## Arquitetura
 
-Bem, agora que já conhecemos os principais componentes do ecossistema docker, vamos ampliar a imagem que apresenta a estrutura de funcionamento do docker cliente-servidor, naquele momento estavamos preocupados apenas em saber como nós, clientes docker, nos poderiamos nos comunicar com o docker deamon, porém agora sabemos bastante sobre o ambiente docker.
-
-Vejamos a figura abaixo:
+Com todos os componentes já conhecidos, há a possibilidade da expansão da visão geral de toda a estrutura e funcionamento do Docker. Inicialmente haviamos definido somente a forma de comunicação entre o cliente-servidor, porém agora com todos os conceitos que já vimos, vamos olhar como todo o ambiente Docker está integrado, para isto veja a Figura abaixo.
 
 <!-- Será adaptado de: https://www.aquasec.com/wiki/display/containers/Docker+Architecture?preview=/2854889/2854891/Docker_Architecture.png -->
-![](res/docker_arch.png)
+![](res/2_docker/docker_arch.png)
 
-Perceba que, o principio básico que já haviamos visto ainda está presente, onde através de uma API ou ferramenta de linha de comando (Que também utiliza a API) nos comunicamos com o *docker daemon*, porém agora podemos entender melhor que esta comunicação representa. Veja que, ao nos comunicarmos com o docker daemon, podemos criar e gerenciar imagens, ou mesmo baixa-las do registry e então criar *containers* a partir delas. Com isso temos um entendimento geral de como o docker trabalha, e agora podemos começar a fazer sua gerencia =D.
+> É possível perceber toda a ligação entre cada um dos componentes apresentados até aqui.
+
+Com isso estamos prontos para iniciar as atividades práticas com o Docker e o gerenciamento de *containers*.
 
 ## Administrando containers
 <!-- Agora que já sabemos o que são containers e sua relação com as imagens, vamos começar a entender como trabalhar com o gerenciamento de containers no Docker -->
