@@ -301,4 +301,5 @@ Além do estado do *container*, em certos casos é necessário avaliar outras in
 
 
 ## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")`
+<!-- Portainer -->
 
