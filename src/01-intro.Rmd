@@ -10,6 +10,19 @@ Neste contexto, este material busca realizar uma introdução do Docker e os pri
 
 ## Por que Docker ?
 
+<!--
+Talvez inserir
+
+Containerization is increasingly popular because containers are:
+
+    Flexible: Even the most complex applications can be containerized.
+    Lightweight: Containers leverage and share the host kernel.
+    Interchangeable: You can deploy updates and upgrades on-the-fly.
+    Portable: You can build locally, deploy to the cloud, and run anywhere.
+    Scalable: You can increase and automatically distribute container replicas.
+    Stackable: You can stack services vertically and on-the-fly.
+-->
+
 A resposta para esta pergunta pode ter várias respostas, uma vez que, a depender do contexto onde você está inserido, o Docker pode trazer muitos benefícios, vou colocar aqui em um contexto mais relacionado ao desenvolvimento de aplicações. Então, vamos começar imaginando que você é um desenvolvedor Python, que está trabalhando em vários projetos.
 
 O primeiro projeto que você está trabalhando, está relacionado ao desenvolvimento de uma aplicação *web* e para isso, tem utilizado o PostgreSQL e Django, para realizar o desenvolvimento, já o segundo projeto, está ligado ao processamento de dados geoespaciais e você utilizou o GDAL e o numpy. Tudo bem até aqui ? É um cenário simples de imaginar.

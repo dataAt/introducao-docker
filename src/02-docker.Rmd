@@ -1,50 +1,51 @@
-<!-- A ordem dos conteúdos listados abaixo podem mudar -->
-
 # Docker `r emo::ji("whale")`
-<!-- Explicar o docker daemon aqui também -->
 
-<!-- Existing Tools for Reproducible Research in Science Docker -->
-O Docker é uma plataforma que usa o Linux Containers (LXC) para encapsular completamente aplicativos de software. É um projeto de código aberto apoiado por uma empresa privada que tem se concentrado no desenvolvimento do Docker como uma plataforma para hospedagem de aplicativos web fácil e escalável.
+Docker é uma plataforma para o gerenciamento de *containers* (@Schommer2014), que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações através de Linux Containers (LXC) (@Schommer2014).
 
-O LXC é uma tecnologia de virtualização em nível de sistema operacional que cria um ambiente virtual totalmente em área restrita no Linux sem a sobrecarga de uma máquina virtual completa. O Docker estende a tecnologia LXC, facilita o uso e fornece versões, distribuição e implantação fáceis. A sobrecarga de um contêiner do Docker é muito menor que uma máquina virtual tradicional porque não replica o sistema operacional completo, apenas as bibliotecas e binários do aplicativo sendo virtualizados.
+Ao utilizar o Docker, todos os problemas relacionados a instalação, configuração e solução de problemas relacionados a conflitos de dependências de um sistema são facilmente resolvidos. Atualmente o Docker vem sendo aplamente utilizado por sua facilidade de uso e baixa utilização de recursos computacionais para a implantação de sistemas e execução de algoritmos.
 
-Um contêiner Docker é executado em um ambiente totalmente virtualizado, portanto, um algoritmo pode ser executado usando qualquer linguagem compatível com Linux (R, Python, C, Matlab, etc.) e ser compilado usando qualquer biblioteca compatível com Linux sem causar conflitos de versão ou biblioteca com outros algoritmos. Além disso, um contêiner Docker pode ser exportado e arquivado e executado a qualquer momento no futuro, com a confiança de que o ambiente computacional será idêntico, supondo que o projeto Docker permaneça compatível com versões anteriores.
-<!-- ------------------------- -->
-
-Docker é uma aplicação cliente-servidor, ou seja, toda sua comunicação é baseada em troca de dados através de algum protocolo entre um cliente e o serviço docker que está alocado no servidor. <!-- Acho que a explicação do docker daemon deve vir aqui! -->
+Todo o funcionamento do Docker é baseado em uma comunicação cliente-servidor, onde o cliente, através de uma API Rest envia comandos para o docker-daemon, que por sua vez representa o gerenciador de *containers* que realiza todas as operações e verificações necessárias para o funcionamento correto e simples do Docker. Esta estrutura é resumida na Figura abaixo.
 
 <center>
 ![](res/2_docker/docker_api_infra.jpg){width=400px, height=400px}
 </center>
 
-<!-- Fazer uma versão mais simples dessa imagem -->
-<!-- ![](res/docker_arch.png) -->
+A forma como fazemos a utilização da estrutura acima pode variar, já que se trata de uma API Rest, básicamente, qualquer linguagem de programação que suporte a comunicação através de protocolos de rede como HTTP conseguem se comunicar e interagir com o docker-daemon. Veja a Figura abaixo.
 
-<!-- Docker é formado por três componentes principais (@Chung2016) Docker images, registry e containers [...].  -->
+![](res/2_docker/docker_connect_api.svg)
 
-<!-- Explicar aqui o que é o docker -->
-<!-- Falar das versões que estão disponíveis (Linux, MacOS e Windows). Deixar claro que a recomendação de uso é no Linux -->
-<!-- Ao falar sobre a causa da recomendação da utilização no Linux, falar que isto tem haver com a forma como o docker é integrado com o sistema -->
-<!-- ## Vantagens de utilização -->
-<!-- Docker é um gerenciador de containers -->
-<!-- Existing Tools for Reproducible Research in Science Docker ajuda a explicar o que é e como funciona -->
+Na Figura acima é possível entender como o processo de comunicação e interação com o docker-daemon funciona. O Cliente envia comandos através da API Rest, sendo que para esta já existem diversas ferramentas que consomem e facilitam o processo, como é o caso do próprio Docker CLI, que é uma ferramenta de linha de comando distribuida nas instalações padrão do Docker. O Servidor recebe as requisições e faz os tratamentos e operações equivalentes aos pedidos.
+
+Este tipo de estrutura é muito bom por permitir que, através de uma máquina o gerenciamento de vários servidores Docker sejam realizados, sem contar que, por ser uma API Rest, aplicações podem fazer interações com o servidor, o que facilita ainda mais a criação e disponibilização de ferramentas para o gerenciamento de *containers* através do Docker.
+
+O ambiente do Docker, que como citado, é gerenciado pelo docker-daemon é constituido por três componentes principais (@Chung2016), sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.
 
 ## Instalação
 
-<!-- Verificar as versões compativeis! -->
-Agora que temos uma visão geral de funcionamento do docker, vamos fazer sua instalação para podemos começar a testar esta ferramenta e entender seus conceitos na prática. Aqui, por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux. Os passos abaixo descrevem como a instalação do Docker pode ser feita no Ubuntu |16.04| ou superior.
+Agora com a visão geral de funcionamento do Docker, vamos fazer a instalação dele para começarmos a fazer sua utilização e entender os conceitos na prática! Por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux. 
+
+Os passos abaixo, apresentam a instalação do Docker no Linux Ubuntu (16.04 ou superior).
 
 ```
-# Comandos para a instalação do Docker no Ubuntu
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo sh get-docker.sh
-
-# sudo usermod -aG docker your-user
+$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh
 ```
 
-Ao fazer esta instalação você já tem tudo o que é necessário para o funcionamento do Docker em sua máquina.
+Caso você queira permitir a execução do Docker para usuários que não sejam *root* você pode executar o comando abaixo
 
-Caso você esteja em outra plataforma, você pode consultar o site do Docker para verificar como instala-lo para a plataforma que você está, para isto clique [aqui](#)
+```shell
+$ sudo usermod -aG docker seu-usuario
+```
+
+> Caso você não execute o comando de permissão acima, todos os seus comandos do Docker deverão ser executados pelo root ou junto ao comando `sudo`.
+
+Feito! A instalação do Docker já está pronta e funcionando na sua máquina, para testar execute o comando `docker -v`, o retorno deve ser algo parecido com isto
+
+```shell
+Docker version 18.09.7, build 2d0083d
+```
+
+Se você estiver utilizado uma outra plataforma que não a apresentada acima, você pode consultar o site do Docker ([https://docs.docker.com/install/](https://docs.docker.com/install/)) para verificar como prosseguir com a instalação.
 
 ## Containers
 
@@ -104,7 +105,7 @@ docker build -t "minha_primeira_imagem" .
 
 Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando `docker images`, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que haverá uma imagem com `minha_primeira_imagem`.
 
-> Caso queira apagar a imagem que criamos, utilize o comando docker rmi (docker rmi minha_primeira_imagem)
+> Caso queira apagar a imagem que criamos, utilize o comando `docker rmi` (docker rmi minha_primeira_imagem)
 
 Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem
 
