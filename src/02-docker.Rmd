@@ -251,10 +251,35 @@ Nos exemplos anteriores criavamos o *container* depois faziamos sua execução, 
 docker run -ti --name exemplo_debian debian
 ```
 
-> Executando o comando acima, o *containewr* irá iniciar e você já estará em seu `bash`.
+> Executando o comando acima, o *container* irá iniciar e você já estará em seu `bash`.
 
 ### Gerenciando as execuções de um container
-<!-- docker create|run|stop|restart|start|unpause|rm -->
+
+Com os *containers* em execução, vamos entender quais são os estados de um *container* e como podemos fazer a manipulação desses.
+
+Ao criar um *container* com `docker create` o *status* dele é `CREATED` e as modificações dessa estado são feitos com os comandos na Tabela abaixo, junto aos comandos, há os estados que eles geram no *container*.
+
+
+| Comando | Estado gerado |
+|---------|---------------|
+| create  | CREATED       |
+| run     | UP            |
+| start   | UP            |
+| stop    | EXITED        |
+| restart | UP            |
+| pause   | UP (PAUSED)   |
+| unpause | UP            |
+
+Para entender cada um dos estados que estes comandos geram em um *container* vejamos a Tabela abaixo.
+
+| Estado      | Descrição                                                                                                     |
+|-------------|---------------------------------------------------------------------------------------------------------------|
+| CREATED     | Representa que o container foi criado, possui uma camada que pode ser escrita e está pronto para ser iniciado |
+| UP          | Indica que o container está em execução                                                                       |
+| UP (PAUSED) | Indica que o container está "ligado" porém sua execução está parada                                           |
+| EXITED      | Indica que a execução do container foi finalizada                                                             |
+
+Estes estados nos ajudam a entender o que está ocorrendo com os *containers* se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.
 
 ### Visualizando o status do container
 <!-- docker stats|top|logs -->
