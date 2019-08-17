@@ -45,73 +45,81 @@ Feito! A instalação do Docker já está pronta e funcionando na sua máquina, 
 Docker version 18.09.7, build 2d0083d
 ```
 
+O comando `docker` e todos os seus parâmetros representam a ferramenta Docker CLI, que foi citada anteriormente e já vem instalada na distribuição padrão do Docker.
+
 Se você estiver utilizado uma outra plataforma que não a apresentada acima, você pode consultar o site do Docker ([https://docs.docker.com/install/](https://docs.docker.com/install/)) para verificar como prosseguir com a instalação.
 
 ## Containers
 
-<!-- An Introduction to Docker and Analysis of its Performance -->
-Os contêineres armazenam todo o kit necessário para um aplicativo, portanto, o aplicativo pode ser executado de forma isolada. Por exemplo, suponha que haja uma imagem do sistema operacional Ubuntu com o SQL SERVER, quando essa imagem for executada com o comando docker run, será criado um contêiner e o SQL SERVER será executado no sistema operacional Ubuntu.
-<!-- -------------------------------- -->
-
-São nos *containers* que as aplicações, algoritmos e ambientes serão executados e trabalhados [...]. Mas você pode estar se perguntando: "Como são gerados os containers ?", bem os containers são criados através da utilização de imagens, e básicamente um container representa uma imagem em tempo de execução. 
-
-Bom, agora precisamos entender o que são as imagens de containers. <!-- algo assim [...] -->
-
-<!-- Certo, mas agora podem surgir outras dúvidas, como "O que são imagens ?" ou "Como imagens são geradas ?", para responder estas perguntas, vamos para a próxima seção. -->
+*Containers* são instâncias de Imagens Docker que estão sendo executadas em ambientes isolados, sendo que, nestes ambientes há todos os recursos necessários para a execução dos processos os quais foram definidos para os *containers*. Por exemplo, quando você quiser executar um *container* com o Postgres, ao realizar a execução, dentro do *container* já estará todas as bibliotecas necessárias para a execução do Postgres, inclusive os binários do banco propriamente dito.
 
 ## Imagens de containers
-<!-- Como citado, o docker trabalha com containers, porém para entender melhor o conceito de containers dentro do docker, vamos começar falando um pouco sobre imagens docker, estes que são a base para a criação de containers no Docker -->
-<!-- Uma imagem docker representa uma receita de criação de um container -->
-Agora que entendemos o que é um *container*, vejamos como eles são criados. Como já apresentado anteriormente, os containers são criados a partir de imagens, mas o que são essas imagens ? Imagens básicamente representam uma receita para a criação de *container*. 
 
-Com esta receita os *containers* podem ser criados de forma padronizada, seguindo sempre a mesma estrutura para a geração de ambientes e execução de sistemas. Mas agora você pode estar se perguntando, de onde vieram as imagens, bem, elas também possuem uma receita durante sua geração, esta receita é conhecida como **Dockerfile**. Vamos explicar como ela funciona.
-<!-- Viu! Em docker todo o ambiente é criado com base na transformação de `receitas`, onde a receita base da origem a outra receita, que por sua vez pode ser utilizado em outra criação -->
+Como citado anteriormente, um *container* representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e execuções que devem ser feitos no momento em que a imagem é executada e passa a ser um *container*.
 
+Com isto as imagens Docker é garantido que, todos os *containers* gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura. 
+
+<!-- Com esta receita os *containers* podem ser criados de forma padronizada, seguindo sempre a mesma estrutura para a geração de ambientes e execução de sistemas. Mas agora você pode estar se perguntando, de onde vieram as imagens, bem, elas também possuem uma receita durante sua geração, esta receita é conhecida como `Dockerfile`. Vamos ver como ele funciona.
+
+<!-- 
 Para ilustrar melhor, vejamos a figura abaixo, que apresenta a relação entre o dockerfile, a imagem e um container.
-![](res/docker_file_image_container.png)
+![](res/docker_file_image_container.png) -->
 
 ### Criando imagens
 
-Para realizar a criação de imagens, como citado, utilizados os `Dockerfiles`, esses que são arquivos que descrevem tudo o que um container deve ter quando for executado. Dentro do `Dockerfile` existem instruções para ditar cada caracteristica que deve ser empregada no container. Para que você entenda melhor, vou mostrar um pequeno arquivo Dockerfile que cria um container que exibe uma mensagem e então é finalizado. Não se preocupe caso você não entenda de primeira, sem problemas! Vou explicar cada parte para ficar bem claro para você.
-- Lista os containers ativos: `docker ps`
+A criação de imagens Docker é feita através da utilização de arquivos `Dockerfiles`, estes que descrevem qual será a estrutura das imagens e suas operações.
 
-- Lista todos os containers - (Independente do status): `docker ps -a`
+Dentro do `Dockerfile` existem diversas instruções para ditar cada caracteristica que deve ser empregada na imagem que está sendo gerada. 
 
-- Lista todas as imagens: `docker images`
+Para você entender melhor, vamos criar um exemplo de uma imagem Docker que gera um *container* que executa um *script* Python.
 
-- Execução de um container: `docker run`
-
-
-Nossa primeira imagem ira executar um script Python. Para começarmos a fazer isso, vamos criar o *script* python.
+Vamos começar criando o *script* Python, fazemos isto utilizando o comando abaixo
 
 ```shell
 echo "print('Oi! Esta é minha primeira imagem Docker! E ela funciona!')" > ola.py
 ```
 
-Com o *script* python criado, vamos criar um arquivo com o nome `Dockerfile`, dentro deste arquivo, vamos inserir o seguinte conteúdo.
+Com o *script*  criado, vamos criar um arquivo com o nome `Dockerfile`, dentro deste arquivo, vamos inserir o seguinte conteúdo. Não se preocupe se você não entender agora, cada uma das partes deste arquivo será explicada.
 
 ```shell
 FROM python:3
 COPY ola.py ./
 
-CMD [ "python", "./ola.py" ]
+CMD [ "./ola.py" ]
+ENTRYPOINT [ "python" ]
 ```
 
-Pronto! Ao fazer isto, basta ir novamente ao terminal e gerar a imagem, para fazer isso, utilize o comando que segue
+Ao finalizar a edição do arquivo, vá até o diretório onde o arquivo está criado, e execute o comando `docker build`.
 
 ```shell
-docker build -t "minha_primeira_imagem" .
+docker build -t "minha_primeira_imagem:1.0" .
 ```
 
-Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando `docker images`, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que haverá uma imagem com `minha_primeira_imagem`.
-
-> Caso queira apagar a imagem que criamos, utilize o comando `docker rmi` (docker rmi minha_primeira_imagem)
+Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando `docker images`, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que há uma imagem com `REPOSITORY` de nome `minha_primeira_imagem`.
 
 Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem
 
 ```
 docker run minha_primeira_imagem
 ```
+
+> Caso queira apagar a imagem que criamos, utilize o comando `docker rmi` (docker rmi minha_primeira_imagem)
+
+#### Entendendo o Dockerfile
+
+Anteriormente foi visto um simples `Dockerfile`, que criou uma imagem para a execução de um *script* Python, vamos analisa-lo para entender o que foi feito.
+
+Inicialmente no arquivo foi importado uma imagem com nome `python:3`, isto é feito com o comando `FROM`. Ou seja, sua imagem foi criada com base em uma outra imagem, esta que já possuia o Python 3 instalado.
+
+Após a definição da imagem base, foi feito uma cópia do *script* para dentro do *container*, através do comando `COPY`. 
+
+Por fim, os comandos `CMD` e `ENTRYPOINT` foram executados, e estes representam partes muito importantes de um `Dockerfile`, isto porque, normalmente um *container* é criado para executar um único processo, podendo este ser por exemplo, a inicialização de uma aplicação, ou a execução de um *script* , como fizemos.
+
+A definição do processo que o *container* irá executar é feita através do comando `ENTRYPOINT`, ou seja, no nosso caso o processo principal será uma execução python, e o comando `CMD` faz o auxílio ao `ENTRYPOINT` já que, o `CMD` representam os parâmetros que serão passados para o `ENTRYPOINY`.
+
+Existem muitas outras instruções que poderiam ser aplicadas neste `Dockerfile`, para saber mais sobre eles utilize a documentação do Docker ([https://docs.docker.com/engine/reference/builder/](https://docs.docker.com/engine/reference/builder/)).
+
+#### Camadas de uma imagem
 
 <!-- Aqui são utilizados os Dockerfiles -->
 <!-- ENTRYPOINT, CMD, RUN, EXPOSE -->
