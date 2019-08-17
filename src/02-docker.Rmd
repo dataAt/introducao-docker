@@ -192,11 +192,66 @@ Com todos os componentes já conhecidos, há a possibilidade da expansão da vis
 Com isso estamos prontos para iniciar as atividades práticas com o Docker e o gerenciamento de *containers*.
 
 ## Administrando containers
-<!-- Agora que já sabemos o que são containers e sua relação com as imagens, vamos começar a entender como trabalhar com o gerenciamento de containers no Docker -->
-<!-- Falar que, há ferramentas que podem ajudar no gerenciamento, uma delas é o portainer  -->
+
+Esta seção apresenta exemplos para a administração de *containers* através da utilização do Docker CLI.
 
 ### Criando containers
-Os comandos aqui listados já foram apresentados anteriormente, porém, foram colocados aqui apenas para reforçar o significado de cada um dos parâmetros inseridos
+
+Vamos começar com exemplos das diferentes formas de criação de *container*. Começando com a criação básica de um *container* do Debian.
+
+```
+docker create debian
+```
+
+Depois de criar, utilize o comando `docker ps -a` para listar todos os *containers* criados. Quando você listar, vai ver várias informações sobre o *container* criado, como por exemplo a imagem que ele utilizou, o ID, se há portas de rede abertas e o nome. Por padrão, não é necessário definir o nome do *container*, mas é recomendado que o faça, então vamos excluir o *container* criado e gerar um novo com um nome definido.
+
+```shell
+# Excluíndo container
+docker rm ID_DO_CONTAINER_CRIADO
+
+# Criando um novo container de nome exemplo_debian
+docker create --name exemplo_debian debian
+```
+
+Ao listar novamente todos os *containers* você vai ver que lá está o novo *container*, com o nome que foi definido no comando anterior. O *container* ainda não está sendo executado, uma vez que definimos que ele deveria apenas ser criado, vamos então executar ele com o comando `docker start`.
+
+```shell
+docker start exemplo_debian
+```
+
+Ele foi executado, para listar somente os *containers* que estão sendo executados, utilize o comando `docker ps`, sem qualquer outro parâmetro.
+
+Sua listagem estará vazia já que o *container* do Debian está configurado para executar o comando `bash`, então, ao iniciarmos o *container* ele executou o comando e em seguida finalizou, se quisermos manter o *container* ligado, devemos definir que ele terá um terminal interativo, para isto no momento da criação, os parâmetros `-ti` devem ser passados. Vamos lá então, excluir o que haviamos criado e gerar ele novamente com os novos parâmetros
+
+
+```shell
+# Excluíndo container exemplo_debian
+docker rm exemplo_debian
+
+# Gerando um novo container que trabalha em segundo plano
+docker create -ti --name exemplo_debian debian
+
+# Executando o novo container criado
+docker start exemplo_debian
+```
+
+Ao executar os comandos o novo *container* já estará sendo executado, para verificar, liste novamente os *containers* em execução. Vamos agora acessar o container criado, para isto usamos o comando `docker attach`, que recupera o `bash` do *container* caso ele não esteja executando outro processo.
+
+```
+docker attach exemplo_debian
+```
+
+> Em outros cenários o `bash` pode não estar disponível, então ao invês do `docker attach` pode ser utilizado o `docker exec` ([https://docs.docker.com/engine/reference/commandline/exec/](https://docs.docker.com/engine/reference/commandline/exec/))
+
+Ao executar o comando, você já estará dentro do terminal do *container* criado. Como dito anteriormente, este ambiente é isolado de sua máquina, então faça testes, navegue entre os diretórios, para você ver que é uma instância completamente isolada. Para sair do terminal e não finalizar o *container* utilize os seguintes botões de seu teclado: `CTRL + p + q`. Ao listar novamente os *containers* em execução, lá estará ele sendo executado.
+
+Nos exemplos anteriores criavamos o *container* depois faziamos sua execução, porém podemos já criar um *container* e imediatamente realizar sua inicialização, para isto utilizamos o comando `docker run`, que recebe os mesmos parâmetros que o `docker create`, com a diferença de que ele executa o *container* após sua criação.
+
+```
+docker run -ti --name exemplo_debian debian
+```
+
+> Executando o comando acima, o *containewr* irá iniciar e você já estará em seu `bash`.
 
 ### Gerenciando as execuções de um container
 <!-- docker create|run|stop|restart|start|unpause|rm -->
