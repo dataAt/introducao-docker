@@ -259,16 +259,15 @@ Com os *containers* em execução, vamos entender quais são os estados de um *c
 
 Ao criar um *container* com `docker create` o *status* dele é `CREATED` e as modificações dessa estado são feitos com os comandos na Tabela abaixo, junto aos comandos, há os estados que eles geram no *container*.
 
-
 | Comando | Estado gerado |
 |---------|---------------|
-| create  | CREATED       |
-| run     | UP            |
-| start   | UP            |
-| stop    | EXITED        |
-| restart | UP            |
-| pause   | UP (PAUSED)   |
-| unpause | UP            |
+| docker create  | CREATED       |
+| docker run     | UP            |
+| docker start   | UP            |
+| docker stop    | EXITED        |
+| docker restart | UP            |
+| docker pause   | UP (PAUSED)   |
+| docker unpause | UP            |
 
 Para entender cada um dos estados que estes comandos geram em um *container* vejamos a Tabela abaixo.
 
@@ -281,8 +280,16 @@ Para entender cada um dos estados que estes comandos geram em um *container* vej
 
 Estes estados nos ajudam a entender o que está ocorrendo com os *containers* se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.
 
-### Visualizando o status do container
-<!-- docker stats|top|logs -->
+### Visualizando status do container
+
+Além do estado do *container*, em certos casos é necessário avaliar outras informações do container, a Tabela abaixo descreve comandos que podem ser úteis para a avaliação e verificação dos *containers*.
+
+| Comando         | Descrição                                                                                                                               |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| docker stats    | Exibe estatísticas de utilização de recursos feitas pelo container em tempo real                                                        |
+| docker top      | Exibe os processos que estão sendo executados no container                                                                              |
+| docker logs     | Exibe os logs do container. A forma que os logs são exibidas depende da forma como o serviço que está sendo executado registrou os logs |
+| docker inspect  | Exibe informações gerais do container, no formato JSON                                                                         |
 
 ### Gerenciamento de memória e CPU
 
@@ -292,4 +299,6 @@ Estes estados nos ajudam a entender o que está ocorrendo com os *containers* se
 
 ### Rede
 
+
 ## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")`
+
