@@ -379,6 +379,8 @@ docker run -ti --name debian_3 --cpu-shares 512 debian
 
 > O parâmetro `--cpu-shares` é quem define os valores de utilização da CPU
 
+> Lembre-se que, para sair do container sem fecha-lo utilize as teclas `CTRL + p + q`.
+
 Após criar os três *containers* vamos entender o pensamento por trás da proporcionalidade. O primeiro *container* possui 1024 `cpu-shares` e os outros dois *containers* criados possuem 512 `cpu-shares` cada. O segundo e o terceiro *container* criados, tem cada um 50% do valor atribuido para o primeiro *container*. 
 
 Quando todos os valores atribuidos a cada *container* são somados, chegamos em um valor de 2048. Sobre este valor, se aplicarmos uma proporcionalidade, é possível entender que o primeiro *container* possui 50% do valor total e os outros dois 25% cada um. Estes valores da proporcionalidade, são exatamente as quantidades que cada um poderá utilizar do 100% total de utilização da CPU, assim, o primeiro poderá utilizar até 50%, enquanto os outros dois poderão utilizar até 25% cada um.
@@ -387,20 +389,89 @@ Quando todos os valores atribuidos a cada *container* são somados, chegamos em 
 
 ### Armazenamento
 
-<!-- data folder, volumes e container data-only -->
+Para finalizar este conteúdo básico sobre Docker, vamos tratar de algumas formas de armazenamento possíveis nos *containers*. Existem três formas possíveis de armazenamento em um *container*, cada uma dessas formas é apresentada na Tabela abaixo.
 
-<!-- docker run -ti -v /volume ubuntu /bin/bash -->
-<!-- df -h -->
-<!-- cd /volume && > teste -->
-<!-- docker inspect -f {{.Mounts}} CONTAINER_ID/CONTAINER_NAME -->
+| Tipo de armazenamento | Descrição                                                                                                                                                                      |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Volumes               | São formas de armazenamento que ficam registradas em lugares específicos do sistema de arquivos da máquina que executa o Docker e todo seu controle é feito pelo docker-daemon |
+| Bind mounts           | Podem ser armazenados em qualquer lugar do sistema de arquivos da máquina que executa o Docker e o docker não faz seu gerenciamento                                            |
+| tmpfs                 | Sistema de arquivos temporários criados diretamente na memória e não são salvos                                                                                                |
 
-<!-- docker run -ti -v /root/folder:/volume debian -->
-<!-- df -h -->
+A escolha dentre essas possibilidades pode variar de acordo com seu cenário de utilização. Não deixe de consultar a documentação do Docker para dicar e formas de utilização de cada uma dessas ([https://docs.docker.com/storage/](https://docs.docker.com/storage/))
 
-<!-- container data-only -->
-<!-- Container que tem volumes, ele não precisa nem estar sendo executado -->
-<!-- docker create -v /data --name dbdados centos:7 -->
-<!-- docker run -d -p 5432:5432 --name bancodedados --volumes-from dbdados postgres -->
+Cada uma dessas formas listadas na Tabela anterior, indicam formas de criar mapeamentos de unidades e arquivos entre o *container* e a máquina onde o docker-daemon está sendo executado. Veja a Figura abaixo.
+
+<center>
+![](res/2_docker/fluxo_mapeamento_1.png)
+</center>
+
+Como é possível perceber na Figura acima, o mapeamento faz básicamente com que os arquivos ou diretórios do sistema de arquivos do *container* sejam armazenados em outros contextos que não o do próprio *container*, tendo como formas de mapeamento, os itens listados na Tabela acima.
+
+Vamos focar aqui em apresentar os `Volumes` e os `Bind mounts`. Vamos começar criando um *container* que possui um volume.
+
+```
+docker run -ti -v /volume --name ubuntu_com_volume ubuntu
+```
+
+Ao executar o comando e estar dentro do *container* vá até o diretório raiz `/` e execute o comando `ls`, para listar os diretórios.
+
+Na listagem você verá que há um diretório de nome `volume`, acesse ele e crie um arquivo qualquer.
+
+```
+cd /volume && > arquivo_qualquer.txt
+```
+
+Feito isto, vamos sair do *container* e verificar em qual local do disco o *volume* foi criado.
+
+> Para sair do *container* não esqueca de utilizar o `CTRL + p + q`, o que evita a finalização do processo principal do *container*.
+
+Após sair vamos verificar onde o volume foi criado com o auxílio do comando `docker inspect`.
+
+```
+docker inspect -f {{.Mounts}} ubuntu_com_volume
+```
+
+> O parâmetro `-f` ajuda na filtragem do comando `docker inspect`.
+
+A saída do comando é parecido com isto
+
+```
+[{volume 3af1c580d4679973c86fbe7b6cdc755595a726f41aec7c8c59186f10885732fa /var/lib/docker/volumes/3af1c580d4679973c86fbe7b6cdc755595a726f41aec7c8c59186f10885732fa/_data /volume local  true }]
+```
+
+Veja que, ele indica onde o diretório `/volume` que foi montado dentro do *container* está na máquina local. Vamos então acessar este diretório e verificar seu conteúdo.
+
+```
+cd /var/lib/docker/volumes/3af1c580d4679973c86fbe7b6cdc755595a726f41aec7c8c59186f10885732fa/_data
+```
+
+Após mudar o diretório e listar seu conteúdo, você provavelmente verá o arquivo que foi criado `arquivo_qualquer.txt`, isto ocorre já que, como foi explicado, os *volumes* permitem o mapeamento de arquivos e diretórios que estão presentes no sistema de arquivos do *container*.
+
+Outra da forma de realizar o mesmo processo é fazendo a utilização de *bind mounts* que evita a criação de *volumes* e permite que o mapeamento seja feito diretamente entre um diretório/arquivo da máquina onde o docker-daemon é executado e um diretório/arquivo do *container*. Para vermos isto na prática, vamos excluir o *container* de testes que criamos anteriormente e gerar um novo contendo esta forma de mapeamento.
+
+```
+# Excluindo o container gerado anteriormente
+docker rm -f ubuntu_com_volume
+
+# Gerando container com bind mounts
+mkdir /arquivos_containers
+
+docker run -ti -v /arquivos_containers:/volume --name ubuntu_com_volume ubuntu
+```
+
+> Antes de criar o *container* foi necessário criar um diretório, isto porque este será vinculado diretamente com o `/volume` que está dentro do *container*, assim, todo o conteúdo que foi criado lá, estará sendo criado dentro deste diretório que foi gerado.
+
+Dentro do *container*, vá até o diretório `volume` e crie um arquivo qualquer.
+
+```
+cd /volume && > arquivo_qualquer_2.txt
+```
+
+Agora saida do *container* e liste o diretório `/arquivos_containers`, você vai perceber que o arquivo criado no *container* está lá.
+
+Lembrando que, a forma que você escolher para mapear os dados pode depender completamente de seu contexto e sua necessidade.
+
+Então, chegamos ao fim desta parte da documentação, tudo o que foi mostrado até é um guia básico de como realizar a utilização do Docker, não deixe de conferir a documentação no site oficial e também de fazer testes para ir aprendendo mais!
 
 <!-- ### Rede -->
 
