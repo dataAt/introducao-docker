@@ -192,6 +192,7 @@ Com todos os componentes já conhecidos, há a possibilidade da expansão da vis
 Com isso estamos prontos para iniciar as atividades práticas com o Docker e o gerenciamento de *containers*.
 
 ## Administrando containers
+<!-- Portainer -->
 
 Esta seção apresenta exemplos para a administração de *containers* através da utilização do Docker CLI.
 
@@ -293,13 +294,114 @@ Além do estado do *container*, em certos casos é necessário avaliar outras in
 
 ### Gerenciamento de memória e CPU
 
+Durante as verificações de estado e utilização de um *container*, pode ser necessário atribuir para ele limites de utilização, isto para que o desempenho dos vários *containers* que estão sendo executados não seja prejudicado pela necessidade de uso de um único *container*.
+
+> Um *container* ao ser criado, quando não é atribuido para ele um limite de recusos, a quantidade consumida pode chegar até o limite da máquina onde ele está sendo executado.
+
+Vamos começar criando um *container* normalmente, como haviamos feito até aqui.
+
+```
+docker run -ti --name debian_de_teste debian
+```
+
+Agora, com a ajuda do comando `docker inspect`, vamos avaliar a quantidade de memória configurada para uso deste *container*.
+
+```
+docker inspect debian_de_teste | grep -i memory
+```
+
+A saída do comando acima é parecida com isto:
+
+```
+  "Memory": 0,
+  "KernelMemory": 0,
+  "MemoryReservation": 0,
+  "MemorySwap": 0,
+  "MemorySwappiness": null,
+```
+
+O campo `Memory` está com valor 0, isto indica que, para este *container* não há limitação de uso de memória, como citado anteriormente. Para resolver este problema, vamos excluir este *container* e gerar um novo com a limitação de memória.
+
+```
+# Excluíndo container sem limite de memória
+# -f Para excluir mesmo se o container estiver com estado UP
+docker rm -f debian_de_teste
+
+# Criando container com limite de 512 MB
+docker run -ti --name debian_de_teste --memory 512m debian
+```
+
+Após os comandos, caso eu execute novamente o `docker inspect` será possível visualizar a mudança no limite de memória.
+
+```
+docker inspect debian_de_teste | grep -i memory
+```
+
+Saída:
+
+```
+"Memory": 536870912,
+"KernelMemory": 0,
+"MemoryReservation": 0,
+"MemorySwap": -1,
+"MemorySwappiness": null,
+```
+
+Com isso, o *container* não vai consumir mais que 512 MB da máquina onde está sendo executado. Outra cenário possível para a mudança de quantidade de memória é quando o *container* já está funcionando e você precisa mudar seu limite de memória. Isto pode ser feito através do comando `docker update`.
+
+Vamos mudar a quantidade de memória do *container* de testes que geramos acima.
+
+```
+docker update --memory 256m debian_de_teste
+```
+
+> O comando `docker update` básicamente recebe o parâmetro que precisa ser alterado, o novo valor e o `container id` ou `container name` para fazer a mudança.
+
+Ao consultar novamente a quantidade de memória, veremos que ela foi atualizada para 256 MB
+
+```
+"Memory": 268435456,
+"KernelMemory": 0,
+"MemoryReservation": 0,
+"MemorySwap": -1,
+"MemorySwappiness": null,
+```
+
+Além da memória pode ser necessário limitar a quantidade de CPU que o *container* pode utilizar. Todos os principios apresentados na mudança de memória podem ser aplicados aqui, ou seja, pode ser atribuido valores de limitação na criação ou em *containers* já em execução, o ponto para a CPU é que os valores atribuidos funcionam um pouco diferentes, vamos para a explicação.
+
+Quando os valores de utilização de CPU vão ser atribuidos, é utilizado um conceito de proporção, vamos para um exemplo, neste três *containers* serão criados.
+
+```
+docker run -ti --name debian_1 --cpu-shares 1024 debian
+docker run -ti --name debian_2 --cpu-shares 512 debian
+docker run -ti --name debian_3 --cpu-shares 512 debian
+```
+
+> O parâmetro `--cpu-shares` é quem define os valores de utilização da CPU
+
+Após criar os três *containers* vamos entender o pensamento por trás da proporcionalidade. O primeiro *container* possui 1024 `cpu-shares` e os outros dois *containers* criados possuem 512 `cpu-shares` cada. O segundo e o terceiro *container* criados, tem cada um 50% do valor atribuido para o primeiro *container*. 
+
+Quando todos os valores atribuidos a cada *container* são somados, chegamos em um valor de 2048. Sobre este valor, se aplicarmos uma proporcionalidade, é possível entender que o primeiro *container* possui 50% do valor total e os outros dois 25% cada um. Estes valores da proporcionalidade, são exatamente as quantidades que cada um poderá utilizar do 100% total de utilização da CPU, assim, o primeiro poderá utilizar até 50%, enquanto os outros dois poderão utilizar até 25% cada um.
+
+> Lembrando que o comando `docker update` funciona da mesma forma como apresentado no controle de memória, com a diferença de que o parâmetro inserido para este caso será o `--cpu-shares`.
 
 ### Armazenamento
+
 <!-- data folder, volumes e container data-only -->
 
-### Rede
+<!-- docker run -ti -v /volume ubuntu /bin/bash -->
+<!-- df -h -->
+<!-- cd /volume && > teste -->
+<!-- docker inspect -f {{.Mounts}} CONTAINER_ID/CONTAINER_NAME -->
 
+<!-- docker run -ti -v /root/folder:/volume debian -->
+<!-- df -h -->
 
-## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")`
-<!-- Portainer -->
+<!-- container data-only -->
+<!-- Container que tem volumes, ele não precisa nem estar sendo executado -->
+<!-- docker create -v /data --name dbdados centos:7 -->
+<!-- docker run -d -p 5432:5432 --name bancodedados --volumes-from dbdados postgres -->
 
+<!-- ### Rede -->
+
+<!-- ## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")` -->
