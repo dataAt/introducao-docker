@@ -140,9 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.3" data-path="docker.html"><a href="docker.html#visualizando-status-do-container"><i class="fa fa-check"></i><b>2.5.3</b> Visualizando status do container</a></li>
 <li class="chapter" data-level="2.5.4" data-path="docker.html"><a href="docker.html#gerenciamento-de-memoria-e-cpu"><i class="fa fa-check"></i><b>2.5.4</b> Gerenciamento de memória e CPU</a></li>
 <li class="chapter" data-level="2.5.5" data-path="docker.html"><a href="docker.html#armazenamento"><i class="fa fa-check"></i><b>2.5.5</b> Armazenamento</a></li>
-<li class="chapter" data-level="2.5.6" data-path="docker.html"><a href="docker.html#rede"><i class="fa fa-check"></i><b>2.5.6</b> Rede</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="docker.html"><a href="docker.html#um-pouco-mais-sobre-o-ecossistema-docker"><i class="fa fa-check"></i><b>2.6</b> Um pouco mais sobre o ecossistema Docker 🐙</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="docker-cheat-sheet.html"><a href="docker-cheat-sheet.html"><i class="fa fa-check"></i><b>3</b> Docker Cheat Sheet 📚</a></li>
 <li class="chapter" data-level="4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html"><i class="fa fa-check"></i><b>4</b> Exemplos de uso</a><ul>
@@ -226,17 +224,17 @@ Senha: 123@abc</code></pre>
 <div id="aplicacao" class="section level2">
 <h2><span class="header-section-number">4.4</span> Aplicação</h2>
 <p>Nesta subseção, vamos inserir uma aplicação Python e Flask dentro de um <em>container</em>. Para isto, inicialmente façamos a criação do arquivo <code>app.py</code>, neste o conteúdo abaixo é inserido.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="im">from</span> flask <span class="im">import</span> Flask, escape, request</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb24-3" data-line-number="3">app <span class="op">=</span> Flask(<span class="va">__name__</span>)</a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</a>
-<a class="sourceLine" id="cb24-6" data-line-number="6"><span class="kw">def</span> ola_no_container():</a>
-<a class="sourceLine" id="cb24-7" data-line-number="7">    nome <span class="op">=</span> request.args.get(<span class="st">&quot;nome&quot;</span>)</a>
-<a class="sourceLine" id="cb24-8" data-line-number="8">    <span class="cf">return</span> <span class="ss">f&quot;Olá, </span><span class="sc">{</span>escape(nome)<span class="sc">}</span><span class="ss">! Estou dentro de um container!&quot;</span></a>
-<a class="sourceLine" id="cb24-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb24-10" data-line-number="10"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
-<a class="sourceLine" id="cb24-11" data-line-number="11">    app.run(debug<span class="op">=</span><span class="va">True</span>, host<span class="op">=</span><span class="st">&#39;0.0.0.0&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="im">from</span> flask <span class="im">import</span> Flask, escape, request</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">app <span class="op">=</span> Flask(<span class="va">__name__</span>)</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="at">@app.route</span>(<span class="st">&#39;/&#39;</span>)</a>
+<a class="sourceLine" id="cb40-6" data-line-number="6"><span class="kw">def</span> ola_no_container():</a>
+<a class="sourceLine" id="cb40-7" data-line-number="7">    nome <span class="op">=</span> request.args.get(<span class="st">&quot;nome&quot;</span>)</a>
+<a class="sourceLine" id="cb40-8" data-line-number="8">    <span class="cf">return</span> <span class="ss">f&quot;Olá, </span><span class="sc">{</span>escape(nome)<span class="sc">}</span><span class="ss">! Estou dentro de um container!&quot;</span></a>
+<a class="sourceLine" id="cb40-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb40-10" data-line-number="10"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
+<a class="sourceLine" id="cb40-11" data-line-number="11">    app.run(debug<span class="op">=</span><span class="va">True</span>, host<span class="op">=</span><span class="st">&#39;0.0.0.0&#39;</span>)</a></code></pre></div>
 <p>É possível perceber na listagem de código acima que esta aplicação básicamente inicia um servidor através do Flask e este recebe requisições HTTP que podem conter um parâmetro <code>nome</code> na requisição, e o conteúdo dessa parâmetro passado pelo usuário é exibido no retorno do servidor.</p>
 <p>Bem, agora façamos a criação de um <code>Dockerfile</code>. Vamos utilizar o <em>container</em> oficial de Python em sua versão 3. Neste <code>Dockerfile</code> especificamos também que um comando <code>RUN</code> deve ser executado, para executar o pip para instalar o Flask, além de copiar o arquivo <code>app.py</code> para dentro do <em>container</em>.</p>
 <p>Por fim é especificado que o <code>ENTRYPOINT</code>, ou seja, o comando principal do <em>container</em> será o <code>python</code> e ele recebe como parâmetro o nome do arquivo que ele executa (<code>app.py</code>).</p>

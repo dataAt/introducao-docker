@@ -140,9 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.3" data-path="docker.html"><a href="docker.html#visualizando-status-do-container"><i class="fa fa-check"></i><b>2.5.3</b> Visualizando status do container</a></li>
 <li class="chapter" data-level="2.5.4" data-path="docker.html"><a href="docker.html#gerenciamento-de-memoria-e-cpu"><i class="fa fa-check"></i><b>2.5.4</b> Gerenciamento de memória e CPU</a></li>
 <li class="chapter" data-level="2.5.5" data-path="docker.html"><a href="docker.html#armazenamento"><i class="fa fa-check"></i><b>2.5.5</b> Armazenamento</a></li>
-<li class="chapter" data-level="2.5.6" data-path="docker.html"><a href="docker.html#rede"><i class="fa fa-check"></i><b>2.5.6</b> Rede</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="docker.html"><a href="docker.html#um-pouco-mais-sobre-o-ecossistema-docker"><i class="fa fa-check"></i><b>2.6</b> Um pouco mais sobre o ecossistema Docker 🐙</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="docker-cheat-sheet.html"><a href="docker-cheat-sheet.html"><i class="fa fa-check"></i><b>3</b> Docker Cheat Sheet 📚</a></li>
 <li class="chapter" data-level="4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html"><i class="fa fa-check"></i><b>4</b> Exemplos de uso</a><ul>
@@ -294,6 +292,7 @@ ENTRYPOINT [ &quot;bash&quot; ]</code></pre>
 </div>
 <div id="administrando-containers" class="section level2">
 <h2><span class="header-section-number">2.5</span> Administrando containers</h2>
+<!-- Portainer -->
 <p>Esta seção apresenta exemplos para a administração de <em>containers</em> através da utilização do Docker CLI.</p>
 <div id="criando-containers" class="section level3">
 <h3><span class="header-section-number">2.5.1</span> Criando containers</h3>
@@ -440,19 +439,138 @@ docker start exemplo_debian</code></pre>
 </div>
 <div id="gerenciamento-de-memoria-e-cpu" class="section level3">
 <h3><span class="header-section-number">2.5.4</span> Gerenciamento de memória e CPU</h3>
+<p>Durante as verificações de estado e utilização de um <em>container</em>, pode ser necessário atribuir para ele limites de utilização, isto para que o desempenho dos vários <em>containers</em> que estão sendo executados não seja prejudicado pela necessidade de uso de um único <em>container</em>.</p>
+<blockquote>
+<p>Um <em>container</em> ao ser criado, quando não é atribuido para ele um limite de recusos, a quantidade consumida pode chegar até o limite da máquina onde ele está sendo executado.</p>
+</blockquote>
+<p>Vamos começar criando um <em>container</em> normalmente, como haviamos feito até aqui.</p>
+<pre><code>docker run -ti --name debian_de_teste debian</code></pre>
+<p>Agora, com a ajuda do comando <code>docker inspect</code>, vamos avaliar a quantidade de memória configurada para uso deste <em>container</em>.</p>
+<pre><code>docker inspect debian_de_teste | grep -i memory</code></pre>
+<p>A saída do comando acima é parecida com isto:</p>
+<pre><code>  &quot;Memory&quot;: 0,
+  &quot;KernelMemory&quot;: 0,
+  &quot;MemoryReservation&quot;: 0,
+  &quot;MemorySwap&quot;: 0,
+  &quot;MemorySwappiness&quot;: null,</code></pre>
+<p>O campo <code>Memory</code> está com valor 0, isto indica que, para este <em>container</em> não há limitação de uso de memória, como citado anteriormente. Para resolver este problema, vamos excluir este <em>container</em> e gerar um novo com a limitação de memória.</p>
+<pre><code># Excluíndo container sem limite de memória
+# -f Para excluir mesmo se o container estiver com estado UP
+docker rm -f debian_de_teste
+
+# Criando container com limite de 512 MB
+docker run -ti --name debian_de_teste --memory 512m debian</code></pre>
+<p>Após os comandos, caso eu execute novamente o <code>docker inspect</code> será possível visualizar a mudança no limite de memória.</p>
+<pre><code>docker inspect debian_de_teste | grep -i memory</code></pre>
+<p>Saída:</p>
+<pre><code>&quot;Memory&quot;: 536870912,
+&quot;KernelMemory&quot;: 0,
+&quot;MemoryReservation&quot;: 0,
+&quot;MemorySwap&quot;: -1,
+&quot;MemorySwappiness&quot;: null,</code></pre>
+<p>Com isso, o <em>container</em> não vai consumir mais que 512 MB da máquina onde está sendo executado. Outra cenário possível para a mudança de quantidade de memória é quando o <em>container</em> já está funcionando e você precisa mudar seu limite de memória. Isto pode ser feito através do comando <code>docker update</code>.</p>
+<p>Vamos mudar a quantidade de memória do <em>container</em> de testes que geramos acima.</p>
+<pre><code>docker update --memory 256m debian_de_teste</code></pre>
+<blockquote>
+<p>O comando <code>docker update</code> básicamente recebe o parâmetro que precisa ser alterado, o novo valor e o <code>container id</code> ou <code>container name</code> para fazer a mudança.</p>
+</blockquote>
+<p>Ao consultar novamente a quantidade de memória, veremos que ela foi atualizada para 256 MB</p>
+<pre><code>&quot;Memory&quot;: 268435456,
+&quot;KernelMemory&quot;: 0,
+&quot;MemoryReservation&quot;: 0,
+&quot;MemorySwap&quot;: -1,
+&quot;MemorySwappiness&quot;: null,</code></pre>
+<p>Além da memória pode ser necessário limitar a quantidade de CPU que o <em>container</em> pode utilizar. Todos os principios apresentados na mudança de memória podem ser aplicados aqui, ou seja, pode ser atribuido valores de limitação na criação ou em <em>containers</em> já em execução, o ponto para a CPU é que os valores atribuidos funcionam um pouco diferentes, vamos para a explicação.</p>
+<p>Quando os valores de utilização de CPU vão ser atribuidos, é utilizado um conceito de proporção, vamos para um exemplo, neste três <em>containers</em> serão criados.</p>
+<pre><code>docker run -ti --name debian_1 --cpu-shares 1024 debian
+docker run -ti --name debian_2 --cpu-shares 512 debian
+docker run -ti --name debian_3 --cpu-shares 512 debian</code></pre>
+<blockquote>
+<p>O parâmetro <code>--cpu-shares</code> é quem define os valores de utilização da CPU</p>
+</blockquote>
+<blockquote>
+<p>Lembre-se que, para sair do container sem fecha-lo utilize as teclas <code>CTRL + p + q</code>.</p>
+</blockquote>
+<p>Após criar os três <em>containers</em> vamos entender o pensamento por trás da proporcionalidade. O primeiro <em>container</em> possui 1024 <code>cpu-shares</code> e os outros dois <em>containers</em> criados possuem 512 <code>cpu-shares</code> cada. O segundo e o terceiro <em>container</em> criados, tem cada um 50% do valor atribuido para o primeiro <em>container</em>.</p>
+<p>Quando todos os valores atribuidos a cada <em>container</em> são somados, chegamos em um valor de 2048. Sobre este valor, se aplicarmos uma proporcionalidade, é possível entender que o primeiro <em>container</em> possui 50% do valor total e os outros dois 25% cada um. Estes valores da proporcionalidade, são exatamente as quantidades que cada um poderá utilizar do 100% total de utilização da CPU, assim, o primeiro poderá utilizar até 50%, enquanto os outros dois poderão utilizar até 25% cada um.</p>
+<blockquote>
+<p>Lembrando que o comando <code>docker update</code> funciona da mesma forma como apresentado no controle de memória, com a diferença de que o parâmetro inserido para este caso será o <code>--cpu-shares</code>.</p>
+</blockquote>
 </div>
 <div id="armazenamento" class="section level3">
 <h3><span class="header-section-number">2.5.5</span> Armazenamento</h3>
-<!-- data folder, volumes e container data-only -->
-</div>
-<div id="rede" class="section level3">
-<h3><span class="header-section-number">2.5.6</span> Rede</h3>
-</div>
-</div>
-<div id="um-pouco-mais-sobre-o-ecossistema-docker" class="section level2">
-<h2><span class="header-section-number">2.6</span> Um pouco mais sobre o ecossistema Docker 🐙</h2>
-<!-- Portainer -->
+<p>Para finalizar este conteúdo básico sobre Docker, vamos tratar de algumas formas de armazenamento possíveis nos <em>containers</em>. Existem três formas possíveis de armazenamento em um <em>container</em>, cada uma dessas formas é apresentada na Tabela abaixo.</p>
+<table>
+<colgroup>
+<col width="11%" />
+<col width="88%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo de armazenamento</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Volumes</td>
+<td>São formas de armazenamento que ficam registradas em lugares específicos do sistema de arquivos da máquina que executa o Docker e todo seu controle é feito pelo docker-daemon</td>
+</tr>
+<tr class="even">
+<td>Bind mounts</td>
+<td>Podem ser armazenados em qualquer lugar do sistema de arquivos da máquina que executa o Docker e o docker não faz seu gerenciamento</td>
+</tr>
+<tr class="odd">
+<td>tmpfs</td>
+<td>Sistema de arquivos temporários criados diretamente na memória e não são salvos</td>
+</tr>
+</tbody>
+</table>
+<p>A escolha dentre essas possibilidades pode variar de acordo com seu cenário de utilização. Não deixe de consultar a documentação do Docker para dicar e formas de utilização de cada uma dessas (<a href="https://docs.docker.com/storage/">https://docs.docker.com/storage/</a>)</p>
+<p>Cada uma dessas formas listadas na Tabela anterior, indicam formas de criar mapeamentos de unidades e arquivos entre o <em>container</em> e a máquina onde o docker-daemon está sendo executado. Veja a Figura abaixo.</p>
+<center>
+<img src="res/2_docker/fluxo_mapeamento_1.png" />
+</center>
+<p>Como é possível perceber na Figura acima, o mapeamento faz básicamente com que os arquivos ou diretórios do sistema de arquivos do <em>container</em> sejam armazenados em outros contextos que não o do próprio <em>container</em>, tendo como formas de mapeamento, os itens listados na Tabela acima.</p>
+<p>Vamos focar aqui em apresentar os <code>Volumes</code> e os <code>Bind mounts</code>. Vamos começar criando um <em>container</em> que possui um volume.</p>
+<pre><code>docker run -ti -v /volume --name ubuntu_com_volume ubuntu</code></pre>
+<p>Ao executar o comando e estar dentro do <em>container</em> vá até o diretório raiz <code>/</code> e execute o comando <code>ls</code>, para listar os diretórios.</p>
+<p>Na listagem você verá que há um diretório de nome <code>volume</code>, acesse ele e crie um arquivo qualquer.</p>
+<pre><code>cd /volume &amp;&amp; &gt; arquivo_qualquer.txt</code></pre>
+<p>Feito isto, vamos sair do <em>container</em> e verificar em qual local do disco o <em>volume</em> foi criado.</p>
+<blockquote>
+<p>Para sair do <em>container</em> não esqueca de utilizar o <code>CTRL + p + q</code>, o que evita a finalização do processo principal do <em>container</em>.</p>
+</blockquote>
+<p>Após sair vamos verificar onde o volume foi criado com o auxílio do comando <code>docker inspect</code>.</p>
+<pre><code>docker inspect -f {{.Mounts}} ubuntu_com_volume</code></pre>
+<blockquote>
+<p>O parâmetro <code>-f</code> ajuda na filtragem do comando <code>docker inspect</code>.</p>
+</blockquote>
+<p>A saída do comando é parecido com isto</p>
+<pre><code>[{volume 3af1c580d4679973c86fbe7b6cdc755595a726f41aec7c8c59186f10885732fa /var/lib/docker/volumes/3af1c580d4679973c86fbe7b6cdc755595a726f41aec7c8c59186f10885732fa/_data /volume local  true }]</code></pre>
+<p>Veja que, ele indica onde o diretório <code>/volume</code> que foi montado dentro do <em>container</em> está na máquina local. Vamos então acessar este diretório e verificar seu conteúdo.</p>
+<pre><code>cd /var/lib/docker/volumes/3af1c580d4679973c86fbe7b6cdc755595a726f41aec7c8c59186f10885732fa/_data</code></pre>
+<p>Após mudar o diretório e listar seu conteúdo, você provavelmente verá o arquivo que foi criado <code>arquivo_qualquer.txt</code>, isto ocorre já que, como foi explicado, os <em>volumes</em> permitem o mapeamento de arquivos e diretórios que estão presentes no sistema de arquivos do <em>container</em>.</p>
+<p>Outra da forma de realizar o mesmo processo é fazendo a utilização de <em>bind mounts</em> que evita a criação de <em>volumes</em> e permite que o mapeamento seja feito diretamente entre um diretório/arquivo da máquina onde o docker-daemon é executado e um diretório/arquivo do <em>container</em>. Para vermos isto na prática, vamos excluir o <em>container</em> de testes que criamos anteriormente e gerar um novo contendo esta forma de mapeamento.</p>
+<pre><code># Excluindo o container gerado anteriormente
+docker rm -f ubuntu_com_volume
 
+# Gerando container com bind mounts
+mkdir /arquivos_containers
+
+docker run -ti -v /arquivos_containers:/volume --name ubuntu_com_volume ubuntu</code></pre>
+<blockquote>
+<p>Antes de criar o <em>container</em> foi necessário criar um diretório, isto porque este será vinculado diretamente com o <code>/volume</code> que está dentro do <em>container</em>, assim, todo o conteúdo que foi criado lá, estará sendo criado dentro deste diretório que foi gerado.</p>
+</blockquote>
+<p>Dentro do <em>container</em>, vá até o diretório <code>volume</code> e crie um arquivo qualquer.</p>
+<pre><code>cd /volume &amp;&amp; &gt; arquivo_qualquer_2.txt</code></pre>
+<p>Agora saida do <em>container</em> e liste o diretório <code>/arquivos_containers</code>, você vai perceber que o arquivo criado no <em>container</em> está lá.</p>
+<p>Lembrando que, a forma que você escolher para mapear os dados pode depender completamente de seu contexto e sua necessidade.</p>
+<p>Então, chegamos ao fim desta parte da documentação, tudo o que foi mostrado até é um guia básico de como realizar a utilização do Docker, não deixe de conferir a documentação no site oficial e também de fazer testes para ir aprendendo mais!</p>
+<!-- ### Rede -->
+<!-- ## Um pouco mais sobre o ecossistema Docker 🐙 -->
+
+</div>
 </div>
 </div>
             </section>
