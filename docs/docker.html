@@ -202,8 +202,8 @@ $ sudo sh get-docker.sh</code></pre>
 </div>
 <div id="imagens-de-containers" class="section level2">
 <h2><span class="header-section-number">2.3</span> Imagens de containers</h2>
-<p>Como citado anteriormente, um <em>container</em> representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e execuções que devem ser feitos no momento em que a imagem é executada e passa a ser um <em>container</em>.</p>
-<p>Com isto as imagens Docker é garantido que, todos os <em>containers</em> gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.</p>
+<p>Como citado anteriormente, um <em>container</em> representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e processos que devem ser feitos no momento em que são executadas para a geração de um container.</p>
+<p>Com isto, as imagens Docker garantem que, todos os <em>containers</em> gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.</p>
 <div id="criando-imagens" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Criando imagens</h3>
 <p>A criação de imagens Docker é feita através da utilização de arquivos <code>Dockerfiles</code>, estes que descrevem qual será a estrutura das imagens e suas operações.</p>
@@ -214,7 +214,7 @@ $ sudo sh get-docker.sh</code></pre>
 <p>Com o <em>script</em> criado, vamos criar um arquivo com o nome <code>Dockerfile</code>, dentro deste arquivo, vamos inserir o seguinte conteúdo. Não se preocupe se você não entender agora, cada uma das partes deste arquivo será explicada.</p>
 <pre class="shell"><code>FROM python:3
 COPY ola.py ./
-
+  
 CMD [ &quot;./ola.py&quot; ]
 ENTRYPOINT [ &quot;python&quot; ]</code></pre>
 <p>Ao finalizar a edição do arquivo, vá até o diretório onde o arquivo está criado, e execute o comando <code>docker build</code>.</p>
@@ -441,7 +441,7 @@ docker start exemplo_debian</code></pre>
 <h3><span class="header-section-number">2.5.4</span> Gerenciamento de memória e CPU</h3>
 <p>Durante as verificações de estado e utilização de um <em>container</em>, pode ser necessário atribuir para ele limites de utilização, isto para que o desempenho dos vários <em>containers</em> que estão sendo executados não seja prejudicado pela necessidade de uso de um único <em>container</em>.</p>
 <blockquote>
-<p>Um <em>container</em> ao ser criado, quando não é atribuido para ele um limite de recusos, a quantidade consumida pode chegar até o limite da máquina onde ele está sendo executado.</p>
+<p>Quando não é atribuido limites de recursos a um <em>container</em>, se necessário, ele pode consumir todos os recursos da máquina onde está sendo executado.</p>
 </blockquote>
 <p>Vamos começar criando um <em>container</em> normalmente, como haviamos feito até aqui.</p>
 <pre><code>docker run -ti --name debian_de_teste debian</code></pre>
