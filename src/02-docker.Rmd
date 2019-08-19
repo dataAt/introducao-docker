@@ -54,10 +54,10 @@ Se você estiver utilizado uma outra plataforma que não a apresentada acima, vo
 *Containers* são instâncias de Imagens Docker que estão sendo executadas em ambientes isolados, sendo que, nestes ambientes há todos os recursos necessários para a execução dos processos os quais foram definidos para os *containers*. Por exemplo, quando você quiser executar um *container* com o Postgres, ao realizar a execução, dentro do *container* já estará todas as bibliotecas necessárias para a execução do Postgres, inclusive os binários do banco propriamente dito.
 
 ## Imagens de containers
+  
+Como citado anteriormente, um *container* representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e processos que devem ser feitos no momento em que são executadas para a geração de um container.
 
-Como citado anteriormente, um *container* representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e execuções que devem ser feitos no momento em que a imagem é executada e passa a ser um *container*.
-
-Com isto as imagens Docker é garantido que, todos os *containers* gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.
+Com isto, as imagens Docker garantem que, todos os *containers* gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.
 
 ### Criando imagens
 
@@ -78,7 +78,7 @@ Com o *script*  criado, vamos criar um arquivo com o nome `Dockerfile`, dentro d
 ```shell
 FROM python:3
 COPY ola.py ./
-
+  
 CMD [ "./ola.py" ]
 ENTRYPOINT [ "python" ]
 ```
@@ -296,7 +296,7 @@ Além do estado do *container*, em certos casos é necessário avaliar outras in
 
 Durante as verificações de estado e utilização de um *container*, pode ser necessário atribuir para ele limites de utilização, isto para que o desempenho dos vários *containers* que estão sendo executados não seja prejudicado pela necessidade de uso de um único *container*.
 
-> Um *container* ao ser criado, quando não é atribuido para ele um limite de recusos, a quantidade consumida pode chegar até o limite da máquina onde ele está sendo executado.
+> Quando não é atribuido limites de recursos a um *container*, se necessário, ele pode consumir todos os recursos da máquina onde está sendo executado.
 
 Vamos começar criando um *container* normalmente, como haviamos feito até aqui.
 

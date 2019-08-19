@@ -41,7 +41,7 @@ Veja que interessante! Com o Docker, o famoso "Na minha máquina funciona" deixa
 
 Bem, para começarmos a falar de Docker, vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.
 
-Virtualização é o processo de criar ambientes virtuais isolados, providos por alguma ferramenta de geração deste ambiente (@Soltesz2007), sendo que existem duas formas de prover estes ambientes virtuais (@Chung2016), sendo elas as baseadas em container e as baseadas em hypervisor (@Morabito2015). 
+Virtualização é o processo de criar ambientes virtuais isolados. Existem duas formas de prover tais ambientes (@Chung2016), sendo elas, as baseadas em containers ou hypervisors (@Morabito2015).
 
 Na virtualização baseada em hypervisor é criado a representação virtual de um *hardware* (@Firesmith), também chamada de MV, que é controlada por um hypervisor, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o *hardware*, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de *hardware* é completamente isolada da máquina onde está sendo alocada (@Morabito2015), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (@Morabito2015). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (@Morabito2015).
 
