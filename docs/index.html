@@ -140,9 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5.3" data-path="docker.html"><a href="docker.html#visualizando-status-do-container"><i class="fa fa-check"></i><b>2.5.3</b> Visualizando status do container</a></li>
 <li class="chapter" data-level="2.5.4" data-path="docker.html"><a href="docker.html#gerenciamento-de-memoria-e-cpu"><i class="fa fa-check"></i><b>2.5.4</b> Gerenciamento de memória e CPU</a></li>
 <li class="chapter" data-level="2.5.5" data-path="docker.html"><a href="docker.html#armazenamento"><i class="fa fa-check"></i><b>2.5.5</b> Armazenamento</a></li>
-<li class="chapter" data-level="2.5.6" data-path="docker.html"><a href="docker.html#rede"><i class="fa fa-check"></i><b>2.5.6</b> Rede</a></li>
 </ul></li>
-<li class="chapter" data-level="2.6" data-path="docker.html"><a href="docker.html#um-pouco-mais-sobre-o-ecossistema-docker"><i class="fa fa-check"></i><b>2.6</b> Um pouco mais sobre o ecossistema Docker 🐙</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="docker-cheat-sheet.html"><a href="docker-cheat-sheet.html"><i class="fa fa-check"></i><b>3</b> Docker Cheat Sheet 📚</a></li>
 <li class="chapter" data-level="4" data-path="exemplos-de-uso.html"><a href="exemplos-de-uso.html"><i class="fa fa-check"></i><b>4</b> Exemplos de uso</a><ul>
@@ -204,7 +202,7 @@ Containerization is increasingly popular because containers are:
 <div id="virtualizacao" class="section level2">
 <h2><span class="header-section-number">1.2</span> Virtualização</h2>
 <p>Bem, para começarmos a falar de Docker, vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.</p>
-<p>Virtualização é o processo de criar ambientes virtuais isolados, providos por alguma ferramenta de geração deste ambiente (<span class="citation">@Soltesz2007</span>), sendo que existem duas formas de prover estes ambientes virtuais (<span class="citation">@Chung2016</span>), sendo elas as baseadas em container e as baseadas em hypervisor (<span class="citation">@Morabito2015</span>).</p>
+<p>Virtualização é o processo de criar ambientes virtuais isolados. Existem duas formas de prover tais ambientes (<span class="citation">@Chung2016</span>), sendo elas, as baseadas em containers ou hypervisors (<span class="citation">@Morabito2015</span>).</p>
 <p>Na virtualização baseada em hypervisor é criado a representação virtual de um <em>hardware</em> (<span class="citation">@Firesmith</span>), também chamada de MV, que é controlada por um hypervisor, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o <em>hardware</em>, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de <em>hardware</em> é completamente isolada da máquina onde está sendo alocada (<span class="citation">@Morabito2015</span>), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (<span class="citation">@Morabito2015</span>). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (<span class="citation">@Morabito2015</span>).</p>
 <p>A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.</p>
 <p><img src="res/1_intro/hypervisor_overview.svg" /></p>
