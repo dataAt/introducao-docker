@@ -249,7 +249,7 @@ ENTRYPOINT [ &quot;bash&quot; ]</code></pre>
 <p>A saída do comando <code>docker build</code> já apresenta as camadas que estão sendo criadas, onde para cada uma há um <code>ID</code>.</p>
 </blockquote>
 <p><img src="res/2_docker/camadas_1.svg" /></p>
-<p>Para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado, o que fez o exemplo acima ter um problema, quando o comando <code>apt update -y</code> foi executado, um <em>cache</em> foi criado e certamente não vai mais ser utilizado. O problema é que este <em>cache</em> ficou em uma camada <em>read-only</em> e não poderá mais ser modificado. Se o comando para limpar o <em>cache</em> for utilizado, a camada onde o <em>cache</em> está será copiada para o topo e então editada.</p>
+<p>Para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado, o que fez o exemplo acima ter um problema, quando o comando <code>apt update -y</code> foi executado, um <em>cache</em> foi criado e certamente não vai mais ser utilizado. O problema é que este <em>cache</em> ficou em uma camada <em>read-only</em> e não poderá mais ser modificado. Se o comando para limpar o <em>cache</em> for utilizado, a camada onde do <em>cache</em> será copiada para o topo e então editada.</p>
 <p><img src="res/2_docker/camadas_2.svg" /></p>
 <p>Ou seja, mais uma camada foi criada, porém o <em>cache</em> ainda continua lá. Para resolve reste problema é preciso melhorar a forma como o <code>Dockerfile</code> foi criado, tentando executar tudo o que for possível em uma única camada, por exemplo.</p>
 <pre class="shell"><code>FROM ubuntu
@@ -301,7 +301,7 @@ docker rm ID_DO_CONTAINER_CRIADO
 
 # Criando um novo container de nome exemplo_debian
 docker create --name exemplo_debian debian</code></pre>
-<p>Ao listar novamente todos os <em>containers</em> você vai ver que lá está o novo <em>container</em>, com o nome que foi definido no comando anterior. O <em>container</em> ainda não está sendo executado, uma vez que definimos que ele deveria apenas ser criado, vamos então executar ele com o comando <code>docker start</code>.</p>
+<p>Ao utilizar novamente o comando <code>docker ps -a</code>, você vai ver o novo <em>container</em>, com o nome que foi definido. O <em>container</em> ainda não está sendo executado, uma vez que apenas fizemos sua criação, vamos então executar ele com o comando <code>docker start</code>.</p>
 <pre class="shell"><code>docker start exemplo_debian</code></pre>
 <p>Ele foi executado, para listar somente os <em>containers</em> que estão sendo executados, utilize o comando <code>docker ps</code>, sem qualquer outro parâmetro.</p>
 <p>Sua listagem estará vazia já que o <em>container</em> do Debian está configurado para executar o comando <code>bash</code>, então, ao iniciarmos o <em>container</em> ele executou o comando e em seguida finalizou, se quisermos manter o <em>container</em> ligado, devemos definir que ele terá um terminal interativo, para isto no momento da criação, os parâmetros <code>-ti</code> devem ser passados. Vamos lá então, excluir o que haviamos criado e gerar ele novamente com os novos parâmetros</p>
@@ -318,9 +318,11 @@ docker start exemplo_debian</code></pre>
 <blockquote>
 <p>Em outros cenários o <code>bash</code> pode não estar disponível, então ao invês do <code>docker attach</code> pode ser utilizado o <code>docker exec</code> (<a href="https://docs.docker.com/engine/reference/commandline/exec/">https://docs.docker.com/engine/reference/commandline/exec/</a>)</p>
 </blockquote>
-<p>Ao executar o comando, você já estará dentro do terminal do <em>container</em> criado. Como dito anteriormente, este ambiente é isolado de sua máquina, então faça testes, navegue entre os diretórios, para você ver que é uma instância completamente isolada. Para sair do terminal e não finalizar o <em>container</em> utilize os seguintes botões de seu teclado: <code>CTRL + p + q</code>. Ao listar novamente os <em>containers</em> em execução, lá estará ele sendo executado.</p>
+<p>Feito o <code>attach</code> você estará dentro do terminal do <em>container</em>. Como dito anteriormente, este ambiente é isolado de sua máquina, então faça testes, navegue entre os diretórios, para você ver que é uma instância completamente isolada. Para sair do terminal e não finalizar o <em>container</em> utilize os seguintes botões de seu teclado: <code>CTRL + p + q</code>. Ao listar novamente os <em>containers</em> em execução, lá estará ele sendo executado.</p>
 <p>Nos exemplos anteriores criavamos o <em>container</em> depois faziamos sua execução, porém podemos já criar um <em>container</em> e imediatamente realizar sua inicialização, para isto utilizamos o comando <code>docker run</code>, que recebe os mesmos parâmetros que o <code>docker create</code>, com a diferença de que ele executa o <em>container</em> após sua criação.</p>
-<pre><code>docker run -ti --name exemplo_debian debian</code></pre>
+<pre><code>docker rm -f exemplo_debian
+
+docker run -ti --name exemplo_debian debian</code></pre>
 <blockquote>
 <p>Executando o comando acima, o <em>container</em> irá iniciar e você já estará em seu <code>bash</code>.</p>
 </blockquote>
@@ -398,11 +400,11 @@ docker start exemplo_debian</code></pre>
 </tr>
 </tbody>
 </table>
-<p>Estes estados nos ajudam a entender o que está ocorrendo com os <em>containers</em> se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.</p>
+<p>Estes estados nos ajudam a entender o que está ocorrendo com os <em>containers</em>, se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.</p>
 </div>
 <div id="visualizando-status-do-container" class="section level3">
 <h3><span class="header-section-number">2.5.3</span> Visualizando status do container</h3>
-<p>Além do estado do <em>container</em>, em certos casos é necessário avaliar outras informações do container, a Tabela abaixo descreve comandos que podem ser úteis para a avaliação e verificação dos <em>containers</em>.</p>
+<p>Além do estado do <em>container</em>, em certos casos é necessário avaliar outras informações do container. A Tabela abaixo descreve comandos que podem ser úteis para a avaliação e verificação de status dos <em>containers</em>.</p>
 <table>
 <colgroup>
 <col width="11%" />
@@ -436,7 +438,7 @@ docker start exemplo_debian</code></pre>
 </div>
 <div id="gerenciamento-de-memoria-e-cpu" class="section level3">
 <h3><span class="header-section-number">2.5.4</span> Gerenciamento de memória e CPU</h3>
-<p>Durante as verificações de estado e utilização de um <em>container</em>, pode ser necessário atribuir para ele limites de utilização, isto para que o desempenho dos vários <em>containers</em> que estão sendo executados não seja prejudicado pela necessidade de uso de um único <em>container</em>.</p>
+<p>Durante as verificações de estado e utilização de um <em>container</em>, pode ser necessário atribuir limites de utilização, evitando o consumo excessivo de recursos, que pode prejudicar o servidor onde o Docker está trabalhando.</p>
 <blockquote>
 <p>Quando não é atribuido limites de recursos a um <em>container</em>, se necessário, ele pode consumir todos os recursos da máquina onde está sendo executado.</p>
 </blockquote>
@@ -445,12 +447,12 @@ docker start exemplo_debian</code></pre>
 <p>Agora, com a ajuda do comando <code>docker inspect</code>, vamos avaliar a quantidade de memória configurada para uso deste <em>container</em>.</p>
 <pre><code>docker inspect debian_de_teste | grep -i memory</code></pre>
 <p>A saída do comando acima é parecida com isto:</p>
-<pre><code>  &quot;Memory&quot;: 0,
-  &quot;KernelMemory&quot;: 0,
-  &quot;MemoryReservation&quot;: 0,
-  &quot;MemorySwap&quot;: 0,
-  &quot;MemorySwappiness&quot;: null,</code></pre>
-<p>O campo <code>Memory</code> está com valor 0, isto indica que, para este <em>container</em> não há limitação de uso de memória, como citado anteriormente. Para resolver este problema, vamos excluir este <em>container</em> e gerar um novo com a limitação de memória.</p>
+<pre><code>&quot;Memory&quot;: 0,
+&quot;KernelMemory&quot;: 0,
+&quot;MemoryReservation&quot;: 0,
+&quot;MemorySwap&quot;: 0,
+&quot;MemorySwappiness&quot;: null,</code></pre>
+<p>O campo <code>Memory</code> está com valor 0, isto indica que, para este <em>container</em> não há limitação de uso de memória. Para resolver este problema, vamos excluir este <em>container</em> e gerar um novo com um limite de memória.</p>
 <pre><code># Excluíndo container sem limite de memória
 # -f Para excluir mesmo se o container estiver com estado UP
 docker rm -f debian_de_teste
@@ -465,7 +467,7 @@ docker run -ti --name debian_de_teste --memory 512m debian</code></pre>
 &quot;MemoryReservation&quot;: 0,
 &quot;MemorySwap&quot;: -1,
 &quot;MemorySwappiness&quot;: null,</code></pre>
-<p>Com isso, o <em>container</em> não vai consumir mais que 512 MB da máquina onde está sendo executado. Outra cenário possível para a mudança de quantidade de memória é quando o <em>container</em> já está funcionando e você precisa mudar seu limite de memória. Isto pode ser feito através do comando <code>docker update</code>.</p>
+<p>Com isso, o <em>container</em> não vai consumir mais que 512 MB de memória da máquina onde está sendo executado. Outra cenário possível para a mudança de quantidade de memória é quando o <em>container</em> já está funcionando e você precisa mudar seu limite de memória. Isto pode ser feito através do comando <code>docker update</code>.</p>
 <p>Vamos mudar a quantidade de memória do <em>container</em> de testes que geramos acima.</p>
 <pre><code>docker update --memory 256m debian_de_teste</code></pre>
 <blockquote>
@@ -477,11 +479,13 @@ docker run -ti --name debian_de_teste --memory 512m debian</code></pre>
 &quot;MemoryReservation&quot;: 0,
 &quot;MemorySwap&quot;: -1,
 &quot;MemorySwappiness&quot;: null,</code></pre>
-<p>Além da memória pode ser necessário limitar a quantidade de CPU que o <em>container</em> pode utilizar. Todos os principios apresentados na mudança de memória podem ser aplicados aqui, ou seja, pode ser atribuido valores de limitação na criação ou em <em>containers</em> já em execução, o ponto para a CPU é que os valores atribuidos funcionam um pouco diferentes, vamos para a explicação.</p>
-<p>Quando os valores de utilização de CPU vão ser atribuidos, é utilizado um conceito de proporção, vamos para um exemplo, neste três <em>containers</em> serão criados.</p>
-<pre><code>docker run -ti --name debian_1 --cpu-shares 1024 debian
-docker run -ti --name debian_2 --cpu-shares 512 debian
-docker run -ti --name debian_3 --cpu-shares 512 debian</code></pre>
+<p>Além da memória pode ser necessário limitar a quantidade de CPU que o <em>container</em> pode utilizar. Todos os principios apresentados na mudança de memória podem ser aplicados aqui, ou seja, pode ser atribuido valores de limitação na criação ou em <em>containers</em> já em execução, o ponto para a CPU é que os valores atribuidos funcionam um pouco diferentes, através de uma lógica de proporção.</p>
+<p>Vamos para um exemplo, neste três <em>containers</em> serão criados.</p>
+<pre><code>docker create -ti --name debian_1 --cpu-shares 1024 debian
+docker create -ti --name debian_2 --cpu-shares 512 debian
+docker create -ti --name debian_3 --cpu-shares 512 debian
+
+docker start debian_1 debian_2 debian_3</code></pre>
 <blockquote>
 <p>O parâmetro <code>--cpu-shares</code> é quem define os valores de utilização da CPU</p>
 </blockquote>
