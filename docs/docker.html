@@ -169,20 +169,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="docker" class="section level1">
 <h1><span class="header-section-number">2</span> Docker 🐳</h1>
-<p>Docker é uma plataforma para o gerenciamento de <em>containers</em> (<span class="citation">@Schommer2014</span>), que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações através de Linux Containers (LXC) (<span class="citation">@Schommer2014</span>).</p>
-<p>Ao utilizar o Docker, todos os problemas relacionados a instalação, configuração e solução de problemas relacionados a conflitos de dependências de um sistema são facilmente resolvidos. Atualmente o Docker vem sendo aplamente utilizado por sua facilidade de uso e baixa utilização de recursos computacionais para a implantação de sistemas e execução de algoritmos.</p>
+<p>Docker é uma plataforma para o gerenciamento de <em>containers</em> (<span class="citation">@Schommer2014</span>), que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações.</p>
+<p>Ao utilizar o Docker, todos os problemas relacionados a instalação, configuração e dependências são facilmente resolvidos. Atualmente o Docker vem sendo aplamente utilizado por sua facilidade de uso e baixa utilização de recursos computacionais para a implantação de sistemas e execução de algoritmos.</p>
 <p>Todo o funcionamento do Docker é baseado em uma comunicação cliente-servidor, onde o cliente, através de uma API Rest envia comandos para o docker-daemon, que por sua vez representa o gerenciador de <em>containers</em> que realiza todas as operações e verificações necessárias para o funcionamento correto e simples do Docker. Esta estrutura é resumida na Figura abaixo.</p>
 <center>
 <img src="res/2_docker/docker_api_infra.jpg" height="400" />
 </center>
 <p>A forma como fazemos a utilização da estrutura acima pode variar, já que se trata de uma API Rest, básicamente, qualquer linguagem de programação que suporte a comunicação através de protocolos de rede como HTTP conseguem se comunicar e interagir com o docker-daemon. Veja a Figura abaixo.</p>
 <p><img src="res/2_docker/docker_connect_api.svg" /></p>
-<p>Na Figura acima é possível entender como o processo de comunicação e interação com o docker-daemon funciona. O Cliente envia comandos através da API Rest, sendo que para esta já existem diversas ferramentas que consomem e facilitam o processo, como é o caso do próprio Docker CLI, que é uma ferramenta de linha de comando distribuida nas instalações padrão do Docker. O Servidor recebe as requisições e faz os tratamentos e operações equivalentes aos pedidos.</p>
+<p>Na Figura acima é possível entender como o processo de comunicação e interação com o docker-daemon funciona. O cliente envia comandos através da API Rest e o servidor recebe tais requisições, verifica sua validade e então realiza as operações necessárias.</p>
 <p>Este tipo de estrutura permite que, através de uma máquina seja feito o gerenciamento de vários servidores Docker, sem contar que, por ser uma API Rest, aplicações podem fazer interações com o servidor, o que facilita ainda mais a criação e disponibilização de ferramentas para o gerenciamento de <em>containers</em> através do Docker.</p>
-<p>O ambiente do Docker, que como citado, é gerenciado pelo docker-daemon é constituido por três componentes principais (<span class="citation">@Chung2016</span>), sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.</p>
+<p>O ambiente do Dockeré constituido por três componentes principais (<span class="citation">@Chung2016</span>), sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.</p>
 <div id="instalacao" class="section level2">
 <h2><span class="header-section-number">2.1</span> Instalação</h2>
-<p>Agora com a visão geral de funcionamento do Docker, vamos fazer a instalação dele para começarmos a fazer sua utilização e entender os conceitos na prática! Por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux.</p>
+<p>Com a visão geral de funcionamento do Docker, vamos fazer sua instalação para começarmos a utilização e entender os conceitos na prática! Por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux.</p>
 <p>Os passos abaixo, apresentam a instalação do Docker no Linux Ubuntu (16.04 ou superior).</p>
 <pre><code>$ curl -fsSL https://get.docker.com -o get-docker.sh
 $ sudo sh get-docker.sh</code></pre>
@@ -198,11 +198,11 @@ $ sudo sh get-docker.sh</code></pre>
 </div>
 <div id="containers" class="section level2">
 <h2><span class="header-section-number">2.2</span> Containers</h2>
-<p><em>Containers</em> são instâncias de Imagens Docker que estão sendo executadas em ambientes isolados, sendo que, nestes ambientes há todos os recursos necessários para a execução dos processos os quais foram definidos para os <em>containers</em>. Por exemplo, quando você quiser executar um <em>container</em> com o Postgres, ao realizar a execução, dentro do <em>container</em> já estará todas as bibliotecas necessárias para a execução do Postgres, inclusive os binários do banco propriamente dito.</p>
+<p><em>Containers</em> são instâncias de Imagens Docker que estão sendo executadas em ambientes isolados, sendo que, nestes ambientes há todos os recursos necessários para a execução do processo que foi definido. Por exemplo, quando você quiser executar um <em>container</em> com o Postgres, ao realizar a execução, dentro do ambiente que é gerado, todas as bibliotecas necessárias para a execução do Postgres, inclusive os binários do banco propriamente dito já estarão disponíveis.</p>
 </div>
 <div id="imagens-de-containers" class="section level2">
 <h2><span class="header-section-number">2.3</span> Imagens de containers</h2>
-<p>Como citado anteriormente, um <em>container</em> representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e processos que devem ser feitos no momento em que são executadas para a geração de um container.</p>
+<p>Como citado anteriormente, um <em>container</em> representa uma imagem Docker que está sendo executada. As imagens Docker, por sua vez, representam arquivos executáveis que possuem todo o descritivo de arquivos e processos que devem ser feitos no momento em que são executadas para a geração de um <em>container</em>.</p>
 <p>Com isto, as imagens Docker garantem que, todos os <em>containers</em> gerados através da mesma imagem sejam padronizados, tendo uma mesma estrutura.</p>
 <div id="criando-imagens" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Criando imagens</h3>
@@ -211,7 +211,7 @@ $ sudo sh get-docker.sh</code></pre>
 <p>Para você entender melhor, vamos criar um exemplo de uma imagem Docker que gera um <em>container</em> que executa um <em>script</em> Python.</p>
 <p>Vamos começar criando o <em>script</em> Python, fazemos isto utilizando o comando abaixo</p>
 <pre class="shell"><code>echo &quot;print(&#39;Oi! Esta é minha primeira imagem Docker! E ela funciona!&#39;)&quot; &gt; ola.py</code></pre>
-<p>Com o <em>script</em> criado, vamos criar um arquivo com o nome <code>Dockerfile</code>, dentro deste arquivo, vamos inserir o seguinte conteúdo. Não se preocupe se você não entender agora, cada uma das partes deste arquivo será explicada.</p>
+<p>Agora, no mesmo diretório onde está o arquivo do <em>script</em>, vamos criar um arquivo com o nome <code>Dockerfile</code>, dentro deste arquivo vamos inserir o seguinte conteúdo (Não se preocupe se você não entender agora, cada uma das partes deste arquivo será explicada).</p>
 <pre class="shell"><code>FROM python:3
 COPY ola.py ./
   
@@ -219,7 +219,7 @@ CMD [ &quot;./ola.py&quot; ]
 ENTRYPOINT [ &quot;python&quot; ]</code></pre>
 <p>Ao finalizar a edição do arquivo, vá até o diretório onde o arquivo está criado, e execute o comando <code>docker build</code>.</p>
 <pre class="shell"><code>docker build -t &quot;minha_primeira_imagem:1.0&quot; .</code></pre>
-<p>Com este comando a sua imagem Docker será criada. Para verificar se ela realmente foi criada execute o comando <code>docker images</code>, que lista todas as imagens disponíveis para você utilizar. Ao digitar este comando você perceberá que há uma imagem com <code>REPOSITORY</code> de nome <code>minha_primeira_imagem</code>.</p>
+<p>Com este comando a sua imagem Docker será gerada Para verificar se ela realmente foi criada, execute o comando <code>docker images</code>, que lista todas as imagens disponíveis em sua máquina. Ao digitar este comando você perceberá que existe uma imagem com <code>REPOSITORY</code> de nome <code>minha_primeira_imagem:1.0</code>.</p>
 <p>Para utilizar a imagem criada para gerar um container, vamos fazer a execução da imagem</p>
 <pre><code>docker run minha_primeira_imagem:1.0</code></pre>
 <blockquote>
@@ -228,19 +228,15 @@ ENTRYPOINT [ &quot;python&quot; ]</code></pre>
 <div id="entendendo-o-dockerfile" class="section level4">
 <h4><span class="header-section-number">2.3.1.1</span> Entendendo o Dockerfile</h4>
 <p>Anteriormente foi visto um simples <code>Dockerfile</code>, que criou uma imagem para a execução de um <em>script</em> Python, vamos analisa-lo para entender o que foi feito.</p>
-<p>Inicialmente no arquivo foi importado uma imagem com nome <code>python:3</code>, isto é feito com o comando <code>FROM</code>. Ou seja, sua imagem foi criada com base em uma outra imagem, esta que já possuia o Python 3 instalado.</p>
+<p>Inicialmente no arquivo foi importado uma imagem com nome <code>python:3</code>, isto é feito com o comando <code>FROM</code>. Ou seja, sua imagem foi criada com base em uma outra image que já possuia o Python 3 instalado.</p>
 <p>Após a definição da imagem base, foi feito uma cópia do <em>script</em> para dentro do <em>container</em>, através do comando <code>COPY</code>.</p>
-<p>Por fim, os comandos <code>CMD</code> e <code>ENTRYPOINT</code> foram executados, e estes representam partes muito importantes de um <code>Dockerfile</code>, isto porque, normalmente um <em>container</em> é criado para executar um único processo, podendo este ser por exemplo, a inicialização de uma aplicação, ou a execução de um <em>script</em> , como fizemos.</p>
-<p>A definição do processo que o <em>container</em> irá executar é feita através do comando <code>ENTRYPOINT</code>, ou seja, no nosso caso o processo principal será uma execução python, e o comando <code>CMD</code> faz o auxílio ao <code>ENTRYPOINT</code> já que, o <code>CMD</code> representam os parâmetros que serão passados para o <code>ENTRYPOINY</code>.</p>
-<p>Existem muitas outras instruções que poderiam ser aplicadas neste <code>Dockerfile</code>, para saber mais sobre eles utilize a documentação do Docker (<a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a>).</p>
+<p>A definição do processo que o <em>container</em> irá executar é feita através do comando <code>ENTRYPOINT</code>, ou seja, no nosso caso o processo principal será uma execução python, e o comando <code>CMD</code> faz o auxílio ao processo principal, indicando os parâmetros que serão passados para o <code>ENTRYPOINY</code>.</p>
+<p>Existem muitas outras instruções que poderiam ser aplicadas no <code>Dockerfile</code>, para saber mais sobre eles utilize a documentação do Docker (<a href="https://docs.docker.com/engine/reference/builder/">https://docs.docker.com/engine/reference/builder/</a>).</p>
 </div>
 <div id="camadas-de-uma-imagem" class="section level4">
 <h4><span class="header-section-number">2.3.1.2</span> Camadas de uma imagem</h4>
-<p>O Docker trabalha utilizando um conceito de camadas, onde cada modificação realizada por comandos do Dockerfile cria uma camada que não pode ser alterada, sendo possível alterar somente a última camada gerada.</p>
-<blockquote>
-<p>É importante entender o conceitos de camadas para que, suas imagens não fiquem grandes e com arquivos desnecessários.</p>
-</blockquote>
-<p>Durante os testes de geração de imagens, ao executar o comando <code>docker buid</code>, várias informações foram exibidas, cada uma daquelas informações representam as camadas que estavam sendo criadas na imagem gerada.</p>
+<p>Para a geração de imagens, o Docker utiliza um conceito de camadas, onde cada comando do <code>Dockerfile</code> indica uma camada que será gerada na imagem. Estas camadas são utilizadas para permitir o versionamento da imagem e suas mudanças.</p>
+<p>As camadas são organizadas como pilhas, onde a última camada sempre estará no topo, além disso, é sempre a última camada que pode ser modificada, todas as demais abaixo desta são <em>read-only</em>, não podendo ser modificadas. Para fazer mudanças em conteúdos das camadas <em>read-only</em> uma copia desta é criada e alterada.</p>
 <p>Para entendermos melhor como as camadas funcionam, vamos criar um pequeno exemplo. Veja o seguinte <code>Dockerfile</code>.</p>
 <pre class="shell"><code>FROM ubuntu
 
@@ -249,8 +245,11 @@ RUN apt install vim -y
 
 ENTRYPOINT [ &quot;bash&quot; ]</code></pre>
 <p>Ao executar o comando <code>docker build</code> com o <code>Dockerfile</code> acima, a seguinte estrutura de camadas será criada.</p>
+<blockquote>
+<p>A saída do comando <code>docker build</code> já apresenta as camadas que estão sendo criadas, onde para cada uma há um <code>ID</code>.</p>
+</blockquote>
 <p><img src="res/2_docker/camadas_1.svg" /></p>
-<p>Veja que, para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado. Porém há um pequeno problema, quando o comando <code>apt update -y</code> foi executado <em>cache</em> foi criado e certamente não vai mais ser utilizado. O problema é que este <em>cache</em> ficou em uma camada <em>read-only</em> e não poderá mais ser modificado. Se o comando para limpar o <em>cache</em> for utilizado, a camada onde o <em>cache</em> está será copiada para o topo e então editada.</p>
+<p>Para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado, o que fez o exemplo acima ter um problema, quando o comando <code>apt update -y</code> foi executado, um <em>cache</em> foi criado e certamente não vai mais ser utilizado. O problema é que este <em>cache</em> ficou em uma camada <em>read-only</em> e não poderá mais ser modificado. Se o comando para limpar o <em>cache</em> for utilizado, a camada onde o <em>cache</em> está será copiada para o topo e então editada.</p>
 <p><img src="res/2_docker/camadas_2.svg" /></p>
 <p>Ou seja, mais uma camada foi criada, porém o <em>cache</em> ainda continua lá. Para resolve reste problema é preciso melhorar a forma como o <code>Dockerfile</code> foi criado, tentando executar tudo o que for possível em uma única camada, por exemplo.</p>
 <pre class="shell"><code>FROM ubuntu
@@ -270,24 +269,22 @@ ENTRYPOINT [ &quot;bash&quot; ]</code></pre>
 </div>
 <div id="aquisicao-de-imagens" class="section level3">
 <h3><span class="header-section-number">2.3.2</span> Aquisição de imagens</h3>
-<p>Além da criação de imagens é possível fazer a aquisição de imagens já criadas pela comunidade, ou mesmo distribuída por algum instituto ou empresa com seus sistemas já configurados e prontos para a execução.</p>
-<p>Para isso o Docker Registry pode ser utilizado, este que é um componente que está dentro da plataforma Docker e que facilita muito a sua utilização. Estes componentes podem ser públicos e disponível para todos, como o caso do <a href="https://hub.docker.com/">Dockerhub</a> ou privado, específico para empresas e institutos, por exemplo.</p>
-<p>Por fazer parte da plataforma, o registry já está integrado ao funcionamento do docker-daemon. Vamos fazer alguns testes para entender. Utilize o comando <code>docker images</code> para listar as imagens que estão em sua máquina.</p>
-<p>Você provavelmente só terá a imagem criada anteriormente (Isso se você não excluíu ela). Vamos então tentar executar uma imagem que não está na sua máquina.</p>
+<p>Além da criação é possível também fazer a aquisição de imagens disponibilizadas pela comunidade, ou mesmo distribuída por algum instituto ou empresa com seus sistemas já configurados e prontos para a execução.</p>
+<p>Para isso utiliza-se o Docker Registry, um componente que está dentro da plataforma Docker e que facilita muito a distribuição de imagens. Registry pode ser público ou privado. Um exemplo muito útil de Registry público é o <a href="https://hub.docker.com/">Dockerhub</a>.</p>
+<p>Por fazer parte da plataforma, o registry já está integrado ao funcionamento do docker-daemon. Vamos fazer alguns testes para entender.</p>
+<p>Com o comando <code>docker images</code>, liste todas as imagens em sua máquina. Você provavelmente terá a imagem criada e a imagem do <code>python:3</code> (Você já vai entender de onde ela veio).</p>
+<p>Vamos então tentar executar uma imagem que não está na sua máquina.</p>
 <pre class="shell"><code>docker run centos:7</code></pre>
-<p>Mesmo você não tendo a imagem nomeada <code>centos:7</code> em sua máquina o comando está sendo executado, isso porque o docker-daemon, por padrão, ao não encontrar em sua máquina verifica no registry público Docker hub e verifica se tem uma imagem com o nome que você inseriu, caso tenha ele baixa para dai executar o comando inserido. Veja a Figura.</p>
+<p>Mesmo você não tendo a imagem nomeada <code>centos:7</code> em sua máquina o comando está sendo executado, isso porque o docker-daemon, por padrão, ao não encontrar em sua máquina vai até o Docker hub e verifica se tem uma imagem com o nome que você inseriu, caso tenha ele baixa e continua a execução de seu comando. Veja este fluxo na Figura abaixo.</p>
 <p><img src="res/2_docker/docker_registry.svg" /></p>
 <p>Durante os passos da criação do <a href="docker.html#criando-imagens">Dockerfile</a> essa <em>feature</em> foi utilizada, ao inserir a imagem de nome <code>python:3</code> na instrução <code>FROM</code> do <code>Dockerfile</code>, o <code>docker-daemon</code> verifica se há a imagem na máquina, como não tinha ele baixou para então continuar a criação da imagem.</p>
 </div>
 </div>
 <div id="arquitetura" class="section level2">
 <h2><span class="header-section-number">2.4</span> Arquitetura</h2>
-<p>Com todos os componentes já conhecidos, há a possibilidade da expansão da visão geral de toda a estrutura e funcionamento do Docker. Inicialmente haviamos definido somente a forma de comunicação entre o cliente-servidor, porém agora com todos os conceitos que já vimos, vamos olhar como todo o ambiente Docker está integrado, para isto veja a Figura abaixo.</p>
+<p>Com todos os componentes básicos do Docker já conhecidos, há a possibilidade de expansão da visão geral de toda a estrutura e funcionamento do Docker. Inicialmente na parte estrutural haviamos definido apenas a forma de comunicação, veja agora na Figura abaixo, como todos os componentes apresentados até aqui fazem integração.</p>
 <!-- Será adaptado de: https://www.aquasec.com/wiki/display/containers/Docker+Architecture?preview=/2854889/2854891/Docker_Architecture.png -->
 <p><img src="res/2_docker/docker_arch.png" /></p>
-<blockquote>
-<p>É possível perceber toda a ligação entre cada um dos componentes apresentados até aqui.</p>
-</blockquote>
 <p>Com isso estamos prontos para iniciar as atividades práticas com o Docker e o gerenciamento de <em>containers</em>.</p>
 </div>
 <div id="administrando-containers" class="section level2">
@@ -564,7 +561,7 @@ docker run -ti -v /arquivos_containers:/volume --name ubuntu_com_volume ubuntu</
 </blockquote>
 <p>Dentro do <em>container</em>, vá até o diretório <code>volume</code> e crie um arquivo qualquer.</p>
 <pre><code>cd /volume &amp;&amp; &gt; arquivo_qualquer_2.txt</code></pre>
-<p>Agora saida do <em>container</em> e liste o diretório <code>/arquivos_containers</code>, você vai perceber que o arquivo criado no <em>container</em> está lá.</p>
+<p>Agora saia do <em>container</em> e liste o diretório <code>/arquivos_containers</code>, você vai perceber que o arquivo criado no <em>container</em> está lá.</p>
 <p>Lembrando que, a forma que você escolher para mapear os dados pode depender completamente de seu contexto e sua necessidade.</p>
 <p>Então, chegamos ao fim desta parte da documentação, tudo o que foi mostrado até é um guia básico de como realizar a utilização do Docker, não deixe de conferir a documentação no site oficial e também de fazer testes para ir aprendendo mais!</p>
 <!-- ### Rede -->
@@ -616,7 +613,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["intro-docker.pdf"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }

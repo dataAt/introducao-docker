@@ -172,9 +172,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introducao" class="section level1">
 <h1><span class="header-section-number">1</span> Introdução</h1>
 <p>Desde seu surgimento o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.</p>
-<p>No âmbito científico, o Docker vem sendo utilizado cada vez mais para a garantia da reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como <span class="citation">@Boettiger2014</span> e <span class="citation">@Schommer2014</span> apresentam.</p>
+<p>No âmbito científico Docker vem sendo utilizado para a garantia de reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como <span class="citation">@Boettiger2014</span> e <span class="citation">@Schommer2014</span> apresentam.</p>
 <p>O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.</p>
-<p>Neste contexto, este material busca realizar uma introdução do Docker e os principais conceitos envolvidos na utilização desta ferramenta. A criação deste material foi feita para ajudar a todos que queiram começar a utilizar o Docker em seu dia-a-dia 😄.</p>
+<p>Neste contexto, este materialfaz uma introdução ao Docker e os principais conceitos envolvidos em sua utilização. Caso encontre algum problema no material, abra uma <a href="https://github.com/dataAt/introducao-docker/issues">issue</a>, assim podemos mudar e melhorar! 😄</p>
 <div id="por-que-docker" class="section level2">
 <h2><span class="header-section-number">1.1</span> Por que Docker ?</h2>
 <!--
@@ -190,30 +190,30 @@ Containerization is increasingly popular because containers are:
     Stackable: You can stack services vertically and on-the-fly.
 -->
 <p>A resposta para esta pergunta pode ter várias respostas, uma vez que, a depender do contexto onde você está inserido, o Docker pode trazer muitos benefícios, vou colocar aqui em um contexto mais relacionado ao desenvolvimento de aplicações. Então, vamos começar imaginando que você é um desenvolvedor Python, que está trabalhando em vários projetos.</p>
-<p>O primeiro projeto que você está trabalhando, está relacionado ao desenvolvimento de uma aplicação <em>web</em> e para isso, tem utilizado o PostgreSQL e Django, para realizar o desenvolvimento, já o segundo projeto, está ligado ao processamento de dados geoespaciais e você utilizou o GDAL e o numpy. Tudo bem até aqui ? É um cenário simples de imaginar.</p>
-<p>Bem, como você desenvolve na mesma máquina e é um desenvolvedor Python com bastante experiência em projetos, entende que, as dependências do projeto <em>web</em> não podem interferir no projeto de processamento de geodados. Para resolver este problema você cria ambientes virtuais dentro do Python, com isso, você consegue separar os projetos e garantir que, as bibliotecas e dependências de um projeto em momento algum irão interferir em outro projeto, além de permitir que você controle melhor as dependências de cada projeto.</p>
-<p>Então, você finaliza os dois projetos e eles devem ser distribuidos para todos e é aqui que os problemas começam, durante a instalação das dependências, você percebeu que, dependendo da versão do S.O, a biblioteca que você utilizou para se conectar ao PostgreSQL, SQLAlchemy, apresenta problemas quando tenta ser instalado com o <code>pip</code>, o que faz a instalação dos <code>requirements.txt</code> dar problemas. E ainda, no projeto de processamento, uma das dependências, o GDAL, que facilita a leitura de dados espaciais também tem o mesmo problema, dependendo da plataforma, ele tem problemas para instalar.</p>
+<p>O primeiro projeto que você está trabalhando, está relacionado ao desenvolvimento de uma aplicação <em>web</em> e para isso, tem utilizado o PostgreSQL e Django no desenvolvimento, já o segundo projeto, está ligado ao processamento de dados geoespaciais e você utiliza o GDAL e o numpy. Tudo bem até aqui ? É um cenário simples de imaginar.</p>
+<p>Bem, como você desenvolve na mesma máquina e é um desenvolvedor Python com bastante experiência em projetos, entende que, as dependências do projeto <em>web</em> não podem interferir no projeto de processamento de dados geoespaciais. Para resolver este problema você cria ambientes virtuais dentro do Python, com isso, você consegue separar os projetos e garantir que, as bibliotecas e dependências de um projeto em momento algum irão interferir em outro projeto, além de permitir que você controle melhor as dependências de cada projeto.</p>
+<p>Então, você finaliza os dois projetos e eles devem ser distribuidos para todos e é aqui que os problemas começam, durante a instalação das dependências, você percebe que, dependendo da versão do S.O, a biblioteca que você utilizou para se conectar ao PostgreSQL, SQLAlchemy, apresenta problemas quando tenta ser instalado com o <code>pip</code>, o que faz a instalação dos <code>requirements.txt</code> dar problemas. E ainda, no projeto de processamento de dados, uma das dependências, o GDAL, que facilita a leitura de dados espaciais também tem o mesmo problema, dependendo da plataforma problemas de instalação são encontrados</p>
 <p>Ops! Os projetos estão prontos, porém as dependências podem dificultar a utilização e implantação deles. É aqui que entra o Docker, você vai criar duas <em>imagens</em> (Serão apresentadas mais para frente no material) com todo o seu projeto e o Docker vai garantir que, independende da plataforma ou do OS utilizado, eles vão funcionar.</p>
 <p>Veja que interessante! Com o Docker, o famoso “Na minha máquina funciona” deixa de existir, e o projeto vai funcionar em todas as plataformas. Este é um pequeno exemplo de o porque utilizar Docker, outros poderiam ser colocados aqui.</p>
 <blockquote>
-<p>Esta mini história foi inserida apenas para você entender que o Docker pode te ajudar em problemas do dia-a-dia.</p>
+<p>Esta pequena história foi contada apenas para você entender como o Docker pode te ajudar em problemas do dia-a-dia.</p>
 </blockquote>
 </div>
 <div id="virtualizacao" class="section level2">
 <h2><span class="header-section-number">1.2</span> Virtualização</h2>
-<p>Bem, para começarmos a falar de Docker, vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.</p>
-<p>Virtualização é o processo de criar ambientes virtuais isolados. Existem duas formas de prover tais ambientes (<span class="citation">@Chung2016</span>), sendo elas, as baseadas em containers ou hypervisors (<span class="citation">@Morabito2015</span>).</p>
-<p>Na virtualização baseada em hypervisor é criado a representação virtual de um <em>hardware</em> (<span class="citation">@Firesmith</span>), também chamada de MV, que é controlada por um hypervisor, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o <em>hardware</em>, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de <em>hardware</em> é completamente isolada da máquina onde está sendo alocada (<span class="citation">@Morabito2015</span>), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (<span class="citation">@Morabito2015</span>). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (<span class="citation">@Morabito2015</span>).</p>
+<p>Bem, para começarmos a falar de Docker vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.</p>
+<p>Virtualização é o processo de criar ambientes virtuais isolados. Existem duas formas de prover tais ambientes (<span class="citation">@Chung2016</span>), sendo elas, as baseadas em <em>containers</em> ou <em>hypervisors</em> (<span class="citation">@Morabito2015</span>).</p>
+<p>Na virtualização baseada em <em>hypervisor</em> é criado a representação virtual de um <em>hardware</em> (<span class="citation">@Firesmith</span>), também chamada de máquina virtual (MV), que é controlada por um <em>hypervisor</em>, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o <em>hardware</em>, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de <em>hardware</em> é completamente isolada da máquina onde está sendo alocada (<span class="citation">@Morabito2015</span>), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (<span class="citation">@Morabito2015</span>). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (<span class="citation">@Morabito2015</span>).</p>
 <p>A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.</p>
 <p><img src="res/1_intro/hypervisor_overview.svg" /></p>
-<p>Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados todo o sistema operacional e então, as aplicações podem começar a ser executadas.</p>
-<p>Por outro lado existem as técnicas de virtualização baseadas em containers, que são executadas a nível de sistema operacional (<span class="citation">@Firesmith</span>), que criam ambientes isolados com o compartilhamento de arquivos, bibliotecas e o kernel do sistema base onde está sendo executado. Estes ambientes isolados são utilizados para a execução de processos e aplicações.</p>
+<p>Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados sistemas operacionais completos e então, as aplicações podem começar a ser executadas sobre estes sistemas.</p>
+<p>Por outro lado existem as técnicas de virtualização baseadas em <em>containers</em>, que são executadas a nível de sistema operacional (<span class="citation">@Firesmith</span>), onde são criados ambientes isolados, ou <em>containers</em>, com o compartilhamento de arquivos, bibliotecas e o kernel do sistema base onde está sendo executado. Estes ambientes isolados são utilizados para a execução de processos e aplicações.</p>
 <blockquote>
 <p>É neste tipo de virtualização que o Docker se encaixa.</p>
 </blockquote>
 <p>Na Figura abaixo é possível visualizar como este método de virtualização funciona.</p>
 <p><img src="res/1_intro/container_overview.svg" /></p>
-<p>Veja que, não há representação de várias máquinas sendo criadas e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados, também chamados de <em>containers</em>, normalmente executam um único processo que pode, por exemplo, ser uma aplicação <em>web</em> ou mesmo um processo <em>bash</em>, que disponibiliza um terminal ao utilizador.</p>
+<p>Veja que, não há representação de várias máquinas sendo criadas e sim de aplicações que estão sendo executadas, já que, neste método de virtualização, cada um dos ambientes criados normalmente executam um único processo, podendo este ser uma aplicação ou mesmo um terminal <em>bash</em>.</p>
 
 </div>
 </div>
@@ -260,7 +260,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["intro-docker.pdf"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
