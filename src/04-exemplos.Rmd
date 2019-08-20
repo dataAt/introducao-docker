@@ -1,8 +1,6 @@
 # Exemplos de uso
 
-Este capítulo apresenta exemplos de utilização do Docker para a configuração e utilização de diferentes ferramentas.
-
-Os exemplos apresentados neste capítulo utilizam imagens recuperadas do registry Dockerhub. Boa parte dessas imagens oficiais, ou seja, distribuídas pelo grupo, organização ou instituição que cria a ferramenta.
+Este capítulo apresenta exemplos de utilização do Docker para a configuração e utilização de diferentes ferramentas. As imagens utilizadas serão recuperadas do Dockerhub. Boa parte dessas imagens oficiais, ou seja, distribuídas pelo grupo, organização ou instituição que cria a ferramenta.
 
 > Aproveite os exemplos para ver o quão simples é o compartilhamento de imagens via registry e também, o quão simples é implantar diferentes serviços com o Docker. Não é necessário diversos arquivos de configuração!
 

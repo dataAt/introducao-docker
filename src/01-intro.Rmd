@@ -2,7 +2,7 @@
 
 Desde seu surgimento o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.
 
-No âmbito científico Docker vem sendo utilizado para a garantia de reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como @Boettiger2014 e @Schommer2014 apresentam.
+No âmbito científico Docker vem sendo utilizado para a garantia de reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como apresentado por @Boettiger2014 e @Schommer2014.
 
 O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.
 

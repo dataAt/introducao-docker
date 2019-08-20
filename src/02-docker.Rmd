@@ -134,7 +134,7 @@ Ao executar o comando `docker build` com o `Dockerfile` acima, a seguinte estrut
 
 ![](res/2_docker/camadas_1.svg)
 
-Para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado, o que fez o exemplo acima ter um problema, quando o comando `apt update -y` foi executado, um *cache* foi criado e certamente não vai mais ser utilizado. O problema é que este *cache* ficou em uma camada *read-only* e não poderá mais ser modificado. Se o comando para limpar o *cache* for utilizado, a camada onde o *cache* está será copiada para o topo e então editada.
+Para cada comando foi criado uma camada, que por sua vêz tem um peso. Das camadas 1 a 4 nada mais pode ser alterado, o que fez o exemplo acima ter um problema, quando o comando `apt update -y` foi executado, um *cache* foi criado e certamente não vai mais ser utilizado. O problema é que este *cache* ficou em uma camada *read-only* e não poderá mais ser modificado. Se o comando para limpar o *cache* for utilizado, a camada onde do *cache* será copiada para o topo e então editada.
 
 ![](res/2_docker/camadas_2.svg)
 
@@ -212,7 +212,7 @@ docker rm ID_DO_CONTAINER_CRIADO
 docker create --name exemplo_debian debian
 ```
 
-Ao listar novamente todos os *containers* você vai ver que lá está o novo *container*, com o nome que foi definido no comando anterior. O *container* ainda não está sendo executado, uma vez que definimos que ele deveria apenas ser criado, vamos então executar ele com o comando `docker start`.
+Ao utilizar novamente o comando `docker ps -a`, você vai ver o novo *container*, com o nome que foi definido. O *container* ainda não está sendo executado, uma vez que apenas fizemos sua criação, vamos então executar ele com o comando `docker start`.
 
 ```shell
 docker start exemplo_debian
@@ -242,11 +242,13 @@ docker attach exemplo_debian
 
 > Em outros cenários o `bash` pode não estar disponível, então ao invês do `docker attach` pode ser utilizado o `docker exec` ([https://docs.docker.com/engine/reference/commandline/exec/](https://docs.docker.com/engine/reference/commandline/exec/))
 
-Ao executar o comando, você já estará dentro do terminal do *container* criado. Como dito anteriormente, este ambiente é isolado de sua máquina, então faça testes, navegue entre os diretórios, para você ver que é uma instância completamente isolada. Para sair do terminal e não finalizar o *container* utilize os seguintes botões de seu teclado: `CTRL + p + q`. Ao listar novamente os *containers* em execução, lá estará ele sendo executado.
+Feito o `attach` você estará dentro do terminal do *container*. Como dito anteriormente, este ambiente é isolado de sua máquina, então faça testes, navegue entre os diretórios, para você ver que é uma instância completamente isolada. Para sair do terminal e não finalizar o *container* utilize os seguintes botões de seu teclado: `CTRL + p + q`. Ao listar novamente os *containers* em execução, lá estará ele sendo executado.
 
 Nos exemplos anteriores criavamos o *container* depois faziamos sua execução, porém podemos já criar um *container* e imediatamente realizar sua inicialização, para isto utilizamos o comando `docker run`, que recebe os mesmos parâmetros que o `docker create`, com a diferença de que ele executa o *container* após sua criação.
 
 ```
+docker rm -f exemplo_debian
+
 docker run -ti --name exemplo_debian debian
 ```
 
@@ -277,11 +279,11 @@ Para entender cada um dos estados que estes comandos geram em um *container* vej
 | UP (PAUSED) | Indica que o container está "ligado" porém sua execução está parada                                           |
 | EXITED      | Indica que a execução do container foi finalizada                                                             |
 
-Estes estados nos ajudam a entender o que está ocorrendo com os *containers* se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.
+Estes estados nos ajudam a entender o que está ocorrendo com os *containers*, se estão trabalhando sem nenhum problema ou mesmo se estão ou não sendo executados.
 
 ### Visualizando status do container
 
-Além do estado do *container*, em certos casos é necessário avaliar outras informações do container, a Tabela abaixo descreve comandos que podem ser úteis para a avaliação e verificação dos *containers*.
+Além do estado do *container*, em certos casos é necessário avaliar outras informações do container. A Tabela abaixo descreve comandos que podem ser úteis para a avaliação e verificação de status dos *containers*.
 
 | Comando         | Descrição                                                                                                                               |
 |-----------------|-----------------------------------------------------------------------------------------------------------------------------------------|
@@ -292,7 +294,7 @@ Além do estado do *container*, em certos casos é necessário avaliar outras in
 
 ### Gerenciamento de memória e CPU
 
-Durante as verificações de estado e utilização de um *container*, pode ser necessário atribuir para ele limites de utilização, isto para que o desempenho dos vários *containers* que estão sendo executados não seja prejudicado pela necessidade de uso de um único *container*.
+Durante as verificações de estado e utilização de um *container*, pode ser necessário atribuir limites de utilização, evitando o consumo excessivo de recursos, que pode prejudicar o servidor onde o Docker está trabalhando.
 
 > Quando não é atribuido limites de recursos a um *container*, se necessário, ele pode consumir todos os recursos da máquina onde está sendo executado.
 
@@ -311,14 +313,14 @@ docker inspect debian_de_teste | grep -i memory
 A saída do comando acima é parecida com isto:
 
 ```
-  "Memory": 0,
-  "KernelMemory": 0,
-  "MemoryReservation": 0,
-  "MemorySwap": 0,
-  "MemorySwappiness": null,
+"Memory": 0,
+"KernelMemory": 0,
+"MemoryReservation": 0,
+"MemorySwap": 0,
+"MemorySwappiness": null,
 ```
 
-O campo `Memory` está com valor 0, isto indica que, para este *container* não há limitação de uso de memória, como citado anteriormente. Para resolver este problema, vamos excluir este *container* e gerar um novo com a limitação de memória.
+O campo `Memory` está com valor 0, isto indica que, para este *container* não há limitação de uso de memória. Para resolver este problema, vamos excluir este *container* e gerar um novo com um limite de memória.
 
 ```
 # Excluíndo container sem limite de memória
@@ -345,7 +347,7 @@ Saída:
 "MemorySwappiness": null,
 ```
 
-Com isso, o *container* não vai consumir mais que 512 MB da máquina onde está sendo executado. Outra cenário possível para a mudança de quantidade de memória é quando o *container* já está funcionando e você precisa mudar seu limite de memória. Isto pode ser feito através do comando `docker update`.
+Com isso, o *container* não vai consumir mais que 512 MB de memória da máquina onde está sendo executado. Outra cenário possível para a mudança de quantidade de memória é quando o *container* já está funcionando e você precisa mudar seu limite de memória. Isto pode ser feito através do comando `docker update`.
 
 Vamos mudar a quantidade de memória do *container* de testes que geramos acima.
 
@@ -365,14 +367,16 @@ Ao consultar novamente a quantidade de memória, veremos que ela foi atualizada 
 "MemorySwappiness": null,
 ```
 
-Além da memória pode ser necessário limitar a quantidade de CPU que o *container* pode utilizar. Todos os principios apresentados na mudança de memória podem ser aplicados aqui, ou seja, pode ser atribuido valores de limitação na criação ou em *containers* já em execução, o ponto para a CPU é que os valores atribuidos funcionam um pouco diferentes, vamos para a explicação.
+Além da memória pode ser necessário limitar a quantidade de CPU que o *container* pode utilizar. Todos os principios apresentados na mudança de memória podem ser aplicados aqui, ou seja, pode ser atribuido valores de limitação na criação ou em *containers* já em execução, o ponto para a CPU é que os valores atribuidos funcionam um pouco diferentes, através de uma lógica de proporção.
 
-Quando os valores de utilização de CPU vão ser atribuidos, é utilizado um conceito de proporção, vamos para um exemplo, neste três *containers* serão criados.
+Vamos para um exemplo, neste três *containers* serão criados.
 
 ```
-docker run -ti --name debian_1 --cpu-shares 1024 debian
-docker run -ti --name debian_2 --cpu-shares 512 debian
-docker run -ti --name debian_3 --cpu-shares 512 debian
+docker create -ti --name debian_1 --cpu-shares 1024 debian
+docker create -ti --name debian_2 --cpu-shares 512 debian
+docker create -ti --name debian_3 --cpu-shares 512 debian
+
+docker start debian_1 debian_2 debian_3
 ```
 
 > O parâmetro `--cpu-shares` é quem define os valores de utilização da CPU
