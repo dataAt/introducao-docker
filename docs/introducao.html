@@ -13,7 +13,7 @@
   
   
   
-  
+  <meta name="github-repo" content="dataAt/introducao-docker" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="1 Introdução | intro-docker.utf8.md" />
@@ -172,7 +172,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="introducao" class="section level1">
 <h1><span class="header-section-number">1</span> Introdução</h1>
 <p>Desde seu surgimento o Docker tem ganhado cada vez mais espaço nos servidores mundo a fora, suas caracteristicas fáceis de entender e simples de aplicar permitem sua utilização nos mais variados cenários.</p>
-<p>No âmbito científico Docker vem sendo utilizado para a garantia de reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como apresentado por <span class="citation">@Boettiger2014</span> e <span class="citation">@Schommer2014</span>.</p>
+<p>No âmbito científico Docker vem sendo utilizado para a garantia de reprodutibilidade, uma vez que, suas características de isolamento de ambiente munidos da eficiência, permitem a fácil distribuição de ambientes já configurados para a execução dos trabalhos desenvolvidos, como apresentado por <span class="citation">Boettiger (2014)</span> e <span class="citation">Schommer (2014)</span>.</p>
 <p>O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.</p>
 <p>Neste contexto, este materialfaz uma introdução ao Docker e os principais conceitos envolvidos em sua utilização. Caso encontre algum problema no material, abra uma <a href="https://github.com/dataAt/introducao-docker/issues">issue</a>, assim podemos mudar e melhorar! 😄</p>
 <div id="por-que-docker" class="section level2">
@@ -202,12 +202,12 @@ Containerization is increasingly popular because containers are:
 <div id="virtualizacao" class="section level2">
 <h2><span class="header-section-number">1.2</span> Virtualização</h2>
 <p>Bem, para começarmos a falar de Docker vamos antes falar um pouco sobre virtualização, um conceito fundamental no entendimento do funcionamento do Docker.</p>
-<p>Virtualização é o processo de criar ambientes virtuais isolados. Existem duas formas de prover tais ambientes (<span class="citation">@Chung2016</span>), sendo elas, as baseadas em <em>containers</em> ou <em>hypervisors</em> (<span class="citation">@Morabito2015</span>).</p>
-<p>Na virtualização baseada em <em>hypervisor</em> é criado a representação virtual de um <em>hardware</em> (<span class="citation">@Firesmith</span>), também chamada de máquina virtual (MV), que é controlada por um <em>hypervisor</em>, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o <em>hardware</em>, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de <em>hardware</em> é completamente isolada da máquina onde está sendo alocada (<span class="citation">@Morabito2015</span>), o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows (<span class="citation">@Morabito2015</span>). O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV (<span class="citation">@Morabito2015</span>).</p>
+<p>Virtualização é o processo de criar ambientes virtuais isolados. Existem duas formas de prover tais ambientes <span class="citation">(Chung et al. 2016)</span>, sendo elas, as baseadas em <em>containers</em> ou <em>hypervisors</em> <span class="citation">(Morabito, Kjällman, and Komu 2015)</span>.</p>
+<p>Na virtualização baseada em <em>hypervisor</em> é criado a representação virtual de um <em>hardware</em> <span class="citation">(Firesmith 2017)</span>, também chamada de máquina virtual (MV), que é controlada por um <em>hypervisor</em>, sendo este uma camada que faz o intermédio de recursos entre o ambiente virtual criado e o <em>hardware</em>, e neste ambiente virtual gerado, sistemas operacionais comuns podem ser executados. Esta representação de <em>hardware</em> é completamente isolada da máquina onde está sendo alocada <span class="citation">(Morabito, Kjällman, and Komu 2015)</span>, o que permite, por exemplo, que uma máquina que gera uma MV seja Linux, e o ambiente instalado dentro da MV seja Windows <span class="citation">(Morabito, Kjällman, and Komu 2015)</span>. O ponto de troca aqui é que, o sistema operacional terá de ser instalado por completo dentro da MV <span class="citation">(Morabito, Kjällman, and Komu 2015)</span>.</p>
 <p>A Figura abaixo apresenta a arquitetura das virtualizações hypervisor.</p>
 <p><img src="res/1_intro/hypervisor_overview.svg" /></p>
 <p>Veja na Figura que, acima do hypervisor, que gera as representações virtuais de ambientes de execução, são instalados sistemas operacionais completos e então, as aplicações podem começar a ser executadas sobre estes sistemas.</p>
-<p>Por outro lado existem as técnicas de virtualização baseadas em <em>containers</em>, que são executadas a nível de sistema operacional (<span class="citation">@Firesmith</span>), onde são criados ambientes isolados, ou <em>containers</em>, com o compartilhamento de arquivos, bibliotecas e o kernel do sistema base onde está sendo executado. Estes ambientes isolados são utilizados para a execução de processos e aplicações.</p>
+<p>Por outro lado existem as técnicas de virtualização baseadas em <em>containers</em>, que são executadas a nível de sistema operacional <span class="citation">(Firesmith 2017)</span>, onde são criados ambientes isolados, ou <em>containers</em>, com o compartilhamento de arquivos, bibliotecas e o kernel do sistema base onde está sendo executado. Estes ambientes isolados são utilizados para a execução de processos e aplicações.</p>
 <blockquote>
 <p>É neste tipo de virtualização que o Docker se encaixa.</p>
 </blockquote>

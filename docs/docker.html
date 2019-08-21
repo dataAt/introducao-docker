@@ -13,7 +13,7 @@
   
   
   
-  
+  <meta name="github-repo" content="dataAt/introducao-docker" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="2 Docker 🐳 | intro-docker.utf8.md" />
@@ -169,7 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="docker" class="section level1">
 <h1><span class="header-section-number">2</span> Docker 🐳</h1>
-<p>Docker é uma plataforma para o gerenciamento de <em>containers</em> (<span class="citation">@Schommer2014</span>), que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações.</p>
+<p>Docker é uma plataforma para o gerenciamento de <em>containers</em> <span class="citation">(Schommer 2014)</span>, que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações.</p>
 <p>Ao utilizar o Docker, todos os problemas relacionados a instalação, configuração e dependências são facilmente resolvidos. Atualmente o Docker vem sendo aplamente utilizado por sua facilidade de uso e baixa utilização de recursos computacionais para a implantação de sistemas e execução de algoritmos.</p>
 <p>Todo o funcionamento do Docker é baseado em uma comunicação cliente-servidor, onde o cliente, através de uma API Rest envia comandos para o docker-daemon, que por sua vez representa o gerenciador de <em>containers</em> que realiza todas as operações e verificações necessárias para o funcionamento correto e simples do Docker. Esta estrutura é resumida na Figura abaixo.</p>
 <center>
@@ -179,7 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="res/2_docker/docker_connect_api.svg" /></p>
 <p>Na Figura acima é possível entender como o processo de comunicação e interação com o docker-daemon funciona. O cliente envia comandos através da API Rest e o servidor recebe tais requisições, verifica sua validade e então realiza as operações necessárias.</p>
 <p>Este tipo de estrutura permite que, através de uma máquina seja feito o gerenciamento de vários servidores Docker, sem contar que, por ser uma API Rest, aplicações podem fazer interações com o servidor, o que facilita ainda mais a criação e disponibilização de ferramentas para o gerenciamento de <em>containers</em> através do Docker.</p>
-<p>O ambiente do Dockeré constituido por três componentes principais (<span class="citation">@Chung2016</span>), sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.</p>
+<p>O ambiente do Dockeré constituido por três componentes principais <span class="citation">(Chung et al. 2016)</span>, sendo eles, Docker images e Dockerfiles, Docker registry e Docker containers. Cada um desses explicados nas subseções seguintes.</p>
 <div id="instalacao" class="section level2">
 <h2><span class="header-section-number">2.1</span> Instalação</h2>
 <p>Com a visão geral de funcionamento do Docker, vamos fazer sua instalação para começarmos a utilização e entender os conceitos na prática! Por uma questão de facilidade, recomenda-se a utilização de um ambiente Linux.</p>

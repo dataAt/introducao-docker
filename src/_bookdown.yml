@@ -1,4 +1,6 @@
-book_filename: intro-docker
+book_filename: "intro-docker"
 output_dir: "../docs"
-bibliography: ["references.bib"]
-link-citations: yes
+rmd_files: ["01-intro.Rmd", "02-docker.Rmd", "03-comandos.Rmd", "04-exemplos.Rmd", "05-referencias.Rmd"]
+delete_merged_file: true
+new_session: yes
+split_by: chapter

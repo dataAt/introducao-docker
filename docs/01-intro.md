@@ -15,7 +15,7 @@ No âmbito científico Docker vem sendo utilizado para a garantia de reprodutibi
 
 O Instituto Nacional de Pesquisas Espaciais (INPE), por exemplo, faz a utilização do Docker, para tornar os sistemas científicos computacionais desenvolvidos mais acessível para todos que queiram fazer sua utilização de uma forma simples e rápida.
 
-Neste contexto, este materialfaz uma introdução ao Docker e os principais conceitos envolvidos em sua utilização. Caso encontre algum problema no material, abra uma [issue](https://github.com/dataAt/introducao-docker/issues), assim podemos mudar e melhorar! `r emo::ji("smile")`
+Neste contexto, este materialfaz uma introdução ao Docker e os principais conceitos envolvidos em sua utilização. Caso encontre algum problema no material, abra uma [issue](https://github.com/dataAt/introducao-docker/issues), assim podemos mudar e melhorar! 😄
 
 ## Por que Docker ?
 

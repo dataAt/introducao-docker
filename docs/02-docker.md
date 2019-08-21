@@ -1,4 +1,4 @@
-# Docker `r emo::ji("whale")`
+# Docker 🐳
 
 Docker é uma plataforma para o gerenciamento de *containers* [@Schommer2014], que ajuda desenvolvedores e administradores de sistemas a desenvolver, distribuir, implantar e executar aplicações em ambientes isolados, sem problemas com dependências do ambiente ou configurações.
 
@@ -477,4 +477,4 @@ Então, chegamos ao fim desta parte da documentação, tudo o que foi mostrado a
 
 <!-- ### Rede -->
 
-<!-- ## Um pouco mais sobre o ecossistema Docker `r emo::ji("octopus")` -->
+<!-- ## Um pouco mais sobre o ecossistema Docker 🐙 -->
